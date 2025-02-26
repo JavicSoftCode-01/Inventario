@@ -1,0 +1,154 @@
+<!-- FrontEnd/pages/provedor/provedor.html -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Proveedores</title>
+    <link rel="stylesheet" href="../../static/styles/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="../producto/producto.html">Productos</a></li>
+        <li><a href="../stock/stock.html">Stock</a></li>
+      </ul>
+    </nav>
+
+    <section>
+      <h2>Gestión de Proveedores</h2>
+
+      <form id="form-proveedor">
+        <!-- Campo oculto para ID (si editamos) -->
+        <input type="hidden" id="proveedor-id" />
+
+        <div>
+          <label for="prov-nombre">Nombre:</label>
+          <input type="text" id="prov-nombre" required />
+        </div>
+        <div>
+          <label for="prov-direccion">Dirección:</label>
+          <input type="text" id="prov-direccion" required />
+        </div>
+        <div>
+          <label for="prov-telefono">Teléfono:</label>
+          <input type="text" id="prov-telefono" required />
+        </div>
+        <div>
+          <label for="prov-email">Email:</label>
+          <input type="email" id="prov-email" />
+        </div>
+        <div>
+          <label for="prov-contacto">Contacto:</label>
+          <input type="text" id="prov-contacto" />
+        </div>
+        <div>
+          <label for="prov-ciudad">Ciudad:</label>
+          <input type="text" id="prov-ciudad" />
+        </div>
+        <div>
+          <label for="prov-observaciones">Observaciones:</label>
+          <textarea id="prov-observaciones" rows="2"></textarea>
+        </div>
+
+        <button type="submit">Guardar</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Contacto</th>
+            <th>Ciudad</th>
+            <th>Observaciones</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="proveedores-tbody">
+          <!-- Llenado dinámico -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Importamos el script principal -->
+    <script type="module">
+      import {
+        obtenerProveedores,
+        crearProveedor,
+        actualizarProveedor,
+        eliminarProveedor,
+        renderizarTablaProveedores,
+      } from "../../../static/scripts/app.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("form-proveedor");
+        const tbody = document.getElementById("proveedores-tbody");
+
+        // Render inicial de la tabla
+        renderizarTablaProveedores("proveedores-tbody");
+
+        // Evento submit para crear/actualizar
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const hiddenId = document.getElementById("proveedor-id").value;
+          const nombre = document.getElementById("prov-nombre").value;
+          const direccion = document.getElementById("prov-direccion").value;
+          const telefono = document.getElementById("prov-telefono").value;
+          const email = document.getElementById("prov-email").value;
+          const contacto = document.getElementById("prov-contacto").value;
+          const ciudad = document.getElementById("prov-ciudad").value;
+          const observaciones = document.getElementById("prov-observaciones").value;
+
+          const datos = {
+            nombre,
+            direccion,
+            telefono,
+            email,
+            contacto,
+            ciudad,
+            observaciones
+          };
+
+          if (hiddenId) {
+            // Actualizar
+            actualizarProveedor(Number(hiddenId), datos);
+          } else {
+            // Crear
+            crearProveedor(datos);
+          }
+
+          form.reset();
+          document.getElementById("proveedor-id").value = "";
+          renderizarTablaProveedores("proveedores-tbody");
+        });
+
+        // Evento para Editar/Eliminar (delegación en <tbody>)
+        tbody.addEventListener("click", (e) => {
+          if (e.target.classList.contains("btn-eliminar")) {
+            const id = Number(e.target.dataset.id);
+            eliminarProveedor(id);
+            renderizarTablaProveedores("proveedores-tbody");
+          } else if (e.target.classList.contains("btn-editar")) {
+            const id = Number(e.target.dataset.id);
+            const proveedores = obtenerProveedores();
+            const prov = proveedores.find((p) => p.id === id);
+            if (prov) {
+              document.getElementById("proveedor-id").value = prov.id;
+              document.getElementById("prov-nombre").value = prov.nombre;
+              document.getElementById("prov-direccion").value = prov.direccion;
+              document.getElementById("prov-telefono").value = prov.telefono;
+              document.getElementById("prov-email").value = prov.email;
+              document.getElementById("prov-contacto").value = prov.contacto;
+              document.getElementById("prov-ciudad").value = prov.ciudad;
+              document.getElementById("prov-observaciones").value = prov.observaciones;
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

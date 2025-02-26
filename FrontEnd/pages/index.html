@@ -4,120 +4,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Inventario LocalStorage</title>
+    <title>Inventario - Inicio</title>
     <link rel="stylesheet" href="../static/styles/styles.css" />
   </head>
   <body>
     <nav>
       <ul>
-        <li><a href="#section-proveedores">Proveedores</a></li>
-        <li><a href="#section-productos">Productos</a></li>
-        <li><a href="#section-stock">Stock</a></li>
+        <li><a href="./provedor/provedor.html">Proveedores</a></li>
+        <li><a href="./producto/producto.html">Productos</a></li>
+        <li><a href="./stock/stock.html">Stock</a></li>
       </ul>
     </nav>
 
-    <!-- Sección Proveedores -->
-    <section id="section-proveedores">
-      <h2>Proveedores</h2>
-      <form id="form-proveedor">
-        <!-- Campo oculto para ID (si editamos) -->
-        <input type="hidden" id="proveedor-id" />
-        <div>
-          <label for="proveedor-nombre">Nombre:</label>
-          <input type="text" id="proveedor-nombre" required />
-        </div>
-        <div>
-          <label for="proveedor-direccion">Dirección:</label>
-          <input type="text" id="proveedor-direccion" required />
-        </div>
-        <div>
-          <label for="proveedor-telefono">Teléfono:</label>
-          <input type="text" id="proveedor-telefono" required />
-        </div>
-        <button type="submit">Guardar Proveedor</button>
-      </form>
-
-      <table id="tabla-proveedores">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Dirección</th>
-            <th>Teléfono</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="proveedores-tbody">
-          <!-- Se llena dinámicamente -->
-        </tbody>
-      </table>
+    <section>
+      <h1>Sistema de Inventario</h1>
+      <p>Bienvenido a la aplicación de inventario. Usa el menú para navegar.</p>
     </section>
-
-    <!-- Sección Productos -->
-    <section id="section-productos">
-      <h2>Productos</h2>
-      <form id="form-producto">
-        <!-- Campo oculto para ID (si editamos) -->
-        <input type="hidden" id="producto-id" />
-        <div>
-          <label for="producto-proveedor">Proveedor:</label>
-          <select id="producto-proveedor" required></select>
-        </div>
-        <div>
-          <label for="producto-marca">Marca:</label>
-          <input type="text" id="producto-marca" required />
-        </div>
-        <div>
-          <label for="producto-nombre">Nombre del Producto:</label>
-          <input type="text" id="producto-nombre" required />
-        </div>
-        <div>
-          <label for="producto-stock">Stock:</label>
-          <input type="number" id="producto-stock" required />
-        </div>
-        <button type="submit">Guardar Producto</button>
-      </form>
-
-      <table id="tabla-productos">
-        <thead>
-          <tr>
-            <th>Proveedor</th>
-            <th>Marca</th>
-            <th>Nombre</th>
-            <th>Stock</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="productos-tbody">
-          <!-- Se llena dinámicamente -->
-        </tbody>
-      </table>
-    </section>
-
-    <!-- Sección Stock (comprar/devolver productos) -->
-    <section id="section-stock">
-      <h2>Stock</h2>
-      <form id="form-stock">
-        <div>
-          <label for="stock-proveedor">Proveedor:</label>
-          <select id="stock-proveedor" required></select>
-        </div>
-        <div>
-          <label for="stock-producto">Producto:</label>
-          <select id="stock-producto" required></select>
-        </div>
-        <div>
-          <label for="stock-cantidad">Cantidad:</label>
-          <input type="number" id="stock-cantidad" required />
-        </div>
-        <div>
-          <label>Acción:</label>
-          <label><input type="radio" name="stock-accion" value="comprar" checked />Comprar</label>
-          <label><input type="radio" name="stock-accion" value="devolver" />Devolver</label>
-        </div>
-        <button type="submit">Procesar</button>
-      </form>
-    </section>
-
-    <script type="module" src="../static/scripts/app.js"></script>
   </body>
 </html>

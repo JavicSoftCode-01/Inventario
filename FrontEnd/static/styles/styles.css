@@ -9,8 +9,8 @@
   
   body {
     font-family: Arial, sans-serif;
-    padding: 1rem;
     background: #f8f8f8;
+    padding: 1rem;
   }
   
   /* Nav */
@@ -31,15 +31,15 @@
     color: #007BFF;
   }
   
-  /* Secciones */
+  /* Contenedores de sección */
   section {
-    margin-bottom: 2rem;
     background: #fff;
     padding: 1rem;
+    margin-bottom: 2rem;
     border-radius: 5px;
   }
   
-  h2 {
+  h1, h2 {
     margin-bottom: 1rem;
   }
   
@@ -50,16 +50,19 @@
   
   label {
     display: inline-block;
-    width: 120px;
+    width: 150px;
     font-weight: bold;
   }
   
   input[type="text"],
   input[type="number"],
-  select {
+  input[type="email"],
+  select,
+  textarea {
     padding: 0.3rem;
     width: 200px;
     max-width: 100%;
+    margin-left: 0.5rem;
   }
   
   button {
@@ -79,29 +82,28 @@
     color: #fff;
   }
   
-  th,
-  td {
+  th, td {
     padding: 0.5rem;
     border: 1px solid #ddd;
+  }
+  
+  th {
     text-align: left;
   }
   
-  .btn-editar,
-  .btn-eliminar,
-  .btn-editar-producto,
-  .btn-eliminar-producto {
+  .btn-editar, .btn-eliminar,
+  .btn-editar-producto, .btn-eliminar-producto {
     margin-right: 5px;
     padding: 0.3rem 0.5rem;
   }
   
-  /* Responsividad simple */
+  /* Responsivo */
   @media (max-width: 600px) {
     label {
       width: auto;
       display: block;
       margin-bottom: 0.2rem;
     }
-  
     nav ul {
       flex-direction: column;
     }
