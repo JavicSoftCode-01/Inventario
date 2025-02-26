@@ -1,0 +1,109 @@
+/* FrontEnd/static/styles/styles.css */
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    padding: 1rem;
+    background: #f8f8f8;
+  }
+  
+  /* Nav */
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  nav a:hover {
+    color: #007BFF;
+  }
+  
+  /* Secciones */
+  section {
+    margin-bottom: 2rem;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+  
+  h2 {
+    margin-bottom: 1rem;
+  }
+  
+  /* Formularios */
+  form > div {
+    margin-bottom: 0.5rem;
+  }
+  
+  label {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  select {
+    padding: 0.3rem;
+    width: 200px;
+    max-width: 100%;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  /* Tablas */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  thead {
+    background-color: #007BFF;
+    color: #fff;
+  }
+  
+  th,
+  td {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .btn-editar,
+  .btn-eliminar,
+  .btn-editar-producto,
+  .btn-eliminar-producto {
+    margin-right: 5px;
+    padding: 0.3rem 0.5rem;
+  }
+  
+  /* Responsividad simple */
+  @media (max-width: 600px) {
+    label {
+      width: auto;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+  
+    nav ul {
+      flex-direction: column;
+    }
+  }
+  
