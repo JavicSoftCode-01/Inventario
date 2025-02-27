@@ -4,21 +4,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Inventario - Inicio</title>
+    <title>Panel Administrador</title>
     <link rel="stylesheet" href="../static/styles/styles.css" />
+
+    <!-- Agrega Chart.js desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <nav>
       <ul>
-        <li><a href="./provedor/provedor.html">Proveedores</a></li>
-        <li><a href="./producto/producto.html">Productos</a></li>
-        <li><a href="./stock/stock.html">Stock</a></li>
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="./inventario/inventario.html">Inventario</a></li>
       </ul>
     </nav>
 
     <section>
-      <h1>Sistema de Inventario</h1>
-      <p>Bienvenido a la aplicación de inventario. Usa el menú para navegar.</p>
+      <h1>Panel de Administración</h1>
+
+      <div class="widgets-container">
+        <!-- Widget 1: Total de productos -->
+        <div class="widget">
+          <h3>Productos Comprados</h3>
+          <span id="widget-total-productos" style="font-size: 1.5rem;">0</span>
+        </div>
+
+        <!-- Widget 2: Total invertido -->
+        <div class="widget">
+          <h3>Total Invertido</h3>
+          <span id="widget-total-capital" style="font-size: 1.5rem;">$0.00</span>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <!-- Gráfica de barras -->
+        <div class="chart-box">
+          <h3 style="color: #4caf50;">Cantidad de Productos (Barras)</h3>
+          <canvas id="chart-barras"></canvas>
+        </div>
+
+        <!-- Gráfica de línea / montaña -->
+        <div class="chart-box">
+          <h3 style="color: #4caf50;">Dinero Invertido (Montaña)</h3>
+          <canvas id="chart-linea"></canvas>
+        </div>
+      </div>
     </section>
+
+    <script type="module">
+      import {
+        totalProductosComprados,
+        totalInvertidoGeneral,
+        dibujarGraficaBarrasChartJS,
+        dibujarGraficaLineaChartJS
+      } from "/FrontEnd/static/scripts/app.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const spanTotalProductos = document.getElementById("widget-total-productos");
+        const spanTotalInvertido = document.getElementById("widget-total-capital");
+      
+        // Mostrar widgets
+        spanTotalProductos.textContent = totalProductosComprados();
+        spanTotalInvertido.textContent = "$" + totalInvertidoGeneral().toFixed(2);
+      
+        // Dibujar gráficas con Chart.js
+        dibujarGraficaBarrasChartJS("chart-barras");
+        dibujarGraficaLineaChartJS("chart-linea");
+      });
+    </script>
   </body>
 </html>

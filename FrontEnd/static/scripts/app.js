@@ -1,349 +1,475 @@
 // FrontEnd/static/scripts/app.js
 
-import { Proveedor, Producto } from "../../../BackEnd/models/models.js";
-import {
-  getData,
-  setData,
-  getValue,
-  setValue,
-} from "../../../BackEnd/database/localStorage.js";
+import { Compra } from "../../../BackEnd/models/models.js";
+import { getData, setData } from "../../../BackEnd/database/localStorage.js";
 
-// Claves de localStorage
-const KEY_PROVEEDORES = "proveedores";
-const KEY_PRODUCTOS = "productos";
-const KEY_TOTAL_COMPRAS = "totalCompras"; // acumulado de costos de compra
+const KEY_COMPRAS = "compras";
 
 /* =======================================
-    UTILIDADES GENERALES
+   UTILIDADES
 ======================================= */
 function mostrarAlerta(mensaje) {
-  // Simplemente un alert; podrías usar un div en la página si lo prefieres
   alert(mensaje);
 }
 
+// Devuelve la fecha y hora actuales con AM/PM
+function obtenerFechaYHora() {
+  const ahora = new Date();
+  // Fecha en formato YYYY-MM-DD (puedes personalizar)
+  const anio = ahora.getFullYear();
+  const mes = String(ahora.getMonth() + 1).padStart(2, "0");
+  const dia = String(ahora.getDate()).padStart(2, "0");
+  const fecha = `${anio}-${mes}-${dia}`;
+
+  // Hora en formato hh:mm AM/PM
+  let horas = ahora.getHours();
+  const minutos = String(ahora.getMinutes()).padStart(2, "0");
+  const sufijo = horas >= 12 ? "PM" : "AM";
+  horas = horas % 12;
+  if (horas === 0) horas = 12;
+  const horaStr = `${horas}:${minutos} ${sufijo}`;
+
+  return { fecha, hora: horaStr };
+}
+
 /* =======================================
-    CRUD DE PROVEEDORES
+   CRUD COMPRAS
 ======================================= */
-function obtenerProveedores() {
-  return getData(KEY_PROVEEDORES);
+function obtenerCompras() {
+  return getData(KEY_COMPRAS);
 }
 
-function guardarProveedores(proveedores) {
-  setData(KEY_PROVEEDORES, proveedores);
+function guardarCompras(compras) {
+  setData(KEY_COMPRAS, compras);
 }
 
-function crearProveedor(datos) {
-  const proveedores = obtenerProveedores();
-  const nuevoId = Date.now();
-  const nuevoProveedor = new Proveedor(
-    nuevoId,
-    datos.nombre,
-    datos.direccion,
-    datos.telefono,
-    datos.email,
-    datos.contacto,
+function crearCompra(datos) {
+  const compras = obtenerCompras();
+  const { fecha, hora } = obtenerFechaYHora();
+  const nuevaCompra = new Compra(
+    Date.now(),                // id
+    datos.proveedor,
     datos.ciudad,
-    datos.observaciones
+    datos.telefono,
+    datos.correo,
+    datos.producto,
+    Number(datos.precioProducto),
+    Number(datos.cantidad),
+    datos.autorizaCompra,
+    Number(datos.precioVentaPublico),
+    fecha,
+    hora
   );
-  proveedores.push(nuevoProveedor);
-  guardarProveedores(proveedores);
-  mostrarAlerta("Proveedor guardado con éxito.");
+  compras.push(nuevaCompra);
+  guardarCompras(compras);
+  mostrarAlerta("Compra registrada con éxito.");
 }
 
-function actualizarProveedor(id, datos) {
-  const proveedores = obtenerProveedores();
-  const idx = proveedores.findIndex((p) => p.id === id);
-  if (idx === -1) return;
-
-  proveedores[idx].nombre = datos.nombre;
-  proveedores[idx].direccion = datos.direccion;
-  proveedores[idx].telefono = datos.telefono;
-  proveedores[idx].email = datos.email;
-  proveedores[idx].contacto = datos.contacto;
-  proveedores[idx].ciudad = datos.ciudad;
-  proveedores[idx].observaciones = datos.observaciones;
-
-  guardarProveedores(proveedores);
-  mostrarAlerta("Proveedor actualizado con éxito.");
+function eliminarCompra(id) {
+  let compras = obtenerCompras();
+  compras = compras.filter((c) => c.id !== id);
+  guardarCompras(compras);
+  mostrarAlerta("Compra eliminada.");
 }
 
-function eliminarProveedor(id) {
-  let proveedores = obtenerProveedores();
-  proveedores = proveedores.filter((p) => p.id !== id);
-  guardarProveedores(proveedores);
-  mostrarAlerta("Proveedor eliminado.");
+// Actualizar
+function actualizarCompra(id, datos) {
+  const compras = obtenerCompras();
+  const idx = compras.findIndex((c) => c.id === id);
+  if (idx === -1) {
+    mostrarAlerta("No se encontró la compra a actualizar.");
+    return;
+  }
+
+  const precio = parseFloat(datos.precioProducto) || 0;
+  const cant = parseFloat(datos.cantidad) || 0;
+  const precioVenta = parseFloat(datos.precioVentaPublico) || 0;
+
+  const compraOriginal = compras[idx];
+  const fecha = compraOriginal.fecha;
+  const hora = compraOriginal.hora;
+
+  compras[idx] = new Compra(
+    id,
+    datos.proveedor,
+    datos.ciudad,
+    datos.telefono,
+    datos.correo,
+    datos.producto,
+    precio,
+    cant,
+    datos.autorizaCompra,
+    precioVenta,
+    fecha,
+    hora
+  );
+
+  guardarCompras(compras);
+  mostrarAlerta("Compra actualizada con éxito.");
 }
 
 /* =======================================
-    CRUD DE PRODUCTOS
-======================================= */
-function obtenerProductos() {
-  return getData(KEY_PRODUCTOS);
-}
-
-function guardarProductos(productos) {
-  setData(KEY_PRODUCTOS, productos);
-}
-
-function crearProducto(datos) {
-  const productos = obtenerProductos();
-  const nuevoId = Date.now();
-
-  // Validación: stockTienda y stockProveedor no deben ser negativos
-  if (datos.stockTienda < 0 || datos.stockProveedor < 0) {
-    mostrarAlerta("El stock no puede ser negativo.");
-    return;
-  }
-
-  const nuevoProducto = new Producto(
-    nuevoId,
-    datos.proveedorId,
-    datos.marca,
-    datos.nombre,
-    datos.categoria,
-    datos.stockTienda,
-    datos.stockProveedor,
-    datos.costoCompra,
-    datos.precioVenta
-  );
-
-  productos.push(nuevoProducto);
-  guardarProductos(productos);
-  mostrarAlerta("Producto guardado con éxito.");
-}
-
-function actualizarProducto(id, datos) {
-  const productos = obtenerProductos();
-  const idx = productos.findIndex((p) => p.id === id);
-  if (idx === -1) return;
-
-  // Validación: stockTienda y stockProveedor no deben ser negativos
-  if (datos.stockTienda < 0 || datos.stockProveedor < 0) {
-    mostrarAlerta("El stock no puede ser negativo.");
-    return;
-  }
-
-  productos[idx].proveedorId = datos.proveedorId;
-  productos[idx].marca = datos.marca;
-  productos[idx].nombre = datos.nombre;
-  productos[idx].categoria = datos.categoria;
-  productos[idx].stockTienda = datos.stockTienda;
-  productos[idx].stockProveedor = datos.stockProveedor;
-  productos[idx].costoCompra = datos.costoCompra;
-  productos[idx].precioVenta = datos.precioVenta;
-
-  guardarProductos(productos);
-  mostrarAlerta("Producto actualizado con éxito.");
-}
-
-function eliminarProducto(id) {
-  let productos = obtenerProductos();
-  productos = productos.filter((p) => p.id !== id);
-  guardarProductos(productos);
-  mostrarAlerta("Producto eliminado.");
-}
-
-/* =======================================
-    MANEJO DE STOCK
+   RENDER DE TABLA (inventario.html)
 ======================================= */
 
-// Retorna el total de compras acumulado
-function getTotalCompras() {
-  return getValue(KEY_TOTAL_COMPRAS);
-}
-
-// Setea el total de compras
-function setTotalCompras(valor) {
-  setValue(KEY_TOTAL_COMPRAS, valor);
-}
-
-// “Comprar” significa: 
-// - Pasar X cantidad de stock desde el "stockProveedor" al "stockTienda"
-// - Sumar al total de compras (cantidad * costoCompra del producto)
-function comprarProducto(productId, cantidad) {
-  const productos = obtenerProductos();
-  const idx = productos.findIndex((p) => p.id === productId);
-  if (idx === -1) return;
-
-  const producto = productos[idx];
-
-  // Validar que el proveedor tenga suficiente stock
-  if (cantidad > producto.stockProveedor) {
-    mostrarAlerta("El proveedor no tiene suficiente stock para esa compra.");
-    return;
-  }
-  if (cantidad <= 0) {
-    mostrarAlerta("La cantidad debe ser mayor que 0.");
-    return;
-  }
-
-  // Movemos stock
-  producto.stockProveedor -= cantidad;
-  producto.stockTienda += cantidad;
-
-  // Calculamos costo total de esta compra
-  const costoTotalCompra = cantidad * producto.costoCompra;
-  let totalCompras = getTotalCompras();
-  totalCompras += costoTotalCompra;
-  setTotalCompras(totalCompras);
-
-  guardarProductos(productos);
-  mostrarAlerta(
-    `Compra realizada. Se movieron ${cantidad} unidades. Costo: $${costoTotalCompra}`
-  );
-}
-
-// “Devolver” significa:
-// - Pasar X cantidad de stock desde "stockTienda" al "stockProveedor"
-function devolverProducto(productId, cantidad) {
-  const productos = obtenerProductos();
-  const idx = productos.findIndex((p) => p.id === productId);
-  if (idx === -1) return;
-
-  const producto = productos[idx];
-
-  // Validar que la tienda tenga suficiente stock para devolver
-  if (cantidad > producto.stockTienda) {
-    mostrarAlerta("No tienes suficiente stock en la tienda para devolver.");
-    return;
-  }
-  if (cantidad <= 0) {
-    mostrarAlerta("La cantidad debe ser mayor que 0.");
-    return;
-  }
-
-  producto.stockTienda -= cantidad;
-  producto.stockProveedor += cantidad;
-
-  guardarProductos(productos);
-  mostrarAlerta(`Se devolvieron ${cantidad} unidades al proveedor.`);
-}
-
-/* =======================================
-    RENDER DE TABLAS Y SELECTS
-======================================= */
-
-// Ejemplo de render para Proveedores (tabla)
-function renderizarTablaProveedores(contenedorTbodyId) {
+// Renderiza la tabla y reindexa las filas (#)
+function renderizarTablaCompras(contenedorTbodyId) {
   const tbody = document.getElementById(contenedorTbodyId);
   if (!tbody) return;
 
-  const proveedores = obtenerProveedores();
+  const compras = obtenerCompras();
   tbody.innerHTML = "";
 
-  proveedores.forEach((prov) => {
-    const fila = document.createElement("tr");
-    fila.innerHTML = `
-      <td>${prov.nombre}</td>
-      <td>${prov.direccion}</td>
-      <td>${prov.telefono}</td>
-      <td>${prov.email}</td>
-      <td>${prov.contacto}</td>
-      <td>${prov.ciudad}</td>
-      <td>${prov.observaciones}</td>
+  compras.forEach((compra, i) => {
+    const filaNumero = i + 1;
+
+    // Calcular total a pagar multiplicando precioProducto x cantidad
+    const totalPagar = (parseFloat(compra.precioProducto) || 0) * (parseFloat(compra.cantidad) || 0);
+
+    // Solo se calcula el % y ganancia si se ingresó precioVentaPublico > 0 y precioProducto > 0
+    const porcentaje =
+      compra.precioVentaPublico > 0 && compra.precioProducto > 0
+        ? (((compra.precioVentaPublico - compra.precioProducto) / compra.precioProducto) * 100).toFixed(2)
+        : "N/A";
+    const ganancia =
+      compra.precioVentaPublico > 0 && compra.precioProducto > 0
+        ? (compra.precioVentaPublico - compra.precioProducto).toFixed(2)
+        : "N/A";
+    const colorPorcentaje =
+      compra.precioVentaPublico > 0 &&
+      compra.precioProducto > 0 &&
+      (compra.precioVentaPublico - compra.precioProducto) < 0
+        ? "red"
+        : "inherit";
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${filaNumero}</td>
+      <td>${compra.proveedor}</td>
+      <td>${compra.ciudad}</td>
+      <td>${compra.telefono}</td>
+      <td>${compra.correo}</td>
+      <td>${compra.producto}</td>
+      <td>$${parseFloat(compra.precioProducto).toFixed(2)}</td>
+      <td>${compra.cantidad}</td>
+      <td>$${totalPagar.toFixed(2)}</td>
+      <td>${compra.autorizaCompra}</td>
+      <td>${compra.fecha}</td>
+      <td>${compra.hora}</td>
       <td>
-        <button class="btn-editar" data-id="${prov.id}">Editar</button>
-        <button class="btn-eliminar" data-id="${prov.id}">Eliminar</button>
+        <span style="color: ${colorPorcentaje};">
+          ${porcentaje === "N/A" ? "N/A" : "%" + porcentaje} (${ganancia === "N/A" ? "N/A" : "$" + ganancia})
+        </span>
+      </td>
+      <td>
+        <button class="btn-editar" data-id="${compra.id}">Editar</button>
+        <button class="btn-eliminar" data-id="${compra.id}">Eliminar</button>
       </td>
     `;
-    tbody.appendChild(fila);
-  });
-}
-
-// Ejemplo de render para Productos (tabla)
-function renderizarTablaProductos(contenedorTbodyId) {
-  const tbody = document.getElementById(contenedorTbodyId);
-  if (!tbody) return;
-
-  const productos = obtenerProductos();
-  const proveedores = obtenerProveedores();
-
-  tbody.innerHTML = "";
-
-  productos.forEach((prod) => {
-    const prov = proveedores.find((p) => p.id === prod.proveedorId);
-    const nombreProv = prov ? prov.nombre : "N/A";
-    const fila = document.createElement("tr");
-    fila.innerHTML = `
-      <td>${nombreProv}</td>
-      <td>${prod.marca}</td>
-      <td>${prod.nombre}</td>
-      <td>${prod.categoria}</td>
-      <td>${prod.stockTienda}</td>
-      <td>${prod.stockProveedor}</td>
-      <td>$${prod.costoCompra}</td>
-      <td>$${prod.precioVenta}</td>
-      <td>
-        <button class="btn-editar-producto" data-id="${prod.id}">Editar</button>
-        <button class="btn-eliminar-producto" data-id="${prod.id}">Eliminar</button>
-      </td>
-    `;
-    tbody.appendChild(fila);
-  });
-}
-
-// Llenar un <select> con los proveedores
-function llenarSelectProveedores(selectId) {
-  const select = document.getElementById(selectId);
-  if (!select) return;
-
-  const proveedores = obtenerProveedores();
-  select.innerHTML = `<option value="">-- Seleccione --</option>`;
-  proveedores.forEach((prov) => {
-    const option = document.createElement("option");
-    option.value = prov.id;
-    option.textContent = prov.nombre;
-    select.appendChild(option);
-  });
-}
-
-// Llenar un <select> con los productos de un proveedor específico
-function llenarSelectProductosDeProveedor(selectProveedorId, selectProductoId) {
-  const proveedorSelect = document.getElementById(selectProveedorId);
-  const productoSelect = document.getElementById(selectProductoId);
-  if (!proveedorSelect || !productoSelect) return;
-
-  const proveedorId = Number(proveedorSelect.value);
-  const productos = obtenerProductos().filter((p) => p.proveedorId === proveedorId);
-
-  productoSelect.innerHTML = `<option value="">-- Seleccione --</option>`;
-  productos.forEach((prod) => {
-    const option = document.createElement("option");
-    option.value = prod.id;
-    option.textContent = `${prod.marca} - ${prod.nombre}`;
-    productoSelect.appendChild(option);
+    tbody.appendChild(tr);
   });
 }
 
 /* =======================================
-    EXPORTAR LAS FUNCIONES QUE USARÁS
+   WIDGETS y GRÁFICAS (index.html)
 ======================================= */
 
+// 1) Widget: Total de productos comprados
+function totalProductosComprados() {
+  const compras = obtenerCompras();
+  // Suma de todas las cantidades
+  let total = 0;
+  compras.forEach((c) => {
+    total += c.cantidad;
+  });
+  return total;
+}
+
+// 2) Widget: Total invertido en X producto (ejemplo, el que tú quieras)
+function totalInvertidoGeneral() {
+  const compras = obtenerCompras();
+  let totalInvertido = 0;
+  compras.forEach((c) => {
+    totalInvertido += (c.precioProducto * c.cantidad); // Calcula correctamente el total
+  });
+  return totalInvertido;
+}
+
+
+// Generar datos para la gráfica de barras (cantidad de productos por día)
+function generarDatosBarras() {
+  const compras = obtenerCompras();
+  // Estructura: { '2025-03-01': cantidadTotalEseDia, ... }
+  const mapa = {};
+  compras.forEach((c) => {
+    if (!mapa[c.fecha]) {
+      mapa[c.fecha] = 0;
+    }
+    mapa[c.fecha] += c.cantidad;
+  });
+  // Convertimos en arrays de labels y data
+  const labels = Object.keys(mapa);
+  const data = Object.values(mapa);
+  return { labels, data };
+}
+
+// Generar datos para la gráfica de línea/montaña (dinero invertido por día)
+function generarDatosLinea() {
+  const compras = obtenerCompras();
+  const mapa = {};
+  compras.forEach((c) => {
+    if (!mapa[c.fecha]) {
+      mapa[c.fecha] = 0;
+    }
+    mapa[c.fecha] += (c.precioProducto * c.cantidad); // Calcula correctamente el total invertido por día
+  });
+  const labels = Object.keys(mapa);
+  const data = Object.values(mapa);
+  return { labels, data };
+}
+
+// Función para la gráfica de barras
+function dibujarGraficaBarrasChartJS(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  // Obtenemos datos (fecha -> sum(cantidad))
+  const { labels, data } = generarDatosBarras();
+  if (!labels.length) {
+    return; // No hay datos, no dibujamos nada
+  }
+
+  // Creamos el gráfico de barras
+  new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Productos comprados por día",
+          data: data,
+          backgroundColor: "rgba(76, 175, 80, 0.7)", // Verde
+          borderColor: "#4caf50",
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#fff" },
+          grid: { color: "#555" }
+        },
+        x: {
+          ticks: { color: "#fff" },
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: "#fff"
+          }
+        }
+      }
+    }
+  });
+}
+
+// Función para la gráfica de línea (montaña)
+function dibujarGraficaLineaChartJS(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  // Obtenemos datos (fecha -> sum(total invertido ese día))
+  const { labels, data } = generarDatosLinea();
+  if (!labels.length) {
+    return; // No hay datos
+  }
+
+  new Chart(canvas, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Dinero Invertido por Día",
+          data: data,
+          fill: "start", // Para que se pinte como "montaña"
+          backgroundColor: "rgba(255, 87, 34, 0.3)", // Naranja tenue
+          borderColor: "#FF5722",
+          borderWidth: 2,
+          tension: 0.3 // Curvatura de la línea
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#fff" },
+          grid: { color: "#555" }
+        },
+        x: {
+          ticks: { color: "#fff" },
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: "#fff"
+          }
+        }
+      }
+    }
+  });
+}
+
+/*
+  Dibujamos gráficas simples con <canvas>.
+  Sin librerías externas, haremos un dibujo muy básico.
+*/
+
+// Dibuja gráfica de barras
+function dibujarGraficaBarras(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  // Limpiamos
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Obtenemos datos
+  const { labels, data } = generarDatosBarras();
+  if (labels.length === 0) {
+    ctx.fillStyle = "#fff";
+    ctx.fillText("No hay datos para la gráfica de barras.", 10, 30);
+    return;
+  }
+
+  // Calculamos escalas
+  const maxValor = Math.max(...data);
+  const margen = 20;
+  const anchoDisponible = canvas.width - 2 * margen;
+  const altoDisponible = canvas.height - 2 * margen;
+  const barWidth = anchoDisponible / labels.length / 2;
+
+  // Dibujamos ejes (simple)
+  ctx.strokeStyle = "#ccc";
+  ctx.beginPath();
+  // Eje X
+  ctx.moveTo(margen, canvas.height - margen);
+  ctx.lineTo(canvas.width - margen, canvas.height - margen);
+  // Eje Y
+  ctx.moveTo(margen, canvas.height - margen);
+  ctx.lineTo(margen, margen);
+  ctx.stroke();
+
+  // Dibujamos barras
+  data.forEach((valor, i) => {
+    const x = margen + i * (barWidth * 2) + barWidth / 2;
+    const altura = (valor / maxValor) * (altoDisponible - 20); // un poco de margen arriba
+    const y = canvas.height - margen - altura;
+
+    ctx.fillStyle = "#4CAF50";
+    ctx.fillRect(x, y, barWidth, altura);
+
+    // Etiqueta de valor
+    ctx.fillStyle = "#fff";
+    ctx.fillText(valor, x, y - 5);
+
+    // Etiqueta de fecha
+    ctx.fillStyle = "#fff";
+    ctx.fillText(labels[i], x, canvas.height - margen + 12);
+  });
+}
+
+// Dibuja gráfica de línea (tipo montaña)
+function dibujarGraficaLinea(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  // Limpiamos
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Obtenemos datos
+  const { labels, data } = generarDatosLinea();
+  if (labels.length === 0) {
+    ctx.fillStyle = "#fff";
+    ctx.fillText("No hay datos para la gráfica de línea.", 10, 30);
+    return;
+  }
+
+  // Calculamos escalas
+  const maxValor = Math.max(...data);
+  const margen = 20;
+  const anchoDisponible = canvas.width - 2 * margen;
+  const altoDisponible = canvas.height - 2 * margen;
+
+  // Convertimos índices a coordenadas
+  const puntos = data.map((valor, i) => {
+    const x = margen + (i / (data.length - 1)) * anchoDisponible;
+    const y = canvas.height - margen - (valor / maxValor) * (altoDisponible - 20);
+    return { x, y };
+  });
+
+  // Ejes
+  ctx.strokeStyle = "#ccc";
+  ctx.beginPath();
+  // Eje X
+  ctx.moveTo(margen, canvas.height - margen);
+  ctx.lineTo(canvas.width - margen, canvas.height - margen);
+  // Eje Y
+  ctx.moveTo(margen, canvas.height - margen);
+  ctx.lineTo(margen, margen);
+  ctx.stroke();
+
+  // Dibujamos la línea
+  ctx.beginPath();
+  ctx.strokeStyle = "#FF5722";
+  ctx.fillStyle = "rgba(255, 87, 34, 0.3)"; // relleno tenue
+  ctx.moveTo(puntos[0].x, puntos[0].y);
+
+  puntos.forEach((p, i) => {
+    ctx.lineTo(p.x, p.y);
+  });
+  // Cerramos para el relleno "montaña"
+  ctx.lineTo(puntos[puntos.length - 1].x, canvas.height - margen);
+  ctx.lineTo(puntos[0].x, canvas.height - margen);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+
+  // Etiquetas de valor
+  ctx.fillStyle = "#fff";
+  puntos.forEach((p, i) => {
+    ctx.fillText(data[i], p.x, p.y - 5);
+    // Etiqueta de fecha
+    ctx.fillText(labels[i], p.x, canvas.height - margen + 12);
+  });
+}
+
+/* Exportamos todas las funciones que usaremos en HTML */
 export {
-  // Proveedores
-  obtenerProveedores,
-  guardarProveedores,
-  crearProveedor,
-  actualizarProveedor,
-  eliminarProveedor,
-  renderizarTablaProveedores,
-
-  // Productos
-  obtenerProductos,
-  guardarProductos,
-  crearProducto,
-  actualizarProducto,
-  eliminarProducto,
-  renderizarTablaProductos,
-
-  // Stock
-  comprarProducto,
-  devolverProducto,
-  getTotalCompras,
-  setTotalCompras,
-
-  // Utilidades
-  mostrarAlerta,
-  llenarSelectProveedores,
-  llenarSelectProductosDeProveedor
+  // CRUD
+  crearCompra,
+  actualizarCompra,
+  eliminarCompra,
+  obtenerCompras,
+  // Tabla
+  renderizarTablaCompras,
+  // Widgets
+  totalProductosComprados,
+  totalInvertidoGeneral,
+  // Gráficas
+  dibujarGraficaBarrasChartJS,
+  dibujarGraficaLineaChartJS
 };
+
+
+
