@@ -26,6 +26,10 @@ a:hover {
   color: #00e676; /* Verde vibrante */
 }
 
+i{
+  cursor: pointer;
+}
+
 /* ---------------------
    Nav
 ---------------------- */

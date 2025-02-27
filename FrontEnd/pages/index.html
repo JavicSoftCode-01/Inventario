@@ -9,6 +9,9 @@
 
     <!-- Incluir Chart.js desde CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Incluir Font Awesome desde CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   </head>
   <body>
     <nav>
@@ -24,23 +27,23 @@
       <!-- Widgets -->
       <div class="widgets-container">
         <div class="widget">
-          <h3>Productos Comprados</h3>
-          <span id="widget-total-productos" style="font-size: 1.5rem;">0</span>
+          <h3>Productos</h3>
+          <i class="fa-solid fa-box-open fa-2x" title="COMPRADOS"></i> <span id="widget-total-productos" style="font-size: 1.5rem;">0</span>
         </div>
         <div class="widget">
-          <h3>Total Invertido</h3>
-          <span id="widget-total-capital" style="font-size: 1.5rem;">$0.00</span>
+          <h3>Capital</h3>
+          <i class="fa-solid fa-comments-dollar fa-2x" title="INVERTIDO"></i> <span id="widget-total-capital" style="font-size: 1.5rem;">0.00</span>
         </div>
       </div>
 
       <!-- Contenedor de gráficas -->
       <div class="chart-container">
         <div class="chart-box">
-          <h3>Cantidad de Productos (Barras)</h3>
+          <h3>Productos</h3>
           <canvas id="chart-barras"></canvas>
         </div>
         <div class="chart-box">
-          <h3>Dinero Invertido (Montaña)</h3>
+          <h3>Capital</h3>
           <canvas id="chart-linea"></canvas>
         </div>
       </div>
@@ -61,7 +64,7 @@
 
         // Mostrar widgets
         spanTotalProductos.textContent = totalProductosComprados();
-        spanTotalInvertido.textContent = "$" + totalInvertidoGeneral().toFixed(2);
+        spanTotalInvertido.textContent = totalInvertidoGeneral().toFixed(2);
 
         // Dibujar gráficas con Chart.js
         dibujarGraficaBarrasChartJS("chart-barras");
