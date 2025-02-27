@@ -57,7 +57,7 @@ function crearCompra(datos) {
 
   compras.push(nuevaCompra);
   guardarCompras(compras);
-  Swal.fire("Creado", "Compra registrada con éxito.", "success");
+  // Quitamos el SweetAlert de aquí para manejarlo en el evento submit
 }
 
 // Eliminar
@@ -65,7 +65,7 @@ function eliminarCompra(id) {
   let compras = obtenerCompras();
   compras = compras.filter((c) => c.id !== id);
   guardarCompras(compras);
-  Swal.fire("Eliminado", "Compra eliminada con éxito.", "success");
+  // Quitamos el SweetAlert de aquí para manejarlo en el evento de click
 }
 
 // Actualizar
@@ -73,8 +73,8 @@ function actualizarCompra(id, datos) {
   const compras = obtenerCompras();
   const idx = compras.findIndex((c) => c.id === id);
   if (idx === -1) {
-    Swal.fire("Error", "No se encontró la compra a actualizar.", "error");
-    return;
+    console.error("No se encontró la compra a actualizar.");
+    return false;
   }
 
   const precio = parseFloat(datos.precioProducto) || 0;
@@ -100,7 +100,8 @@ function actualizarCompra(id, datos) {
   );
 
   guardarCompras(compras);
-  Swal.fire("Actualizado", "Compra actualizada con éxito.", "success");
+  // Quitamos el SweetAlert de aquí para manejarlo en el evento submit
+  return true;
 }
 
 /* =======================================

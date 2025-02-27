@@ -65,37 +65,63 @@
           <!-- Campo oculto para saber si editamos -->
           <input type="hidden" id="compra-id" />
 
-          <label for="prov-proveedor">Proveedor:</label>
-          <input type="text" id="prov-proveedor" required />
+          <div class="form-grid">
+            <div class="form-column">
+              <div class="form-group">
+                <label for="prov-proveedor">Proveedor:</label>
+                <input type="text" id="prov-proveedor" required />
+              </div>
 
-          <label for="prov-ciudad">Ciudad:</label>
-          <input type="text" id="prov-ciudad" />
+              <div class="form-group">
+                <label for="prov-ciudad">Ciudad:</label>
+                <input type="text" id="prov-ciudad" />
+              </div>
 
-          <label for="prov-telefono">Teléfono:</label>
-          <input type="text" id="prov-telefono" />
+              <div class="form-group">
+                <label for="prov-telefono">Teléfono:</label>
+                <input type="text" id="prov-telefono" />
+              </div>
 
-          <label for="prov-correo">Correo:</label>
-          <input type="email" id="prov-correo" />
+              <div class="form-group">
+                <label for="prov-correo">Correo:</label>
+                <input type="email" id="prov-correo" />
+              </div>
 
-          <label for="prov-producto">Producto:</label>
-          <input type="text" id="prov-producto" required />
+              <div class="form-group">
+                <label for="prov-producto">Producto:</label>
+                <input type="text" id="prov-producto" required />
+              </div>
+            </div>
 
-          <label for="prov-precio">Precio del Producto ($):</label>
-          <input type="number" id="prov-precio" step="0.01" required />
+            <div class="form-column">
+              <div class="form-group">
+                <label for="prov-precio">Precio del Producto ($):</label>
+                <input type="number" id="prov-precio" step="0.01" required />
+              </div>
 
-          <label for="prov-cantidad">Cantidad:</label>
-          <input type="number" id="prov-cantidad" min="1" required />
+              <div class="form-group">
+                <label for="prov-cantidad">Cantidad:</label>
+                <input type="number" id="prov-cantidad" min="1" required />
+              </div>
 
-          <label for="prov-total">Total a Pagar ($):</label>
-          <input type="text" id="prov-total" readonly />
+              <div class="form-group">
+                <label for="prov-total">Total a Pagar ($):</label>
+                <input type="text" id="prov-total" readonly />
+              </div>
 
-          <label for="prov-autoriza">Autoriza la compra:</label>
-          <input type="text" id="prov-autoriza" />
+              <div class="form-group">
+                <label for="prov-autoriza">Autoriza la compra:</label>
+                <input type="text" id="prov-autoriza" />
+              </div>
 
-          <label for="prov-precioVentaPublico">Precio Venta al Público ($):</label>
-          <input type="number" id="prov-precioVentaPublico" step="0.01" />
+              <div class="form-group">
+                <label for="prov-precioVentaPublico">Precio Venta al Público ($):</label>
+                <input type="number" id="prov-precioVentaPublico" step="0.01" />
+              </div>
+            </div>
+          </div>
 
-          <button type="submit">Guardar</button>
+          <button type="submit" id="btn-guardar">Guardar</button>
         </form>
       </div>
     </div>
@@ -172,7 +198,7 @@
         inputCantidad.addEventListener("input", recalcularTotal);
 
         // Guardar registro (crear o actualizar)
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
           e.preventDefault();
           const hiddenId = inputId.value.trim();
           const datos = {
@@ -187,26 +213,39 @@
             precioVentaPublico: inputPrecioVentaPublico.value
           };
 
+          // Primero cerramos el modal para evitar congelamiento
+          cerrarModal();
+
           if (hiddenId) {
             actualizarCompra(Number(hiddenId), datos);
-            Swal.fire("Actualizado", "El registro se actualizó con éxito", "success");
+            await Swal.fire({
+              title: "¡Actualizado!",
+              text: "El registro se actualizó con éxito",
+              icon: "success",
+              confirmButtonColor: "#00e676"
+            });
           } else {
             crearCompra(datos);
-            Swal.fire("Creado", "El registro se creó con éxito", "success");
+            await Swal.fire({
+              title: "¡Creado!",
+              text: "El registro se creó con éxito",
+              icon: "success",
+              confirmButtonColor: "#00e676"
+            });
           }
 
           form.reset();
           inputId.value = "";
           inputTotal.value = "";
+          // Actualizamos la tabla después de mostrar el SweetAlert
           renderizarTablaCompras("compras-tbody");
-          cerrarModal();
         });
 
         // Eventos para Editar y Eliminar en la tabla
-        tbody.addEventListener("click", (e) => {
+        tbody.addEventListener("click", async (e) => {
           if (e.target.classList.contains("btn-eliminar")) {
             const id = Number(e.target.dataset.id);
-            Swal.fire({
+            const result = await Swal.fire({
               title: "¿Eliminar?",
               text: "Esta acción no se puede deshacer.",
               icon: "warning",
@@ -215,13 +254,19 @@
               cancelButtonColor: "#3085d6",
               confirmButtonText: "Sí, eliminar",
               cancelButtonText: "Cancelar"
-            }).then((result) => {
-              if (result.isConfirmed) {
-                eliminarCompra(id);
-                Swal.fire("Eliminado", "El registro fue eliminado.", "success");
-                renderizarTablaCompras("compras-tbody");
-              }
             });
+            
+            if (result.isConfirmed) {
+              eliminarCompra(id);
+              // Actualizamos la tabla inmediatamente después de eliminar
+              renderizarTablaCompras("compras-tbody");
+              await Swal.fire({
+                title: "¡Eliminado!",
+                text: "El registro fue eliminado.",
+                icon: "success",
+                confirmButtonColor: "#00e676"
+              });
+            }
           } else if (e.target.classList.contains("btn-editar")) {
             const id = Number(e.target.dataset.id);
             const compras = obtenerCompras();
