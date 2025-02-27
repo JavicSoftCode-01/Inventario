@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Panel Administrador</title>
+    <!-- Paleta de colores y estilo -->
     <link rel="stylesheet" href="../static/styles/styles.css" />
+
     <!-- Incluir Chart.js desde CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
@@ -17,8 +19,9 @@
     </nav>
 
     <section>
-      <h1>Panel de Administración</h1>
+      <h1>Panel de Administrador</h1>
 
+      <!-- Widgets -->
       <div class="widgets-container">
         <div class="widget">
           <h3>Productos Comprados</h3>
@@ -30,13 +33,14 @@
         </div>
       </div>
 
+      <!-- Contenedor de gráficas -->
       <div class="chart-container">
         <div class="chart-box">
-          <h3 style="color: #4caf50;">Cantidad de Productos (Barras)</h3>
+          <h3>Cantidad de Productos (Barras)</h3>
           <canvas id="chart-barras"></canvas>
         </div>
         <div class="chart-box">
-          <h3 style="color: #4caf50;">Dinero Invertido (Montaña)</h3>
+          <h3>Dinero Invertido (Montaña)</h3>
           <canvas id="chart-linea"></canvas>
         </div>
       </div>
