@@ -147,25 +147,23 @@ th {
   display: flex;
   width: 100%;
   gap: 2rem;
-  margin-bottom: 1rem; /* si deseas */
+  margin-bottom: 1rem; /* o lo que desees */
 }
 
 .chart-box {
-  flex: 1; /* Ocupar el mismo espacio */
+  flex: 1;
   background-color: #2c2c2c;
   padding: 1rem;
   border-radius: 8px;
 }
 
+/* Evitar que la gráfica se extienda en exceso hacia abajo */
 .chart-box canvas {
-  /* Con Chart.js, no necesitas width/height fijos,
-     Chart.js ajustará automáticamente si usas responsive */
   width: 100% !important;
-  height: 400px; /* ajusta a tu gusto */
+  max-height: 350px; /* Ajusta la altura máxima */
   background-color: #1f1f1f;
   border: 1px solid #444;
 }
-
 
 /* Layout inventario: 25% form, 75% tabla */
 .inventario-container {

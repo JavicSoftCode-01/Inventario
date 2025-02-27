@@ -158,7 +158,7 @@ function renderizarTablaCompras(contenedorTbodyId) {
       <td>${compra.hora}</td>
       <td>
         <span style="color: ${colorPorcentaje};">
-          ${porcentaje === "N/A" ? "N/A" : "%" + porcentaje} (${ganancia === "N/A" ? "N/A" : "$" + ganancia})
+          ${porcentaje === "N/A" ? "N/A" : "% " + porcentaje} (${ganancia === "N/A" ? "N/A" : "$ " + ganancia})
         </span>
       </td>
       <td>
@@ -228,44 +228,44 @@ function generarDatosLinea() {
   return { labels, data };
 }
 
-// Función para la gráfica de barras
+/* ======================
+   CHART.JS
+====================== */
+
+// Gráfica de barras con Chart.js
 function dibujarGraficaBarrasChartJS(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
-  // Obtenemos datos (fecha -> sum(cantidad))
   const { labels, data } = generarDatosBarras();
-  if (!labels.length) {
-    return; // No hay datos, no dibujamos nada
-  }
+  if (!labels.length) return; // Sin datos
 
-  // Creamos el gráfico de barras
   new Chart(canvas, {
     type: "bar",
     data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "Productos comprados por día",
-          data: data,
-          backgroundColor: "rgba(76, 175, 80, 0.7)", // Verde
-          borderColor: "#4caf50",
-          borderWidth: 1
-        }
-      ]
+      labels,
+      datasets: [{
+        label: "Productos comprados por día",
+        data,
+        backgroundColor: "rgba(76, 175, 80, 0.7)",
+        borderColor: "#4caf50",
+        borderWidth: 1
+      }]
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      // Mantener la relación de aspecto para no expandir en vertical
+      maintainAspectRatio: true,
+      aspectRatio: 2, // Ajusta la proporción ancho:alto
       scales: {
+        x: {
+          ticks: { color: "#fff" },
+          grid: { display: false }
+        },
         y: {
           beginAtZero: true,
           ticks: { color: "#fff" },
           grid: { color: "#555" }
-        },
-        x: {
-          ticks: { color: "#fff" },
-          grid: { display: false }
         }
       },
       plugins: {
@@ -279,45 +279,41 @@ function dibujarGraficaBarrasChartJS(canvasId) {
   });
 }
 
-// Función para la gráfica de línea (montaña)
+// Gráfica de línea/montaña con Chart.js
 function dibujarGraficaLineaChartJS(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
-  // Obtenemos datos (fecha -> sum(total invertido ese día))
   const { labels, data } = generarDatosLinea();
-  if (!labels.length) {
-    return; // No hay datos
-  }
+  if (!labels.length) return;
 
   new Chart(canvas, {
     type: "line",
     data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "Dinero Invertido por Día",
-          data: data,
-          fill: "start", // Para que se pinte como "montaña"
-          backgroundColor: "rgba(255, 87, 34, 0.3)", // Naranja tenue
-          borderColor: "#FF5722",
-          borderWidth: 2,
-          tension: 0.3 // Curvatura de la línea
-        }
-      ]
+      labels,
+      datasets: [{
+        label: "Dinero Invertido por Día",
+        data,
+        fill: "start", 
+        backgroundColor: "rgba(255, 87, 34, 0.3)",
+        borderColor: "#FF5722",
+        borderWidth: 2,
+        tension: 0.3
+      }]
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      aspectRatio: 2,
       scales: {
+        x: {
+          ticks: { color: "#fff" },
+          grid: { display: false }
+        },
         y: {
           beginAtZero: true,
           ticks: { color: "#fff" },
           grid: { color: "#555" }
-        },
-        x: {
-          ticks: { color: "#fff" },
-          grid: { display: false }
         }
       },
       plugins: {
@@ -328,129 +324,6 @@ function dibujarGraficaLineaChartJS(canvasId) {
         }
       }
     }
-  });
-}
-
-/*
-  Dibujamos gráficas simples con <canvas>.
-  Sin librerías externas, haremos un dibujo muy básico.
-*/
-
-// Dibuja gráfica de barras
-function dibujarGraficaBarras(canvasId) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  // Limpiamos
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Obtenemos datos
-  const { labels, data } = generarDatosBarras();
-  if (labels.length === 0) {
-    ctx.fillStyle = "#fff";
-    ctx.fillText("No hay datos para la gráfica de barras.", 10, 30);
-    return;
-  }
-
-  // Calculamos escalas
-  const maxValor = Math.max(...data);
-  const margen = 20;
-  const anchoDisponible = canvas.width - 2 * margen;
-  const altoDisponible = canvas.height - 2 * margen;
-  const barWidth = anchoDisponible / labels.length / 2;
-
-  // Dibujamos ejes (simple)
-  ctx.strokeStyle = "#ccc";
-  ctx.beginPath();
-  // Eje X
-  ctx.moveTo(margen, canvas.height - margen);
-  ctx.lineTo(canvas.width - margen, canvas.height - margen);
-  // Eje Y
-  ctx.moveTo(margen, canvas.height - margen);
-  ctx.lineTo(margen, margen);
-  ctx.stroke();
-
-  // Dibujamos barras
-  data.forEach((valor, i) => {
-    const x = margen + i * (barWidth * 2) + barWidth / 2;
-    const altura = (valor / maxValor) * (altoDisponible - 20); // un poco de margen arriba
-    const y = canvas.height - margen - altura;
-
-    ctx.fillStyle = "#4CAF50";
-    ctx.fillRect(x, y, barWidth, altura);
-
-    // Etiqueta de valor
-    ctx.fillStyle = "#fff";
-    ctx.fillText(valor, x, y - 5);
-
-    // Etiqueta de fecha
-    ctx.fillStyle = "#fff";
-    ctx.fillText(labels[i], x, canvas.height - margen + 12);
-  });
-}
-
-// Dibuja gráfica de línea (tipo montaña)
-function dibujarGraficaLinea(canvasId) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  // Limpiamos
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Obtenemos datos
-  const { labels, data } = generarDatosLinea();
-  if (labels.length === 0) {
-    ctx.fillStyle = "#fff";
-    ctx.fillText("No hay datos para la gráfica de línea.", 10, 30);
-    return;
-  }
-
-  // Calculamos escalas
-  const maxValor = Math.max(...data);
-  const margen = 20;
-  const anchoDisponible = canvas.width - 2 * margen;
-  const altoDisponible = canvas.height - 2 * margen;
-
-  // Convertimos índices a coordenadas
-  const puntos = data.map((valor, i) => {
-    const x = margen + (i / (data.length - 1)) * anchoDisponible;
-    const y = canvas.height - margen - (valor / maxValor) * (altoDisponible - 20);
-    return { x, y };
-  });
-
-  // Ejes
-  ctx.strokeStyle = "#ccc";
-  ctx.beginPath();
-  // Eje X
-  ctx.moveTo(margen, canvas.height - margen);
-  ctx.lineTo(canvas.width - margen, canvas.height - margen);
-  // Eje Y
-  ctx.moveTo(margen, canvas.height - margen);
-  ctx.lineTo(margen, margen);
-  ctx.stroke();
-
-  // Dibujamos la línea
-  ctx.beginPath();
-  ctx.strokeStyle = "#FF5722";
-  ctx.fillStyle = "rgba(255, 87, 34, 0.3)"; // relleno tenue
-  ctx.moveTo(puntos[0].x, puntos[0].y);
-
-  puntos.forEach((p, i) => {
-    ctx.lineTo(p.x, p.y);
-  });
-  // Cerramos para el relleno "montaña"
-  ctx.lineTo(puntos[puntos.length - 1].x, canvas.height - margen);
-  ctx.lineTo(puntos[0].x, canvas.height - margen);
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-
-  // Etiquetas de valor
-  ctx.fillStyle = "#fff";
-  puntos.forEach((p, i) => {
-    ctx.fillText(data[i], p.x, p.y - 5);
-    // Etiqueta de fecha
-    ctx.fillText(labels[i], p.x, canvas.height - margen + 12);
   });
 }
 
