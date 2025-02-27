@@ -1,11 +1,16 @@
-<!-- FrontEnd/pages/inventario/inventario.html -->
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Inventario</title>
     <link rel="stylesheet" href="../../static/styles/styles.css" />
+
+    <!-- SweetAlert2 desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Incluir Font Awesome (opcional para íconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   </head>
   <body>
     <nav>
@@ -18,77 +23,84 @@
     <section>
       <h2>Inventario</h2>
 
-      <div class="inventario-container">
-        <!-- Formulario (25%) -->
-        <div class="form-contenedor">
-          <form id="form-inventario">
-            <!-- Campo oculto para saber si editamos -->
-            <input type="hidden" id="compra-id" />
+      <!-- Botón de crear en la esquina superior derecha -->
+      <div class="header-inventario">
+        <button id="btn-abrir-modal">Crear Nuevo Registro</button>
+      </div>
 
-            <label for="prov-proveedor">Proveedor:</label>
-            <input type="text" id="prov-proveedor" required />
-
-            <label for="prov-ciudad">Ciudad:</label>
-            <input type="text" id="prov-ciudad" />
-
-            <label for="prov-telefono">Teléfono:</label>
-            <input type="text" id="prov-telefono" />
-
-            <label for="prov-correo">Correo:</label>
-            <input type="email" id="prov-correo" />
-
-            <label for="prov-producto">Producto:</label>
-            <input type="text" id="prov-producto" required />
-
-            <label for="prov-precio">Precio del Producto ($):</label>
-            <input type="number" id="prov-precio" step="0.01" required />
-
-            <label for="prov-cantidad">Cantidad:</label>
-            <input type="number" id="prov-cantidad" min="1" required />
-
-            <label for="prov-total">Total a Pagar ($):</label>
-            <!-- Solo lectura, calculado automáticamente -->
-            <input type="text" id="prov-total" readonly />
-
-            <label for="prov-autoriza">Autoriza la compra:</label>
-            <input type="text" id="prov-autoriza" />
-
-            <label for="prov-precioVentaPublico">Precio Venta al Público ($):</label>
-            <input type="number" id="prov-precioVentaPublico" step="0.01" />
-
-            <button type="submit">Guardar</button>
-          </form>
-        </div>
-
-        <!-- Tabla (75%) -->
-        <div class="tabla-contenedor">
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Proveedor</th>
-                <th>Ciudad</th>
-                <th>Teléfono</th>
-                <th>Correo</th>
-                <th>Producto</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-                <th>Autoriza</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>% / Ganancia</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="compras-tbody">
-              <!-- Filas dinámicas -->
-            </tbody>
-          </table>
-        </div>
+      <!-- Tabla de compras -->
+      <div class="tabla-contenedor">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Proveedor</th>
+              <th>Ciudad</th>
+              <th>Teléfono</th>
+              <th>Correo</th>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+              <th>Autoriza</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>% / Ganancia</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="compras-tbody">
+            <!-- Se llenará dinámicamente -->
+          </tbody>
+        </table>
       </div>
     </section>
 
+    <!-- Modal para crear/editar registro -->
+    <div id="modal-inventario" class="modal">
+      <div class="modal-content">
+        <span class="modal-cerrar" id="modal-cerrar">&times;</span>
+        <h3 id="modal-titulo">Crear/Editar Compra</h3>
+        <form id="form-inventario">
+          <!-- Campo oculto para saber si editamos -->
+          <input type="hidden" id="compra-id" />
+
+          <label for="prov-proveedor">Proveedor:</label>
+          <input type="text" id="prov-proveedor" required />
+
+          <label for="prov-ciudad">Ciudad:</label>
+          <input type="text" id="prov-ciudad" />
+
+          <label for="prov-telefono">Teléfono:</label>
+          <input type="text" id="prov-telefono" />
+
+          <label for="prov-correo">Correo:</label>
+          <input type="email" id="prov-correo" />
+
+          <label for="prov-producto">Producto:</label>
+          <input type="text" id="prov-producto" required />
+
+          <label for="prov-precio">Precio del Producto ($):</label>
+          <input type="number" id="prov-precio" step="0.01" required />
+
+          <label for="prov-cantidad">Cantidad:</label>
+          <input type="number" id="prov-cantidad" min="1" required />
+
+          <label for="prov-total">Total a Pagar ($):</label>
+          <input type="text" id="prov-total" readonly />
+
+          <label for="prov-autoriza">Autoriza la compra:</label>
+          <input type="text" id="prov-autoriza" />
+
+          <label for="prov-precioVentaPublico">Precio Venta al Público ($):</label>
+          <input type="number" id="prov-precioVentaPublico" step="0.01" />
+
+          <button type="submit">Guardar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Script principal -->
     <script type="module">
       import {
         crearCompra,
@@ -99,8 +111,12 @@
       } from "/FrontEnd/static/scripts/app.js";
 
       document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById("form-inventario");
         const tbody = document.getElementById("compras-tbody");
+        const form = document.getElementById("form-inventario");
+        const modal = document.getElementById("modal-inventario");
+        const btnAbrirModal = document.getElementById("btn-abrir-modal");
+        const btnCerrarModal = document.getElementById("modal-cerrar");
+        const modalTitulo = document.getElementById("modal-titulo");
 
         const inputId = document.getElementById("compra-id");
         const inputProveedor = document.getElementById("prov-proveedor");
@@ -114,10 +130,38 @@
         const inputAutoriza = document.getElementById("prov-autoriza");
         const inputPrecioVentaPublico = document.getElementById("prov-precioVentaPublico");
 
-        // Render inicial
+        // Renderizar tabla con datos existentes al cargar
         renderizarTablaCompras("compras-tbody");
 
-        // Cálculo automático de "Total a pagar" en el formulario
+        // Función para abrir modal
+        function abrirModal() {
+          modal.style.display = "block";
+        }
+        // Función para cerrar modal
+        function cerrarModal() {
+          modal.style.display = "none";
+        }
+
+        // Abrir modal para crear nuevo registro
+        btnAbrirModal.addEventListener("click", () => {
+          modalTitulo.textContent = "Crear Nueva Compra";
+          form.reset();
+          inputId.value = "";
+          inputTotal.value = "";
+          abrirModal();
+        });
+
+        // Cerrar modal al hacer clic en la X
+        btnCerrarModal.addEventListener("click", cerrarModal);
+
+        // Cerrar modal al hacer clic fuera del contenido
+        window.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            cerrarModal();
+          }
+        });
+
+        // Cálculo automático del total
         function recalcularTotal() {
           const precio = parseFloat(inputPrecio.value) || 0;
           const cantidad = parseFloat(inputCantidad.value) || 0;
@@ -127,10 +171,9 @@
         inputPrecio.addEventListener("input", recalcularTotal);
         inputCantidad.addEventListener("input", recalcularTotal);
 
-        // Guardar (crear o actualizar)
+        // Guardar registro (crear o actualizar)
         form.addEventListener("submit", (e) => {
           e.preventDefault();
-
           const hiddenId = inputId.value.trim();
           const datos = {
             proveedor: inputProveedor.value,
@@ -145,34 +188,46 @@
           };
 
           if (hiddenId) {
-            // Actualizar
             actualizarCompra(Number(hiddenId), datos);
+            Swal.fire("Actualizado", "El registro se actualizó con éxito", "success");
           } else {
-            // Crear
             crearCompra(datos);
+            Swal.fire("Creado", "El registro se creó con éxito", "success");
           }
 
-          // Limpiar formulario
           form.reset();
           inputId.value = "";
           inputTotal.value = "";
-
-          // Refrescar tabla
           renderizarTablaCompras("compras-tbody");
+          cerrarModal();
         });
 
-        // Evento para Editar/Eliminar
+        // Eventos para Editar y Eliminar en la tabla
         tbody.addEventListener("click", (e) => {
           if (e.target.classList.contains("btn-eliminar")) {
             const id = Number(e.target.dataset.id);
-            eliminarCompra(id);
-            renderizarTablaCompras("compras-tbody");
+            Swal.fire({
+              title: "¿Eliminar?",
+              text: "Esta acción no se puede deshacer.",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#d33",
+              cancelButtonColor: "#3085d6",
+              confirmButtonText: "Sí, eliminar",
+              cancelButtonText: "Cancelar"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                eliminarCompra(id);
+                Swal.fire("Eliminado", "El registro fue eliminado.", "success");
+                renderizarTablaCompras("compras-tbody");
+              }
+            });
           } else if (e.target.classList.contains("btn-editar")) {
             const id = Number(e.target.dataset.id);
             const compras = obtenerCompras();
             const compra = compras.find((c) => c.id === id);
             if (compra) {
-              // Llenar formulario
+              modalTitulo.textContent = "Editar Compra";
               inputId.value = compra.id;
               inputProveedor.value = compra.proveedor;
               inputCiudad.value = compra.ciudad;
@@ -183,8 +238,8 @@
               inputCantidad.value = compra.cantidad;
               inputAutoriza.value = compra.autorizaCompra;
               inputPrecioVentaPublico.value = compra.precioVentaPublico;
-              // Recalcular total
               recalcularTotal();
+              abrirModal();
             }
           }
         });

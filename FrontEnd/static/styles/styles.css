@@ -5,6 +5,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Oculta la barra de desplazamiento en navegadores WebKit */
+html::-webkit-scrollbar {
+  width: 0;
 }
 
 /* ---------------------
@@ -51,7 +57,6 @@ nav li {
    Secciones
 ---------------------- */
 section {
-  margin-bottom: 2rem;
   background-color: #141414; /* Caja oscura */
   border-radius: 8px;
   padding: 1rem;
@@ -170,7 +175,6 @@ th {
   flex-wrap: wrap;  /* Importante para que se apilen en pantallas pequeñas */
   width: 100%;
   gap: 2rem;
-  margin-bottom: 1rem;
 }
 
 .chart-box {
@@ -179,7 +183,6 @@ th {
   padding: 1rem;
   border-radius: 8px;
   min-width: 300px; /* Para pantallas muy pequeñas */
-  margin-bottom: 1rem;
 }
 
 .chart-box h3 {
@@ -210,11 +213,91 @@ th {
   border-radius: 8px;
 }
 
+/* Contenedor de la tabla */
 .tabla-contenedor {
-  flex: 0 0 75%;
   background-color: #141414;
   padding: 1rem;
   border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* Encabezado con botón "Crear Nuevo Registro" */
+.header-inventario {
+  display: flex;
+  justify-content: flex-end; /* Alinear a la derecha */
+  margin-top: 1rem;
+}
+
+/* Botón "Crear Nuevo Registro" */
+#btn-abrir-modal {
+  background-color: #00e676;
+  border: none;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#btn-abrir-modal:hover {
+  background-color: #1ee58b;
+}
+
+/* ------------- MODAL ------------- */
+
+/* El contenedor principal del modal */
+.modal {
+  display: none; /* Por defecto oculto */
+  position: fixed; /* Para cubrir toda la ventana */
+  z-index: 999;    /* Sobre todo el contenido */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Si el contenido excede, scroll */
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
+}
+
+/* El contenido del modal */
+.modal-content {
+  background-color: #1f1f1f;
+  margin: 5% auto; /* Centrado vertical y horizontal */
+  padding: 1rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px; /* Ancho máximo del modal */
+  position: relative;
+}
+
+/* Botón de cerrar (X) */
+.modal-cerrar {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-cerrar:hover {
+  color: #f44336; /* Rojo al hover */
+}
+
+/* Ajustes del formulario dentro del modal */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Responsivo extra para el modal */
+@media (max-width: 600px) {
+  .modal-content {
+    width: 95%;
+    margin-top: 20%;
+  }
 }
 
 /* ---------------------
