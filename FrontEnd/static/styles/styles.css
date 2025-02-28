@@ -270,7 +270,6 @@ th {
   border: none;
   color: #fff;
   padding: 0.5rem 0.5rem;
-  margin-bottom: 1rem;
   cursor: pointer;
   border-radius: 4px;
   font-weight: bold;
@@ -278,6 +277,61 @@ th {
 }
 
 #btn-abrir-modal:hover {
+  background-color: #03c420;
+}
+
+/* --- Contenedor general para la cabecera (filtros y botón crear) --- */
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+}
+
+/* Izquierda: barra de búsqueda y filtros */
+.filter-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.filter-container input[type="text"] {
+  padding: 0.5rem;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background-color: #1f1f1f;
+  color: #fff;
+}
+
+/* Botones de filtro y refrescar */
+.filter-container button {
+  background-color: #03d723;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.filter-container button:hover {
+  background-color: #03c420;
+}
+
+.btn-container button {
+  background-color: #03d723;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-container button:hover {
   background-color: #03c420;
 }
 
@@ -453,4 +507,47 @@ th {
   nav ul {
     flex-direction: column;
   }
+}
+
+
+/* --- Modal de Detalles --- */
+.modal-detalles {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+.modal-detalles-content {
+  background-color: #1f1f1f;
+  margin: 5% auto;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+}
+.detalles-grid {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.detalles-col {
+  flex: 1;
+  background-color: #141414;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: #fff;
+}
+.modal-cerrar {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
 }

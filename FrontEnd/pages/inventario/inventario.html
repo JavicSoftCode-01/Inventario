@@ -9,71 +9,89 @@
     <!-- SweetAlert2 desde CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Incluir Font Awesome (opcional para íconos) -->
+    <!-- Incluir Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   </head>
-  <body>
+  <body class="body">
+    <!-- Contenedor para notificaciones personalizadas -->
+    <div id="notification-container" class="notification-container"></div>
 
-    <!-- Contenedor para las notificaciones personalizadas -->
-    <div id="notification-container"></div>
-
-     <!-- Modal de Confirmación Personalizado -->
+    <!-- Modal de Confirmación Personalizado -->
     <div id="confirm-modal" class="confirm-modal">
       <div class="confirm-modal-content">
-        <p id="confirm-modal-message"></p>
+        <p id="confirm-modal-message" class="confirm-modal-message"></p>
         <div class="confirm-modal-buttons">
-          <button id="confirm-modal-yes">Si, eliminar</button>
-          <button id="confirm-modal-no">Cancelar</button>
+          <button id="confirm-modal-yes" class="btn btn-confirm-yes">Si, eliminar</button>
+          <button id="confirm-modal-no" class="btn btn-confirm-no">Cancelar</button>
         </div>
       </div>
     </div>
 
-    <nav>
-      <ul>
-        <li><a href="../index.html">Inicio</a></li>
-        <li><a href="./inventario.html">Inventario</a></li>
+    <!-- Modal de Detalles -->
+    <div id="modal-detalles" class="modal modal-detalles">
+      <div class="modal-content modal-detalles-content">
+        <span id="modal-detalles-cerrar" class="modal-cerrar">
+          <i class="fa-solid fa-circle-xmark fa-lg"></i>
+        </span>
+        <h2 class="modal-title">Detalles de la Compra</h2>
+        <div class="detalles-grid">
+          <div class="detalles-col" id="detalles-col-left">
+            <!-- Se llenará dinámicamente -->
+          </div>
+          <div class="detalles-col" id="detalles-col-right">
+            <!-- Se llenará dinámicamente -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navigation">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+        <li class="nav-item"><a href="./inventario.html" class="nav-link">Inventario</a></li>
       </ul>
     </nav>
 
-    <section>
-      <h2>Inventario</h2>
-
-      <!-- Contenedor de búsqueda y filtros -->
-      <div class="filter-container">
-        <input type="text" id="search-input" placeholder="Buscar por proveedor o producto..." />
-        <button id="btn-filter-high">Filtrar Total Más Alto</button>
-        <button id="btn-filter-low">Filtrar Total Más Bajo</button>
-        <button id="btn-refresh">Refrescar</button>
-      </div>
-
-      <!-- Tabla de compras -->
+    <section class="inventario-section">
+      <h2 class="section-title">Inventario</h2>
       <div class="tabla-contenedor">
-
-      <!-- Botón de crear en la esquina superior derecha -->
-        <div class="header-inventario">
-          <button id="btn-abrir-modal">Registro <i class="fa-solid fa-square-plus fa-lg"></i></button>
+        <!-- Header con búsqueda, filtros y botón crear -->
+        <div class="header-bar">
+          <div class="filter-container">
+            <input type="text" id="search-input" class="search-input" placeholder="Buscar por proveedor o producto..." />
+            <button id="btn-filter-high" class="btn btn-filter-high" title="Total más alto">
+              <i class="fa-solid fa-arrow-trend-up fa-lg"></i>
+            </button>
+            <button id="btn-filter-low" class="btn btn-filter-low" title="Total más bajo">
+              <i class="fa-solid fa-arrow-trend-down fa-lg"></i>
+            </button>
+            <button id="btn-refresh" class="btn btn-refresh" title="Refrescar filtros">
+              <i class="fa-solid fa-arrows-rotate fa-lg"></i>
+            </button>
+          </div>
+          <div class="btn-container">
+            <button id="btn-abrir-modal" class="btn btn-open-modal" title="Crear registro">
+              <i class="fa-solid fa-square-plus fa-lg"></i>
+            </button>
+          </div>
         </div>
-
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Proveedor</th>
-              <th>Ciudad</th>
-              <th>Teléfono</th>
-              <th>Correo</th>
-              <th>Producto</th>
-              <th>Precio</th>
-              <th>Cantidad</th>
-              <th>Total</th>
-              <th>Autoriza</th>
-              <th>Fecha</th>
-              <th>Hora</th>
-              <th>% / Ganancia</th>
-              <th>Acciones</th>
+        <!-- Tabla de inventario -->
+        <table class="inventory-table">
+          <thead class="table-header">
+            <tr class="table-row">
+              <th class="table-th">#</th>
+              <th class="table-th">Proveedor</th>
+              <th class="table-th">Ciudad</th>
+              <th class="table-th">Teléfono</th>
+              <th class="table-th">Producto</th>
+              <th class="table-th">Precio</th>
+              <th class="table-th">Cantidad</th>
+              <th class="table-th">Autoriza</th>
+              <th class="table-th">Detalles</th>
+              <th class="table-th">Acciones</th>
             </tr>
           </thead>
-          <tbody id="compras-tbody">
+          <tbody id="compras-tbody" class="table-body">
             <!-- Se llenará dinámicamente -->
           </tbody>
         </table>
@@ -81,110 +99,83 @@
     </section>
 
     <!-- Modal para crear/editar registro -->
-    <div id="modal-inventario" class="modal">
+    <div id="modal-inventario" class="modal modal-inventario">
       <div class="modal-content">
-        <span class="modal-cerrar" id="modal-cerrar"><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
-        <h2 id="modal-titulo">Crear/Editar Compra</h2>
-        <form id="form-inventario">
-          <!-- Campo oculto para saber si editamos -->
-          <input type="hidden" id="compra-id" />
-      
+        <span id="modal-cerrar" class="modal-cerrar">
+          <i class="fa-solid fa-circle-xmark fa-lg"></i>
+        </span>
+        <h2 id="modal-titulo" class="modal-title">Crear/Editar Compra</h2>
+        <form id="form-inventario" class="inventario-form">
+          <!-- Campo oculto para identificar edición -->
+          <input type="hidden" id="compra-id" class="compra-id" />
           <div class="form-grid">
-              <div class="form-column">
-                  <div class="form-group">
-                      <label for="prov-proveedor">Proveedor:</label>
-                      <input type="text" id="prov-proveedor" name="proveedor" required
-                             pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
-                             placeholder="Ingresar nombre"
-                             autocomplete="off"
-                             title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
-                  </div>
-      
-                  <div class="form-group">
-                      <label for="prov-ciudad">Ciudad:</label>
-                      <input type="text" id="prov-ciudad" name="ciudad" required
-                             pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
-                             placeholder="Ingresar ubicación"
-                             autocomplete="off"
-                             title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
-                  </div>
-      
-                  <div class="form-group">
-                      <label for="prov-telefono">Teléfono:</label>
-                      <input type="tel" id="prov-telefono" name="telefono" required
-                             pattern="(^[0-9]{7}$)|(^09[0-9]{8}$)"
-                             maxlength="10"
-                             placeholder="Ingresar número fijo o celular"
-                             autocomplete="off"
-                             title="Ingrese un número fijo (7 dígitos) o celular (10 dígitos, comenzando con 09)" />
-                  </div>
-      
-                  <div class="form-group">
-                      <label for="prov-correo">Correo:</label>
-                      <input type="email" id="prov-correo" name="correo" required
-                             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                             placeholder="Ingrese su correo electrónico"
-                             autocomplete="off"
-                             title="Ingrese un correo válido, por ejemplo: usuario@example.com" />
-                  </div>
-      
-                  <div class="form-group">
-                      <label for="prov-producto">Producto:</label>
-                      <input type="text" id="prov-producto" name="producto" required
-                             pattern="^[a-zA-Z0-9À-ÿ\s]{3,50}$"
-                             placeholder="Nombre del producto"
-                             autocomplete="off"
-                             title="Ingrese entre 3 y 50 caracteres, solo letras, números y espacios" />
-                  </div>
+            <div class="form-column">
+              <div class="form-group">
+                <label for="prov-proveedor" class="form-label">Proveedor:</label>
+                <input type="text" id="prov-proveedor" name="proveedor" class="form-input"
+                  required pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$" placeholder="Ingresar nombre" autocomplete="off"
+                  title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
               </div>
-      
-              <div class="form-column">
-                  <div class="form-group">
-                      <label for="prov-precio">Precio del Producto ($):</label>
-                      <input type="number" id="prov-precio" name="precio" step="0.01" min="0.01" required
-                             placeholder="0.00"
-                             autocomplete="off"
-                             title="Ingrese un precio válido mayor a 0" />
-                  </div>
-      
-                  <div class="form-group">
-                      <label for="prov-cantidad">Cantidad:</label>
-                      <input type="number" id="prov-cantidad" name="cantidad" min="1" required
-                             placeholder="Cantidad"
-                             autocomplete="off"
-                             title="Ingrese una cantidad mínima de 1" />
-                  </div>
-      
-                  <div class="form-group">
-                      <label for="prov-total">Total a Pagar ($):</label>
-                      <input type="text" id="prov-total" name="total" readonly />
-                  </div>
-      
-                  <div class="form-group">
-                      <label for="prov-autoriza">Autoriza la compra:</label>
-                      <input type="text" id="prov-autoriza" name="autoriza" required
-                             pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
-                             placeholder="Nombre del autorizado"
-                             autocomplete="off"
-                             title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
-                  </div>
-      
-                  <div class="form-group">
-                      <label for="prov-precioVentaPublico">Precio Venta al Público ($):</label>
-                      <input type="number" id="prov-precioVentaPublico" name="precio_venta" step="0.01" min="0.01" required
-                             placeholder="0.00"
-                             autocomplete="off"
-                             title="Ingrese un precio válido mayor a 0" />
-                  </div>
+              <div class="form-group">
+                <label for="prov-ciudad" class="form-label">Ciudad:</label>
+                <input type="text" id="prov-ciudad" name="ciudad" class="form-input"
+                  required pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$" placeholder="Ingresar ubicación" autocomplete="off"
+                  title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
               </div>
+              <div class="form-group">
+                <label for="prov-telefono" class="form-label">Teléfono:</label>
+                <input type="tel" id="prov-telefono" name="telefono" class="form-input"
+                  required pattern="(^[0-9]{7}$)|(^09[0-9]{8}$)" maxlength="10"
+                  placeholder="Ingresar número fijo o celular" autocomplete="off"
+                  title="Ingrese un número fijo (7 dígitos) o celular (10 dígitos, comenzando con 09)" />
+              </div>
+              <div class="form-group">
+                <label for="prov-correo" class="form-label">Correo:</label>
+                <input type="email" id="prov-correo" name="correo" class="form-input"
+                  required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" placeholder="Ingrese su correo electrónico"
+                  autocomplete="off" title="Ingrese un correo válido, por ejemplo: usuario@example.com" />
+              </div>
+              <div class="form-group">
+                <label for="prov-producto" class="form-label">Producto:</label>
+                <input type="text" id="prov-producto" name="producto" class="form-input"
+                  required pattern="^[a-zA-Z0-9À-ÿ\s]{3,50}$" placeholder="Nombre del producto" autocomplete="off"
+                  title="Ingrese entre 3 y 50 caracteres, solo letras, números y espacios" />
+              </div>
+            </div>
+            <div class="form-column">
+              <div class="form-group">
+                <label for="prov-precio" class="form-label">Precio del Producto ($):</label>
+                <input type="number" id="prov-precio" name="precio" class="form-input" step="0.01" min="0.01" required
+                  placeholder="0.00" autocomplete="off" title="Ingrese un precio válido mayor a 0" />
+              </div>
+              <div class="form-group">
+                <label for="prov-cantidad" class="form-label">Cantidad:</label>
+                <input type="number" id="prov-cantidad" name="cantidad" class="form-input" min="1" required
+                  placeholder="Cantidad" autocomplete="off" title="Ingrese una cantidad mínima de 1" />
+              </div>
+              <div class="form-group">
+                <label for="prov-total" class="form-label">Total a Pagar ($):</label>
+                <input type="text" id="prov-total" name="total" class="form-input" readonly />
+              </div>
+              <div class="form-group">
+                <label for="prov-autoriza" class="form-label">Autoriza la compra:</label>
+                <input type="text" id="prov-autoriza" name="autoriza" class="form-input"
+                  required pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$" placeholder="Nombre del autorizado" autocomplete="off"
+                  title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
+              </div>
+              <div class="form-group">
+                <label for="prov-precioVentaPublico" class="form-label">Precio Venta al Público ($):</label>
+                <input type="number" id="prov-precioVentaPublico" name="precio_venta" class="form-input"
+                  step="0.01" min="0.01" required placeholder="0.00" autocomplete="off"
+                  title="Ingrese un precio válido mayor a 0" />
+              </div>
+            </div>
           </div>
-      
-          <button type="submit" id="btn-guardar">Guardar</button>
-      </form>      
+          <button type="submit" id="btn-guardar" class="btn btn-save">Guardar</button>
+        </form>
       </div>
     </div>
 
-    <!-- Script principal -->
     <script type="module" src="../../static/scripts/app.js"></script>
   </body>
 </html>
