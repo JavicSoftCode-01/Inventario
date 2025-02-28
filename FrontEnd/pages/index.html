@@ -2,55 +2,55 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Panel Administrador</title>
+    <!-- Paleta de colores y estilo -->
     <link rel="stylesheet" href="../static/styles/styles.css" />
+
+    <!-- Incluir Chart.js desde CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+    <!-- Incluir Font Awesome desde CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   </head>
   <body>
-    <!-- Usar ID solo para interacción con JS -->
-    <div class="notification-container" id="notification-container"></div>
-
-    <nav class="navigation">
-      <ul class="nav-list">
-        <li class="nav-item">
-          <a class="nav-link" href="./index.html">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./inventario/inventario.html">Inventario</a>
-        </li>
+    <nav>
+      <ul>
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="./inventario/inventario.html">Inventario</a></li>
       </ul>
     </nav>
 
-    <section class="main-section">
-      <h1 class="section-title">Panel de Administrador</h1>
+    <section>
+      <h1>Panel de Administrador</h1>
 
-      <div class="widgets-container"></div>
+      <!-- Widgets -->
+      <div class="widgets-container">
         <div class="widget">
-          <h3 class="widget-title">Productos</h3>
-          <i class="fa-solid fa-box-open fa-2x widget-icon" title="COMPRADOS"></i>
-          <span class="widget-value" id="widget-total-productos">0</span>
+          <h3>Productos</h3>
+          <i class="fa-solid fa-box-open fa-2x" title="COMPRADOS"></i> <span id="widget-total-productos" style="font-size: 1.5rem;">0</span>
         </div>
-        <div class="widget"></div>
-          <h3 class="widget-title">Capital</h3>
-          <i class="fa-solid fa-comments-dollar fa-2x widget-icon" title="INVERTIDO"></i>
-          <span class="widget-value" id="widget-total-capital">0.00</span>
+        <div class="widget">
+          <h3>Capital</h3>
+          <i class="fa-solid fa-comments-dollar fa-2x" title="INVERTIDO"></i> <span id="widget-total-capital" style="font-size: 1.5rem;">0.00</span>
         </div>
       </div>
 
+      <!-- Contenedor de gráficas -->
       <div class="chart-container">
         <div class="chart-box">
-          <h3 class="chart-title">Productos</h3>
+          <h3>Productos</h3>
           <canvas id="chart-barras"></canvas>
         </div>
-        <div class="chart-box"></div>
-          <h3 class="chart-title">Capital</h3>
+        <div class="chart-box">
+          <h3>Capital</h3>
           <canvas id="chart-linea"></canvas>
         </div>
       </div>
     </section>
 
-    <script type="module" src="../static/scripts/app.js"></script>
+    <!-- Tu script principal -->
+    <script type="module" src="../static/scripts/app.js">
+    </script>
   </body>
 </html>
