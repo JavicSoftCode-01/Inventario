@@ -10,40 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   </head>
   <body>
-    <!-- Contenedor para notificaciones personalizadas -->
-    <div id="notification-container" class="notification-container"></div>
-
-    <!-- Modal de Confirmación Personalizado -->
-    <div id="confirm-modal" class="confirm-modal">
-      <div class="confirm-modal-content">
-        <p id="confirm-modal-message" class="confirm-modal-message"></p>
-        <div class="confirm-modal-buttons">
-          <button id="confirm-modal-yes" class="btn btn-confirm-yes">Si, eliminar</button>
-          <button id="confirm-modal-no" class="btn btn-confirm-no">Cancelar</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal de Detalles -->
-    <div id="modal-detalles" class="modal modal-detalles">
-      <div class="modal-content modal-detalles-content">
-        <span id="modal-detalles-cerrar" class="modal-cerrar">
-          <i class="fa-solid fa-circle-xmark fa-lg"></i>
-        </span>
-        <h2 class="modal-title">Detalles de la Compra</h2>
-        <div class="detalles-grid">
-          <div class="detalles-col" id="detalles-col-left">
-            <!-- Se llenará dinámicamente -->
-          </div>
-          <div class="detalles-col" id="detalles-col-right">
-            <!-- Se llenará dinámicamente -->
-          </div>
-        </div>
-      </div>
-    </div>
-
     <nav class="navigation">
-      <ul class="nav-list">
+      <ul class="nav-list" style="margin-top: -20px;">
         <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
         <li class="nav-item"><a href="./inventario.html" class="nav-link">Inventario</a></li>
       </ul>
@@ -177,6 +145,38 @@
         </form>
       </div>
     </div>
+
+        <!-- Contenedor para notificaciones personalizadas -->
+        <div id="notification-container" class="notification-container"></div>
+
+        <!-- Modal de Confirmación Personalizado -->
+        <div id="confirm-modal" class="confirm-modal">
+          <div class="confirm-modal-content">
+            <p id="confirm-modal-message" class="confirm-modal-message"></p>
+            <div class="confirm-modal-buttons">
+              <button id="confirm-modal-yes" class="btn btn-confirm-yes">Si, eliminar</button>
+              <button id="confirm-modal-no" class="btn btn-confirm-no">Cancelar</button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Modal de Detalles -->
+        <div id="modal-detalles" class="modal modal-detalles">
+          <div class="modal-content modal-detalles-content">
+            <span id="modal-detalles-cerrar" class="modal-cerrar">
+              <i class="fa-solid fa-circle-xmark fa-lg"></i>
+            </span>
+            <h2 class="modal-title">Detalles de la Compra</h2>
+            <div class="detalles-grid">
+              <div class="detalles-col" id="detalles-col-left">
+                <!-- Se llenará dinámicamente -->
+              </div>
+              <div class="detalles-col" id="detalles-col-right">
+                <!-- Se llenará dinámicamente -->
+              </div>
+            </div>
+          </div>
+        </div>
 
     <script type="module" src="../../static/scripts/app.js"></script>
   </body>

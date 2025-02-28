@@ -197,6 +197,7 @@ function generarDatos(callback) {
   });
   return { labels: Object.keys(mapa), data: Object.values(mapa) };
 }
+
 function dibujarGraficaBarrasChartJS(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
@@ -228,13 +229,14 @@ function dibujarGraficaBarrasChartJS(canvasId) {
     },
   });
 }
+
 function dibujarGraficaLineaChartJS(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
   const { labels, data } = generarDatos((c) => (+c.precioProducto || 0) * (+c.cantidad || 0));
   if (!labels.length) return;
   new Chart(canvas, {
-    type: "line",
+    type: "bar",
     data: {
       labels,
       datasets: [
