@@ -66,6 +66,8 @@ h1, h2 {
   margin-bottom: 1rem;
 }
 
+h2{text-align: center;}
+
 /* ---------------------
    Formularios
 ---------------------- */
@@ -93,6 +95,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 
 label {
@@ -102,6 +105,7 @@ label {
 input[type="text"],
 input[type="number"],
 input[type="email"],
+input[type="tel"],
 select {
   background-color: #1f1f1f;
   border: 1px solid #333;
@@ -111,7 +115,7 @@ select {
 }
 
 button {
-  background-color: #00e676; /* Botón verde vibrante */
+  background-color: #03d723; /* Botón verde vibrante */
   border: none;
   color: #fff;
   padding: 0.5rem 1rem;
@@ -120,7 +124,7 @@ button {
 }
 
 button:hover {
-  background-color: #1ee58b; /* Hover un poco más claro */
+  background-color: #03c420; /* Hover un poco más claro */
 }
 
 /* ---------------------
@@ -129,7 +133,7 @@ button:hover {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  text-align: center;
 }
 
 thead {
@@ -143,7 +147,6 @@ td {
 }
 
 th {
-  text-align: left;
   color: #00e676;
 }
 
@@ -158,16 +161,16 @@ th {
 }
 
 .btn-editar {
-  background-color: #00E676;
+  background-color: rgb(237, 237, 3);
   color: #fff;
 }
 
 .btn-editar:hover {
-  background-color: #00cc69;
+  background-color: rgb(224, 232, 7);
 }
 
 .btn-eliminar {
-  background-color: #f44336;
+  background-color: red;
   color: #fff;
 }
 
@@ -259,15 +262,15 @@ th {
 .header-inventario {
   display: flex;
   justify-content: flex-end; /* Alinear a la derecha */
-  margin-top: 1rem;
 }
 
 /* Botón "Crear Nuevo Registro" */
 #btn-abrir-modal {
-  background-color: #00e676;
+  background-color: #03d723;
   border: none;
   color: #fff;
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 0.5rem;
+  margin-bottom: 1rem;
   cursor: pointer;
   border-radius: 4px;
   font-weight: bold;
@@ -275,7 +278,7 @@ th {
 }
 
 #btn-abrir-modal:hover {
-  background-color: #1ee58b;
+  background-color: #03c420;
 }
 
 /* ------------- MODAL ------------- */

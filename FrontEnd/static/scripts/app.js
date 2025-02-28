@@ -140,9 +140,9 @@ function renderizarTablaCompras(contenedorTbodyId) {
       <td>${compra.telefono}</td>
       <td>${compra.correo}</td>
       <td>${compra.producto}</td>
-      <td>$${parseFloat(compra.precioProducto).toFixed(2)}</td>
+      <td>$ ${parseFloat(compra.precioProducto).toFixed(2)}</td>
       <td>${compra.cantidad}</td>
-      <td>$${totalPagar.toFixed(2)}</td>
+      <td>$ ${totalPagar.toFixed(2)}</td>
       <td>${compra.autorizaCompra}</td>
       <td>${compra.fecha}</td>
       <td>${compra.hora}</td>
@@ -153,8 +153,8 @@ function renderizarTablaCompras(contenedorTbodyId) {
         </span>
       </td>
       <td>
-        <button class="btn-editar" data-id="${compra.id}">Editar</button>
-        <button class="btn-eliminar" data-id="${compra.id}">Eliminar</button>
+        <button class="btn-editar" data-id="${compra.id}"><i class="fa-solid fa-pencil fa-lg"></i></button>
+        <button class="btn-eliminar" data-id="${compra.id}"><i class="fa-solid fa-trash-can fa-lg"></i></button>
       </td>
     `;
     tbody.appendChild(tr);

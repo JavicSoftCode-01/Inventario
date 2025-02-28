@@ -23,13 +23,14 @@
     <section>
       <h2>Inventario</h2>
 
-      <!-- Botón de crear en la esquina superior derecha -->
-      <div class="header-inventario">
-        <button id="btn-abrir-modal">Crear Nuevo Registro</button>
-      </div>
-
       <!-- Tabla de compras -->
       <div class="tabla-contenedor">
+
+      <!-- Botón de crear en la esquina superior derecha -->
+        <div class="header-inventario">
+          <button id="btn-abrir-modal">Registro <i class="fa-solid fa-square-plus fa-lg"></i></button>
+        </div>
+
         <table>
           <thead>
             <tr>
@@ -59,70 +60,95 @@
     <!-- Modal para crear/editar registro -->
     <div id="modal-inventario" class="modal">
       <div class="modal-content">
-        <span class="modal-cerrar" id="modal-cerrar">&times;</span>
-        <h3 id="modal-titulo">Crear/Editar Compra</h3>
+        <span class="modal-cerrar" id="modal-cerrar"><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
+        <h2 id="modal-titulo">Crear/Editar Compra</h2>
         <form id="form-inventario">
           <!-- Campo oculto para saber si editamos -->
           <input type="hidden" id="compra-id" />
-
+      
           <div class="form-grid">
-            <div class="form-column">
-              <div class="form-group">
-                <label for="prov-proveedor">Proveedor:</label>
-                <input type="text" id="prov-proveedor" required />
+              <div class="form-column">
+                  <div class="form-group">
+                      <label for="prov-proveedor">Proveedor:</label>
+                      <input type="text" id="prov-proveedor" name="proveedor" required
+                             pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
+                             placeholder="Ingresar nombre"
+                             title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="prov-ciudad">Ciudad:</label>
+                      <input type="text" id="prov-ciudad" name="ciudad" required
+                             pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
+                             placeholder="Ingresar ubicación"
+                             title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="prov-telefono">Teléfono:</label>
+                      <input type="tel" id="prov-telefono" name="telefono" required
+                             pattern="(^[0-9]{7}$)|(^09[0-9]{8}$)"
+                             maxlength="10"
+                             placeholder="Ingresar número fijo o celular"
+                             title="Ingrese un número fijo (7 dígitos) o celular (10 dígitos, comenzando con 09)" />
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="prov-correo">Correo:</label>
+                      <input type="email" id="prov-correo" name="correo" required
+                             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                             placeholder="Ingrese su correo electrónico"
+                             title="Ingrese un correo válido, por ejemplo: usuario@example.com" />
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="prov-producto">Producto:</label>
+                      <input type="text" id="prov-producto" name="producto" required
+                             pattern="^[a-zA-Z0-9À-ÿ\s]{3,50}$"
+                             placeholder="Nombre del producto"
+                             title="Ingrese entre 3 y 50 caracteres, solo letras, números y espacios" />
+                  </div>
               </div>
-
-              <div class="form-group">
-                <label for="prov-ciudad">Ciudad:</label>
-                <input type="text" id="prov-ciudad" />
+      
+              <div class="form-column">
+                  <div class="form-group">
+                      <label for="prov-precio">Precio del Producto ($):</label>
+                      <input type="number" id="prov-precio" name="precio" step="0.01" min="0.01" required
+                             placeholder="0.00"
+                             title="Ingrese un precio válido mayor a 0" />
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="prov-cantidad">Cantidad:</label>
+                      <input type="number" id="prov-cantidad" name="cantidad" min="1" required
+                             placeholder="Cantidad"
+                             title="Ingrese una cantidad mínima de 1" />
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="prov-total">Total a Pagar ($):</label>
+                      <input type="text" id="prov-total" name="total" readonly />
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="prov-autoriza">Autoriza la compra:</label>
+                      <input type="text" id="prov-autoriza" name="autoriza" required
+                             pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
+                             placeholder="Nombre del autorizado"
+                             title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="prov-precioVentaPublico">Precio Venta al Público ($):</label>
+                      <input type="number" id="prov-precioVentaPublico" name="precio_venta" step="0.01" min="0.01" required
+                             placeholder="0.00"
+                             title="Ingrese un precio válido mayor a 0" />
+                  </div>
               </div>
-
-              <div class="form-group">
-                <label for="prov-telefono">Teléfono:</label>
-                <input type="text" id="prov-telefono" />
-              </div>
-
-              <div class="form-group">
-                <label for="prov-correo">Correo:</label>
-                <input type="email" id="prov-correo" />
-              </div>
-
-              <div class="form-group">
-                <label for="prov-producto">Producto:</label>
-                <input type="text" id="prov-producto" required />
-              </div>
-            </div>
-
-            <div class="form-column">
-              <div class="form-group">
-                <label for="prov-precio">Precio del Producto ($):</label>
-                <input type="number" id="prov-precio" step="0.01" required />
-              </div>
-
-              <div class="form-group">
-                <label for="prov-cantidad">Cantidad:</label>
-                <input type="number" id="prov-cantidad" min="1" required />
-              </div>
-
-              <div class="form-group">
-                <label for="prov-total">Total a Pagar ($):</label>
-                <input type="text" id="prov-total" readonly />
-              </div>
-
-              <div class="form-group">
-                <label for="prov-autoriza">Autoriza la compra:</label>
-                <input type="text" id="prov-autoriza" />
-              </div>
-
-              <div class="form-group">
-                <label for="prov-precioVentaPublico">Precio Venta al Público ($):</label>
-                <input type="number" id="prov-precioVentaPublico" step="0.01" />
-              </div>
-            </div>
           </div>
-
+      
           <button type="submit" id="btn-guardar">Guardar</button>
-        </form>
+      </form>      
       </div>
     </div>
 
@@ -170,7 +196,7 @@
 
         // Abrir modal para crear nuevo registro
         btnAbrirModal.addEventListener("click", () => {
-          modalTitulo.textContent = "Crear Nueva Compra";
+          modalTitulo.textContent = "Nueva Compra";
           form.reset();
           inputId.value = "";
           inputTotal.value = "";
