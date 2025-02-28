@@ -1,62 +1,79 @@
+/****************************************
+ * IMPORTS
+ ***************************************/
 import * as Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js";
 import { Compra } from "../../../BackEnd/models/models.js";
 import { getData, setData } from "../../../BackEnd/database/localStorage.js";
 
+/****************************************
+ * CONSTANTES Y UTILIDADES
+ ***************************************/
 const KEY_COMPRAS = "compras";
 
-// UTILIDADES
-const obtenerFechaYHora = () => {
+function obtenerFechaYHora() {
   const ahora = new Date();
   const anio = ahora.getFullYear();
   const mes = String(ahora.getMonth() + 1).padStart(2, "0");
   const dia = String(ahora.getDate()).padStart(2, "0");
   const fecha = `${anio}-${mes}-${dia}`;
+
   let horas = ahora.getHours();
   const minutos = String(ahora.getMinutes()).padStart(2, "0");
   const sufijo = horas >= 12 ? "PM" : "AM";
   horas = horas % 12 || 12;
-  return { fecha, hora: `${horas}:${minutos} ${sufijo}` };
-};
+  const horaStr = `${horas}:${minutos} ${sufijo}`;
 
-// CRUD COMPRAS
-const obtenerCompras = () => getData(KEY_COMPRAS);
-const guardarCompras = (compras) => setData(KEY_COMPRAS, compras);
+  return { fecha, hora: horaStr };
+}
 
-const crearCompra = (datos) => {
+/****************************************
+ * DB: GET/SET
+ ***************************************/
+function obtenerCompras() {
+  // Retorna arreglo vacío si no hay nada en localStorage
+  return getData(KEY_COMPRAS);
+}
+
+function guardarCompras(compras) {
+  setData(KEY_COMPRAS, compras);
+}
+
+/****************************************
+ * CRUD COMPRAS
+ ***************************************/
+// Crear
+function crearCompra(datos) {
   const compras = obtenerCompras();
   const { fecha, hora } = obtenerFechaYHora();
-
-  const nuevaCompra = new Compra(
-    Date.now(),
-    datos.proveedor,
-    datos.ciudad,
-    datos.telefono,
-    datos.correo,
-    datos.producto,
-    Number(datos.precioProducto),
-    Number(datos.cantidad),
-    datos.autorizaCompra,
-    Number(datos.precioVentaPublico),
-    fecha,
-    hora
+  compras.push(
+    new Compra(
+      Date.now(),
+      datos.proveedor,
+      datos.ciudad,
+      datos.telefono,
+      datos.correo,
+      datos.producto,
+      +datos.precioProducto,       // el operador + convierte a número
+      +datos.cantidad,
+      datos.autorizaCompra,
+      +datos.precioVentaPublico,
+      fecha,
+      hora
+    )
   );
-
-  compras.push(nuevaCompra);
   guardarCompras(compras);
-};
+}
 
-const eliminarCompra = (id) => {
-  const compras = obtenerCompras().filter(c => c.id !== id);
-  guardarCompras(compras);
-};
+// Eliminar
+function eliminarCompra(id) {
+  guardarCompras(obtenerCompras().filter((c) => c.id !== id));
+}
 
-const actualizarCompra = (id, datos) => {
+// Actualizar
+function actualizarCompra(id, datos) {
   const compras = obtenerCompras();
-  const idx = compras.findIndex(c => c.id === id);
-  if (idx === -1) {
-    console.error("No se encontró la compra a actualizar.");
-    return false;
-  }
+  const idx = compras.findIndex((c) => c.id === id);
+  if (idx === -1) return false;
 
   const compraOriginal = compras[idx];
   compras[idx] = new Compra(
@@ -66,169 +83,209 @@ const actualizarCompra = (id, datos) => {
     datos.telefono,
     datos.correo,
     datos.producto,
-    parseFloat(datos.precioProducto) || 0,
-    parseFloat(datos.cantidad) || 0,
+    +datos.precioProducto || 0,
+    +datos.cantidad || 0,
     datos.autorizaCompra,
-    parseFloat(datos.precioVentaPublico) || 0,
+    +datos.precioVentaPublico || 0,
     compraOriginal.fecha,
     compraOriginal.hora
   );
-
   guardarCompras(compras);
   return true;
-};
+}
 
-// RENDER DE TABLA (inventario.html)
-const renderizarTablaCompras = (tbodyId) => {
+/****************************************
+ * RENDER TABLA (inventario.html)
+ ***************************************/
+function renderizarTablaCompras(tbodyId) {
   const tbody = document.getElementById(tbodyId);
   if (!tbody) return;
+
   const compras = obtenerCompras();
   tbody.innerHTML = "";
+
   compras.forEach((compra, i) => {
-    const totalPagar =
-      (parseFloat(compra.precioProducto) || 0) * (parseFloat(compra.cantidad) || 0);
+    const filaNumero = i + 1;
+    const totalPagar = (+compra.precioProducto || 0) * (+compra.cantidad || 0);
+    const diff = compra.precioVentaPublico - compra.precioProducto;
     const porcentaje =
       compra.precioVentaPublico > 0 && compra.precioProducto > 0
-        ? (((compra.precioVentaPublico - compra.precioProducto) / compra.precioProducto) * 100).toFixed(2)
+        ? ((diff / compra.precioProducto) * 100).toFixed(2)
         : "N/A";
     const ganancia =
       compra.precioVentaPublico > 0 && compra.precioProducto > 0
-        ? (compra.precioVentaPublico - compra.precioProducto).toFixed(2)
+        ? diff.toFixed(2)
         : "N/A";
-    const colorPorcentaje =
-      compra.precioVentaPublico > 0 &&
-      compra.precioProducto > 0 &&
-      (compra.precioVentaPublico - compra.precioProducto) < 0
-        ? "red"
-        : "inherit";
+    const colorPorcentaje = diff < 0 ? "red" : "inherit";
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${i + 1}</td>
+      <td>${filaNumero}</td>
       <td>${compra.proveedor}</td>
       <td>${compra.ciudad}</td>
       <td>${compra.telefono}</td>
       <td>${compra.correo}</td>
       <td>${compra.producto}</td>
-      <td>$ ${parseFloat(compra.precioProducto).toFixed(2)}</td>
+      <td>$ ${(+compra.precioProducto).toFixed(2)}</td>
       <td>${compra.cantidad}</td>
       <td>$ ${totalPagar.toFixed(2)}</td>
       <td>${compra.autorizaCompra}</td>
       <td>${compra.fecha}</td>
       <td>${compra.hora}</td>
       <td>
-        <span style="color: ${colorPorcentaje};">
+        <span style="color:${colorPorcentaje}">
           ${porcentaje === "N/A" ? "N/A" : "% " + porcentaje}
           (${ganancia === "N/A" ? "N/A" : "$ " + ganancia})
         </span>
       </td>
       <td>
-        <button class="btn-editar" data-id="${compra.id}"><i class="fa-solid fa-pencil fa-lg"></i></button>
-        <button class="btn-eliminar" data-id="${compra.id}"><i class="fa-solid fa-trash-can fa-lg"></i></button>
+        <button class="btn-editar" data-id="${compra.id}">
+          <i class="fa-solid fa-pencil fa-lg"></i>
+        </button>
+        <button class="btn-eliminar" data-id="${compra.id}">
+          <i class="fa-solid fa-trash-can fa-lg"></i>
+        </button>
       </td>
     `;
     tbody.appendChild(tr);
   });
-};
+}
 
-// WIDGETS y GRÁFICAS
-const totalProductosComprados = () =>
-  obtenerCompras().reduce((total, c) => total + c.cantidad, 0);
+/****************************************
+ * WIDGETS (index.html)
+ ***************************************/
+function totalProductosComprados() {
+  return obtenerCompras().reduce((acc, c) => acc + (+c.cantidad || 0), 0);
+}
 
-const totalInvertidoGeneral = () =>
-  obtenerCompras().reduce((total, c) => total + c.precioProducto * c.cantidad, 0);
+function totalInvertidoGeneral() {
+  return obtenerCompras().reduce(
+    (acc, c) => acc + ((+c.precioProducto || 0) * (+c.cantidad || 0)),
+    0
+  );
+}
 
-const generarDatosBarras = () => {
+/****************************************
+ * GRÁFICAS CON CHART.JS
+ ***************************************/
+// Función genérica para generar datos agrupados por fecha
+function generarDatos(callback) {
   const mapa = {};
-  obtenerCompras().forEach(c => {
-    mapa[c.fecha] = (mapa[c.fecha] || 0) + c.cantidad;
+  obtenerCompras().forEach((c) => {
+    if (!mapa[c.fecha]) mapa[c.fecha] = 0;
+    mapa[c.fecha] += callback(c);
   });
   return { labels: Object.keys(mapa), data: Object.values(mapa) };
-};
+}
 
-const generarDatosLinea = () => {
-  const mapa = {};
-  obtenerCompras().forEach(c => {
-    mapa[c.fecha] = (mapa[c.fecha] || 0) + c.precioProducto * c.cantidad;
-  });
-  return { labels: Object.keys(mapa), data: Object.values(mapa) };
-};
-
-// CHART.JS
-const dibujarGraficaBarrasChartJS = (canvasId) => {
+// Gráfica de barras (productos comprados por día)
+function dibujarGraficaBarrasChartJS(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
-  const { labels, data } = generarDatosBarras();
-  if (!labels.length) return;
+
+  const { labels, data } = generarDatos((c) => +c.cantidad || 0);
+  if (!labels.length) return; // si no hay datos, no dibuja
+
   new Chart(canvas, {
     type: "bar",
     data: {
       labels,
-      datasets: [{
-        label: "Productos comprados por día",
-        data,
-        backgroundColor: "rgba(76, 175, 80, 0.7)",
-        borderColor: "#4caf50",
-        borderWidth: 1,
-      }],
+      datasets: [
+        {
+          label: "Productos comprados por día",
+          data,
+          backgroundColor: "rgba(76, 175, 80, 0.7)",
+          borderColor: "#4caf50",
+          borderWidth: 1,
+        },
+      ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: true,
       aspectRatio: 2,
       scales: {
-        x: { ticks: { color: "#fff" }, grid: { display: false } },
-        y: { beginAtZero: true, ticks: { color: "#fff" }, grid: { color: "#555" } },
+        x: {
+          ticks: { color: "#fff" },
+          grid: { display: false },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#fff" },
+          grid: { color: "#555" },
+        },
       },
       plugins: {
-        legend: { labels: { color: "#fff" } },
+        legend: {
+          labels: { color: "#fff" },
+        },
       },
     },
   });
-};
+}
 
-const dibujarGraficaLineaChartJS = (canvasId) => {
+// Gráfica de línea (dinero invertido por día)
+function dibujarGraficaLineaChartJS(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
-  const { labels, data } = generarDatosLinea();
+
+  const { labels, data } = generarDatos(
+    (c) => (+c.precioProducto || 0) * (+c.cantidad || 0)
+  );
   if (!labels.length) return;
+
   new Chart(canvas, {
     type: "line",
     data: {
       labels,
-      datasets: [{
-        label: "Dinero Invertido por Día",
-        data,
-        fill: "start",
-        backgroundColor: "rgba(255, 87, 34, 0.3)",
-        borderColor: "#FF5722",
-        borderWidth: 2,
-        tension: 0.3,
-      }],
+      datasets: [
+        {
+          label: "Dinero Invertido por Día",
+          data,
+          fill: "start",
+          backgroundColor: "rgba(255, 87, 34, 0.3)",
+          borderColor: "#FF5722",
+          borderWidth: 2,
+          tension: 0.3,
+        },
+      ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: true,
       aspectRatio: 2,
       scales: {
-        x: { ticks: { color: "#fff" }, grid: { display: false } },
-        y: { beginAtZero: true, ticks: { color: "#fff" }, grid: { color: "#555" } },
+        x: {
+          ticks: { color: "#fff" },
+          grid: { display: false },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#fff" },
+          grid: { color: "#555" },
+        },
       },
       plugins: {
-        legend: { labels: { color: "#fff" } },
+        legend: {
+          labels: { color: "#fff" },
+        },
       },
     },
   });
-};
+}
 
+/****************************************
+ * INICIALIZACIÓN DE LA PÁGINA
+ ***************************************/
 document.addEventListener("DOMContentLoaded", () => {
-  // Elementos del DOM
+  // --- Para inventario.html ---
   const tbody = document.getElementById("compras-tbody");
   const form = document.getElementById("form-inventario");
   const modal = document.getElementById("modal-inventario");
   const btnAbrirModal = document.getElementById("btn-abrir-modal");
   const btnCerrarModal = document.getElementById("modal-cerrar");
   const modalTitulo = document.getElementById("modal-titulo");
+
   const inputId = document.getElementById("compra-id");
   const inputProveedor = document.getElementById("prov-proveedor");
   const inputCiudad = document.getElementById("prov-ciudad");
@@ -240,61 +297,70 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputTotal = document.getElementById("prov-total");
   const inputAutoriza = document.getElementById("prov-autoriza");
   const inputPrecioVentaPublico = document.getElementById("prov-precioVentaPublico");
-  const spanTotalProductos = document.getElementById("widget-total-productos");
-  const spanTotalInvertido = document.getElementById("widget-total-capital");
 
-  // Render inicial
-  renderizarTablaCompras("compras-tbody");
-  spanTotalProductos.textContent = totalProductosComprados();
-  spanTotalInvertido.textContent = totalInvertidoGeneral().toFixed(2);
-  dibujarGraficaBarrasChartJS("chart-barras");
-  dibujarGraficaLineaChartJS("chart-linea");
+  // Solo si existe la tabla, renderizamos
+  if (tbody) {
+    renderizarTablaCompras("compras-tbody");
+  }
 
-  // Modal
-  const abrirModal = () => (modal.style.display = "block");
-  const cerrarModal = () => (modal.style.display = "none");
+  // Modal: abrir/cerrar
+  function abrirModal() {
+    if (modal) modal.style.display = "block";
+  }
+  function cerrarModal() {
+    if (modal) modal.style.display = "none";
+  }
 
-  btnAbrirModal.addEventListener("click", () => {
-    modalTitulo.textContent = "Nueva Compra";
-    form.reset();
-    inputId.value = "";
-    inputTotal.value = "";
-    abrirModal();
-  });
+  if (btnAbrirModal) {
+    btnAbrirModal.addEventListener("click", () => {
+      if (modalTitulo) modalTitulo.textContent = "Nueva Compra";
+      form?.reset();
+      if (inputId) inputId.value = "";
+      if (inputTotal) inputTotal.value = "";
+      abrirModal();
+    });
+  }
 
-  btnCerrarModal.addEventListener("click", cerrarModal);
+  if (btnCerrarModal) {
+    btnCerrarModal.addEventListener("click", cerrarModal);
+  }
+
   window.addEventListener("click", (e) => {
     if (e.target === modal) cerrarModal();
   });
 
-  // Recalcular total
-  const recalcularTotal = () => {
-    const total = (parseFloat(inputPrecio.value) || 0) * (parseFloat(inputCantidad.value) || 0);
-    inputTotal.value = total.toFixed(2);
-  };
-  inputPrecio.addEventListener("input", recalcularTotal);
-  inputCantidad.addEventListener("input", recalcularTotal);
+  // Cálculo automático del total
+  function recalcularTotal() {
+    const precio = parseFloat(inputPrecio?.value) || 0;
+    const cantidad = parseFloat(inputCantidad?.value) || 0;
+    if (inputTotal) {
+      inputTotal.value = (precio * cantidad).toFixed(2);
+    }
+  }
+  inputPrecio?.addEventListener("input", recalcularTotal);
+  inputCantidad?.addEventListener("input", recalcularTotal);
 
-  // Guardar (crear o actualizar)
-  form.addEventListener("submit", async (e) => {
+  // Submit form (crear o actualizar)
+  form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const hiddenId = inputId.value.trim();
+    const hiddenId = inputId?.value.trim();
     const datos = {
-      proveedor: inputProveedor.value,
-      ciudad: inputCiudad.value,
-      telefono: inputTelefono.value,
-      correo: inputCorreo.value,
-      producto: inputProducto.value,
-      precioProducto: inputPrecio.value,
-      cantidad: inputCantidad.value,
-      autorizaCompra: inputAutoriza.value,
-      precioVentaPublico: inputPrecioVentaPublico.value,
+      proveedor: inputProveedor?.value,
+      ciudad: inputCiudad?.value,
+      telefono: inputTelefono?.value,
+      correo: inputCorreo?.value,
+      producto: inputProducto?.value,
+      precioProducto: inputPrecio?.value,
+      cantidad: inputCantidad?.value,
+      autorizaCompra: inputAutoriza?.value,
+      precioVentaPublico: inputPrecioVentaPublico?.value
     };
 
     cerrarModal();
 
     if (hiddenId) {
-      actualizarCompra(Number(hiddenId), datos);
+      // Actualizar
+      actualizarCompra(+hiddenId, datos);
       await Swal.fire({
         title: "¡Actualizado!",
         text: "El registro se actualizó con éxito",
@@ -302,6 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
         confirmButtonColor: "#00e676",
       });
     } else {
+      // Crear
       crearCompra(datos);
       await Swal.fire({
         title: "¡Creado!",
@@ -312,16 +379,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     form.reset();
-    inputId.value = "";
-    inputTotal.value = "";
+    if (inputId) inputId.value = "";
+    if (inputTotal) inputTotal.value = "";
     renderizarTablaCompras("compras-tbody");
   });
 
-  // Eventos de la tabla (editar y eliminar)
-  tbody.addEventListener("click", async (e) => {
+  // Botones Editar/Eliminar
+  tbody?.addEventListener("click", async (e) => {
     const btn = e.target.closest("button");
     if (!btn) return;
-    const id = Number(btn.dataset.id);
+    const id = +btn.dataset.id;
+
     if (btn.classList.contains("btn-eliminar")) {
       const result = await Swal.fire({
         title: "¿Eliminar?",
@@ -344,26 +412,45 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     } else if (btn.classList.contains("btn-editar")) {
-      const compra = obtenerCompras().find(c => c.id === id);
-      if (compra) {
-        modalTitulo.textContent = "Editar Compra";
-        inputId.value = compra.id;
-        inputProveedor.value = compra.proveedor;
-        inputCiudad.value = compra.ciudad;
-        inputTelefono.value = compra.telefono;
-        inputCorreo.value = compra.correo;
-        inputProducto.value = compra.producto;
-        inputPrecio.value = compra.precioProducto;
-        inputCantidad.value = compra.cantidad;
-        inputAutoriza.value = compra.autorizaCompra;
+      const compra = obtenerCompras().find((c) => c.id === id);
+      if (!compra) return;
+
+      if (modalTitulo) modalTitulo.textContent = "Editar Compra";
+      if (inputId) inputId.value = compra.id;
+      if (inputProveedor) inputProveedor.value = compra.proveedor;
+      if (inputCiudad) inputCiudad.value = compra.ciudad;
+      if (inputTelefono) inputTelefono.value = compra.telefono;
+      if (inputCorreo) inputCorreo.value = compra.correo;
+      if (inputProducto) inputProducto.value = compra.producto;
+      if (inputPrecio) inputPrecio.value = compra.precioProducto;
+      if (inputCantidad) inputCantidad.value = compra.cantidad;
+      if (inputAutoriza) inputAutoriza.value = compra.autorizaCompra;
+      if (inputPrecioVentaPublico) {
         inputPrecioVentaPublico.value = compra.precioVentaPublico;
-        recalcularTotal();
-        abrirModal();
       }
+      recalcularTotal();
+      abrirModal();
     }
   });
+
+  // --- Para index.html (widgets, gráficas) ---
+  const spanTotalProductos = document.getElementById("widget-total-productos");
+  const spanTotalInvertido = document.getElementById("widget-total-capital");
+  if (spanTotalProductos) {
+    spanTotalProductos.textContent = totalProductosComprados();
+  }
+  if (spanTotalInvertido) {
+    spanTotalInvertido.textContent = totalInvertidoGeneral().toFixed(2);
+  }
+
+  // Dibuja gráficas solo si existen los canvas
+  dibujarGraficaBarrasChartJS("chart-barras");
+  dibujarGraficaLineaChartJS("chart-linea");
 });
 
+/****************************************
+ * EXPORT (si deseas importar en otros scripts)
+ ***************************************/
 export {
   crearCompra,
   actualizarCompra,
