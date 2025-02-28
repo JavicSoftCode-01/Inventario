@@ -50,26 +50,6 @@
     </section>
 
     <!-- Tu script principal -->
-    <script type="module">
-      import {
-        totalProductosComprados,
-        totalInvertidoGeneral,
-        dibujarGraficaBarrasChartJS,
-        dibujarGraficaLineaChartJS
-      } from "/FrontEnd/static/scripts/app.js";
-
-      document.addEventListener("DOMContentLoaded", () => {
-        const spanTotalProductos = document.getElementById("widget-total-productos");
-        const spanTotalInvertido = document.getElementById("widget-total-capital");
-
-        // Mostrar widgets
-        spanTotalProductos.textContent = totalProductosComprados();
-        spanTotalInvertido.textContent = totalInvertidoGeneral().toFixed(2);
-
-        // Dibujar gráficas con Chart.js
-        dibujarGraficaBarrasChartJS("chart-barras");
-        dibujarGraficaLineaChartJS("chart-linea");
-      });
-    </script>
+    <script type="module" src="../../static/scripts/app.js"></script>
   </body>
 </html>
