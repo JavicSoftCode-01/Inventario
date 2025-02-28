@@ -387,7 +387,8 @@ th {
 
 .confirm-modal-content p {
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: bold;
   color: black;
 }
 
