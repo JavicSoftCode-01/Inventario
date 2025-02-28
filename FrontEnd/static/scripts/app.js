@@ -382,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!compra) return;
       const compras = obtenerCompras();
       const rowIndex = compras.findIndex((c) => c.id === id) + 1;
-      const message = `UD VA A ELIMINAR LA FILA #${rowIndex} DEL PROVEEDOR ${compra.proveedor} Y FUE AUTORIZADA LA COMPRA POR ${compra.autorizaCompra}. ¿Desea continuar?`;
+      const message = `Está a punto de eliminar la fila #${rowIndex} del proveedor "${compra.proveedor}", compra autorizada por ${compra.autorizaCompra}. Esta acción es irreversible. ¿Desea proceder con la eliminación?`;
 
       showConfirmModal(
         message,

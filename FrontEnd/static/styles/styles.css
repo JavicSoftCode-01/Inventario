@@ -388,6 +388,7 @@ th {
 .confirm-modal-content p {
   margin-bottom: 20px;
   font-size: 16px;
+  color: black;
 }
 
 .confirm-modal-buttons {
