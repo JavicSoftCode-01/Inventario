@@ -362,6 +362,56 @@ th {
   opacity: 0;
 }
 
+/* Modal de Confirmación */
+.confirm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none; /* Se muestra con "flex" al activarlo */
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.confirm-modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.confirm-modal-content p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.confirm-modal-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.confirm-modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#confirm-modal-yes {
+  background-color: #d33;
+  color: #fff;
+}
+
+#confirm-modal-no {
+  background-color: #3085d6;
+  color: #fff;
+}
 
 /* Responsivo extra para el modal */
 @media (max-width: 768px) {

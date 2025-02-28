@@ -254,13 +254,35 @@ function showNotification(message, type = "success") {
   notification.className = `notification ${type}`;
   notification.innerText = message;
   container.appendChild(notification);
-  // Después de 3 segundos se desvanece y se elimina
   setTimeout(() => {
     notification.classList.add("fade-out");
     notification.addEventListener("transitionend", () => {
       notification.remove();
     });
   }, 3000);
+}
+
+/****************************************
+ * MODAL DE CONFIRMACIÓN PERSONALIZADO
+ ***************************************/
+function showConfirmModal(message, onConfirm, onCancel) {
+  const modal = document.getElementById("confirm-modal");
+  const messageEl = document.getElementById("confirm-modal-message");
+  const yesBtn = document.getElementById("confirm-modal-yes");
+  const noBtn = document.getElementById("confirm-modal-no");
+
+  messageEl.textContent = message;
+  modal.style.display = "flex";
+
+  yesBtn.onclick = function() {
+    modal.style.display = "none";
+    if (typeof onConfirm === "function") onConfirm();
+  };
+
+  noBtn.onclick = function() {
+    modal.style.display = "none";
+    if (typeof onCancel === "function") onCancel();
+  };
 }
 
 /****************************************
@@ -355,11 +377,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const id = +btn.dataset.id;
 
     if (btn.classList.contains("btn-eliminar")) {
-      if (window.confirm("¿Eliminar? Esta acción no se puede deshacer.")) {
-        eliminarCompra(id);
-        renderizarTablaCompras("compras-tbody");
-        showNotification("¡Eliminado! El registro fue eliminado.", "success");
-      }
+      // Buscar la compra correspondiente para obtener datos a mostrar en el mensaje
+      const compra = obtenerCompras().find((c) => c.id === id);
+      if (!compra) return;
+      const compras = obtenerCompras();
+      const rowIndex = compras.findIndex((c) => c.id === id) + 1;
+      const message = `UD VA A ELIMINAR LA FILA #${rowIndex} DEL PROVEEDOR ${compra.proveedor} Y FUE AUTORIZADA LA COMPRA POR ${compra.autorizaCompra}. ¿Desea continuar?`;
+
+      showConfirmModal(
+        message,
+        () => {
+          eliminarCompra(id);
+          renderizarTablaCompras("compras-tbody");
+          showNotification("¡Eliminado! El registro fue eliminado.", "success");
+        },
+        () => {
+          // No hacer nada al cancelar
+        }
+      );
     } else if (btn.classList.contains("btn-editar")) {
       const compra = obtenerCompras().find((c) => c.id === id);
       if (!compra) return;
@@ -389,3 +424,18 @@ document.addEventListener("DOMContentLoaded", () => {
   dibujarGraficaBarrasChartJS("chart-barras");
   dibujarGraficaLineaChartJS("chart-linea");
 });
+
+/****************************************
+ * EXPORT (opcional)
+ ***************************************/
+export {
+  crearCompra,
+  actualizarCompra,
+  eliminarCompra,
+  obtenerCompras,
+  renderizarTablaCompras,
+  totalProductosComprados,
+  totalInvertidoGeneral,
+  dibujarGraficaBarrasChartJS,
+  dibujarGraficaLineaChartJS,
+};
