@@ -363,3 +363,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+export {
+  crearCompra,
+  actualizarCompra,
+  eliminarCompra,
+  obtenerCompras,
+  renderizarTablaCompras,
+  totalProductosComprados,
+  totalInvertidoGeneral,
+  dibujarGraficaBarrasChartJS,
+  dibujarGraficaLineaChartJS,
+};
