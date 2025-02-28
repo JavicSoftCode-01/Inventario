@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>Panel Administrador</title>
     <!-- Paleta de colores y estilo -->
     <link rel="stylesheet" href="../static/styles/styles.css" />
@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   </head>
   <body>
-    <nav>
-      <ul>
-        <li><a href="./index.html">Inicio</a></li>
-        <li><a href="./inventario/inventario.html">Inventario</a></li>
+    <nav class="navigation">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="./index.html" class="nav-link">Inicio</a></li>
+        <li class="nav-item"><a href="./inventario/inventario.html" class="nav-link">Inventario</a></li>
       </ul>
     </nav>
 
@@ -50,7 +50,6 @@
     </section>
 
     <!-- Tu script principal -->
-    <script type="module" src="../static/scripts/app.js">
-    </script>
+    <script type="module" src="../static/scripts/app.js"></script>
   </body>
 </html>

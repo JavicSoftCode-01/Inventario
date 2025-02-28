@@ -90,7 +90,8 @@ function filtrarComprasPorQuery(query) {
   const q = query.toLowerCase();
   return todasCompras.filter((compra) => {
     return compra.proveedor.toLowerCase().includes(q) ||
-           compra.producto.toLowerCase().includes(q);
+           compra.autorizaCompra.toLowerCase().includes(q) ||
+            compra.telefono.toLowerCase().includes(q);
   });
 }
 function filtrarComprasPorTotal(orden = "max") {

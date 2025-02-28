@@ -1,5 +1,5 @@
 /* ---------------------
-   Reset básico
+   Reset básico y configuración global
 ---------------------- */
 * {
   margin: 0;
@@ -8,65 +8,93 @@
   font-family: 'Times New Roman', Times, serif;
 }
 
+:root {
+  --color-background: #0b0b0b;
+  --color-background-secondary: #141414;
+  --color-background-tertiary: #1f1f1f;
+  --color-accent: #00e676;
+  --color-accent-hover: #03c420;
+  --color-text: #ffffff;
+  --color-border: #333;
+  --border-radius: 8px;
+  --padding-standard: 1rem;
+  --gap-standard: 1rem;
+  --transition-standard: 0.2s ease-in-out;
+}
+
 /* Oculta la barra de desplazamiento en navegadores WebKit */
 html::-webkit-scrollbar {
   width: 0;
 }
 
 /* ---------------------
-   Tema oscuro
+   Estilos base
 ---------------------- */
 body {
-  background-color: #0b0b0b; /* Negro más profundo */
-  color: #ffffff;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   padding: 1rem;
 }
 
 a {
-  color: #ffffff;
+  color: var(--color-text);
   text-decoration: none;
+  transition: color var(--transition-standard);
 }
 
 a:hover {
-  color: #00e676; /* Verde vibrante */
+  color: var(--color-accent);
 }
 
-i{
+i {
   cursor: pointer;
 }
 
-/* ---------------------
-   Nav
----------------------- */
-nav {
+/* Títulos */
+h1, h2, h3 {
   margin-bottom: 1rem;
 }
 
-nav ul {
+h1 {
+  font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: var(--color-accent);
+}
+
+/* Contenedores comunes */
+section {
+  background-color: var(--color-background-secondary);
+  border-radius: var(--border-radius);
+  padding: var(--padding-standard);
+  width: 100%;
+}
+
+/* ---------------------
+   Navegación
+---------------------- */
+.nav-list, nav ul {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: var(--gap-standard);
 }
 
-nav li {
+.nav-link, nav a {
+  font-weight: 500;
   padding: 0.5rem;
+  display: inline-block;
 }
-
-/* ---------------------
-   Secciones
----------------------- */
-section {
-  background-color: #141414; /* Caja oscura */
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-h1, h2 {
-  margin-bottom: 1rem;
-}
-
-h2{text-align: center;}
 
 /* ---------------------
    Formularios
@@ -77,12 +105,10 @@ form {
   gap: 0.5rem;
 }
 
-/* Nueva estructura en grid para el formulario */
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
-  margin-bottom: 1rem;
 }
 
 .form-column {
@@ -98,71 +124,56 @@ form {
   margin-bottom: 0.5rem;
 }
 
-label {
+.form-label, label {
   font-weight: bold;
+  font-size: 20px;
 }
 
+.form-input,
 input[type="text"],
 input[type="number"],
 input[type="email"],
 input[type="tel"],
 select {
-  background-color: #1f1f1f;
-  border: 1px solid #333;
-  color: #fff;
-  padding: 0.4rem;
+  background-color: var(--color-background-tertiary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 0.6rem;
   border-radius: 4px;
-}
-
-button {
-  background-color: #03d723; /* Botón verde vibrante */
-  border: none;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-button:hover {
-  background-color: #03c420; /* Hover un poco más claro */
+  font-size: 1rem;
+  width: 100%;
 }
 
 /* ---------------------
-   Tablas
+   Botones
 ---------------------- */
-table {
-  width: 100%;
-  border-collapse: collapse;
+button, .btn {
+  background-color: var(--color-accent);
+  border: none;
+  color: var(--color-text);
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color var(--transition-standard);
   text-align: center;
+  display: inline-block;
+  font-size: 1rem;
 }
 
-thead {
-  background-color: #202020;
-}
-
-th,
-td {
-  padding: 0.5rem;
-  border: 1px solid #333;
-}
-
-th {
-  color: #00e676;
+button:hover, .btn:hover {
+  background-color: var(--color-accent-hover);
 }
 
 /* Botones de acción */
 .btn-editar, 
 .btn-eliminar {
   padding: 0.4rem 0.8rem;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
   margin: 0 0.2rem;
 }
 
 .btn-editar {
   background-color: rgb(237, 237, 3);
-  color: #fff;
 }
 
 .btn-editar:hover {
@@ -171,227 +182,222 @@ th {
 
 .btn-eliminar {
   background-color: red;
-  color: #fff;
 }
 
 .btn-eliminar:hover {
   background-color: #ff5f52;
 }
 
+.btn-save {
+  width: 100%;
+  padding: 0.8rem;
+  font-weight: bold;
+}
+
+/* ---------------------
+   Tablas
+---------------------- */
+.tabla-contenedor {
+  overflow-x: auto; /* Permite desplazamiento horizontal en pantallas pequeñas */
+  background-color: var(--color-background-secondary);
+  padding: var(--padding-standard);
+  border-radius: var(--border-radius);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  min-width: 650px; /* Mínimo ancho para evitar compresión excesiva */
+}
+
+thead {
+  background-color: #202020;
+}
+
+th, td {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+}
+
+th {
+  color: var(--color-accent);
+  font-weight: 600;
+  white-space: nowrap; /* Evita saltos de línea en encabezados */
+}
+
+td {
+  word-break: break-word; /* Permite que el texto se rompa en pantallas pequeñas */
+}
+
 /* ---------------------
    Widgets
 ---------------------- */
 .widgets-container {
-  display: flex;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--gap-standard);
   margin-bottom: 1rem;
-  flex-wrap: wrap; /* Para que en pantallas pequeñas se apilen */
 }
 
 .widget {
-  flex: 1;
-  background-color: #1f1f1f;
-  padding: 1rem;
-  border-radius: 8px;
+  background-color: var(--color-background-tertiary);
+  padding: var(--padding-standard);
+  border-radius: var(--border-radius);
   text-align: center;
-  min-width: 220px; /* Para no colapsar demasiado */
-  margin-bottom: 1rem;
-}
-
-.widget h3 {
-  margin-bottom: 0.5rem;
-  color: #00e676;
-  font-size: 1.2rem;
 }
 
 /* ---------------------
    Contenedor de gráficas
 ---------------------- */
 .chart-container {
-  display: flex;
-  flex-wrap: wrap;  /* Importante para que se apilen en pantallas pequeñas */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--gap-standard);
   width: 100%;
-  gap: 2rem;
 }
 
 .chart-box {
-  flex: 1 1 400px;  /* Al menos 400px de ancho si hay espacio, si no, se apila */
-  background-color: #1f1f1f;
-  padding: 1rem;
-  border-radius: 8px;
-  min-width: 300px; /* Para pantallas muy pequeñas */
+  background-color: var(--color-background-tertiary);
+  padding: var(--padding-standard);
+  border-radius: var(--border-radius);
 }
 
-.chart-box h3 {
-  color: #00e676;
-  margin-bottom: 0.5rem;
-}
-
-/* Evitar que la gráfica se extienda en exceso hacia abajo */
 .chart-box canvas {
   width: 100% !important;
-  max-height: 350px;
+  max-height: 310px;
   background-color: #191919;
-  border: 1px solid #333;
+  border: 1px solid var(--color-border);
 }
 
 /* ---------------------
-   Layout inventario: 25% form, 75% tabla
+   Header bar (filtros + botones)
 ---------------------- */
-.inventario-container {
-  display: flex;
-  gap: 1rem;
-}
-
-.form-contenedor {
-  flex: 0 0 25%;
-  background-color: #141414;
-  padding: 1rem;
-  border-radius: 8px;
-}
-
-/* Contenedor de la tabla */
-.tabla-contenedor {
-  background-color: #141414;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-top: 1rem;
-}
-
-/* Encabezado con botón "Crear Nuevo Registro" */
-.header-inventario {
-  display: flex;
-  justify-content: flex-end; /* Alinear a la derecha */
-}
-
-/* Botón "Crear Nuevo Registro" */
-#btn-abrir-modal {
-  background-color: #03d723;
-  border: none;
-  color: #fff;
-  padding: 0.5rem 0.5rem;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background-color 0.2s ease-in-out;
-}
-
-#btn-abrir-modal:hover {
-  background-color: #03c420;
-}
-
-/* --- Contenedor general para la cabecera (filtros y botón crear) --- */
 .header-bar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
-
+  gap: 0.8rem;
 }
 
-/* Izquierda: barra de búsqueda y filtros */
 .filter-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
 }
 
-.filter-container input[type="text"] {
-  padding: 0.5rem;
-  border: 1px solid #333;
-  border-radius: 4px;
-  background-color: #1f1f1f;
-  color: #fff;
+.search-input {
+  flex: 1;
+  min-width: 200px;
 }
 
-/* Botones de filtro y refrescar */
-.filter-container button {
-  background-color: #03d723;
-  border: none;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.filter-container button:hover {
-  background-color: #03c420;
-}
-
-.btn-container button {
-  background-color: #03d723;
-  border: none;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.btn-container button:hover {
-  background-color: #03c420;
-}
-
-/* ------------- MODAL ------------- */
-
-/* El contenedor principal del modal */
+/* ---------------------
+   Modales
+---------------------- */
 .modal {
-  display: none; /* Por defecto oculto */
-  position: fixed; /* Para cubrir toda la ventana */
-  z-index: 999;    /* Sobre todo el contenido */
+  display: none;
+  position: fixed;
+  z-index: 999;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; /* Si el contenido excede, scroll */
-  background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* El contenido del modal */
 .modal-content {
-  background-color: #1f1f1f;
-  margin: 5% auto; /* Centrado vertical y horizontal */
-  padding: 1rem;
-  border-radius: 8px;
+  background-color: var(--color-background-tertiary);
+  margin: 5% auto;
+  padding: var(--padding-standard);
+  border-radius: var(--border-radius);
   width: 90%;
-  max-width: 600px; /* Aumentado para las dos columnas */
+  max-width: 600px;
   position: relative;
 }
 
-/* Botón de cerrar (X) */
 .modal-cerrar {
   position: absolute;
   top: 8px;
   right: 12px;
-  color: #fff;
+  color: var(--color-text);
   font-size: 1.4rem;
-  font-weight: bold;
   cursor: pointer;
+  transition: color var(--transition-standard);
 }
 
 .modal-cerrar:hover {
-  color: #f44336; /* Rojo al hover */
+  color: #f44336;
 }
 
-/* Botón de guardar */
-#btn-guardar {
-  margin-top: 0.5rem;
-  padding: 0.7rem;
+/* Modal de detalles */
+.detalles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.detalles-col {
+  background-color: var(--color-background-secondary);
+  padding: 0.8rem;
+  border-radius: 4px;
+}
+
+/* Modal de confirmación */
+.confirm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.confirm-modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.confirm-modal-message {
+  margin-bottom: 20px;
+  font-size: 17px;
   font-weight: bold;
+  color: black;
 }
 
-/* Contenedor de notificaciones */
-#notification-container {
+.confirm-modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.btn-confirm-yes {
+  background-color: #d33;
+}
+
+.btn-confirm-no {
+  background-color: #3085d6;
+}
+
+/* Notificaciones */
+.notification-container {
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 9999;
 }
 
-/* Notificación base */
 .notification {
   padding: 10px 20px;
   margin-bottom: 10px;
@@ -402,7 +408,6 @@ th {
   transition: opacity 0.5s ease;
 }
 
-/* Variantes */
 .notification.success {
   background-color: #02b11c;
 }
@@ -411,143 +416,96 @@ th {
   background-color: #d32f2f;
 }
 
-/* Efecto de desvanecimiento */
 .notification.fade-out {
   opacity: 0;
 }
 
-/* Modal de Confirmación */
-.confirm-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: none; /* Se muestra con "flex" al activarlo */
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-}
-
-.confirm-modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 4px;
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-}
-
-.confirm-modal-content p {
-  margin-bottom: 20px;
-  font-size: 17px;
-  font-weight: bold;
-  color: black;
-}
-
-.confirm-modal-buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
-.confirm-modal-buttons button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-#confirm-modal-yes {
-  background-color: #d33;
-  color: #fff;
-}
-
-#confirm-modal-no {
-  background-color: #3085d6;
-  color: #fff;
-}
-
-/* Responsivo extra para el modal */
-@media (max-width: 768px) {
-  .form-grid {
-    grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+/* ---------------------
+   Media Queries
+---------------------- */
+/* Pantallas pequeñas (smartphones) */
+@media (max-width: 576px) {
+  
+  .nav-list, nav ul {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  
+  .nav-item, nav li {
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+  }
+  
+  .header-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-container, .btn-container {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  button, .btn {
+    padding: 0.6rem 0.8rem;
   }
   
   .modal-content {
     width: 95%;
-    margin-top: 10%;
-    max-width: 500px;
+    margin: 2% auto;
+    padding: 0.8rem;
+  }
+  
+  .widget {
+    padding: 0.8rem;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .btn-open-modal{
+    width: 100%;
+  }
+
+ 
+}
+
+/* Pantallas medianas (tablets) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .header-bar {
+    flex-wrap: wrap;
+  }
+  
+  .search-input {
+    width: 100%;
   }
 }
 
-@media (max-width: 600px) {
-  .modal-content {
-    margin-top: 20%;
+/* Pantallas grandes (desktops) */
+@media (min-width: 992px) {
+  body {
+    padding: 1.5rem;
   }
-}
-
-/* ---------------------
-   Responsivo
----------------------- */
-/* Para pantallas medianas */
-@media (max-width: 900px) {
-  .inventario-container {
-    flex-direction: column;
+  
+  .chart-container {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .form-contenedor,
-  .tabla-contenedor {
-    flex: 100%;
+  
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-}
-
-/* Para pantallas pequeñas */
-@media (max-width: 600px) {
-  nav ul {
-    flex-direction: column;
-  }
-}
-
-
-/* --- Modal de Detalles --- */
-.modal-detalles {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.6);
-}
-.modal-detalles-content {
-  background-color: #1f1f1f;
-  margin: 5% auto;
-  padding: 1rem;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 600px;
-  position: relative;
-}
-.detalles-grid {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-.detalles-col {
-  flex: 1;
-  background-color: #141414;
-  padding: 0.5rem;
-  border-radius: 4px;
-  color: #fff;
-}
-.modal-cerrar {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  color: #fff;
-  font-size: 1.4rem;
-  cursor: pointer;
 }
