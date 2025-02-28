@@ -329,6 +329,40 @@ th {
   font-weight: bold;
 }
 
+/* Contenedor de notificaciones */
+#notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+/* Notificación base */
+.notification {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+  opacity: 0.9;
+  transition: opacity 0.5s ease;
+}
+
+/* Variantes */
+.notification.success {
+  background-color: #00e676;
+}
+
+.notification.error {
+  background-color: #d32f2f;
+}
+
+/* Efecto de desvanecimiento */
+.notification.fade-out {
+  opacity: 0;
+}
+
+
 /* Responsivo extra para el modal */
 @media (max-width: 768px) {
   .form-grid {

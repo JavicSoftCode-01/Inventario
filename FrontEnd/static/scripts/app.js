@@ -1,7 +1,6 @@
 /****************************************
- * IMPORTS
+ * IMPORTS (se eliminó SweetAlert2)
  ***************************************/
-import * as Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js";
 import { Compra } from "../../../BackEnd/models/models.js";
 import { getData, setData } from "../../../BackEnd/database/localStorage.js";
 
@@ -30,7 +29,6 @@ function obtenerFechaYHora() {
  * DB: GET/SET
  ***************************************/
 function obtenerCompras() {
-  // Retorna arreglo vacío si no hay nada en localStorage
   return getData(KEY_COMPRAS);
 }
 
@@ -41,7 +39,6 @@ function guardarCompras(compras) {
 /****************************************
  * CRUD COMPRAS
  ***************************************/
-// Crear
 function crearCompra(datos) {
   const compras = obtenerCompras();
   const { fecha, hora } = obtenerFechaYHora();
@@ -53,7 +50,7 @@ function crearCompra(datos) {
       datos.telefono,
       datos.correo,
       datos.producto,
-      +datos.precioProducto,       // el operador + convierte a número
+      +datos.precioProducto,
       +datos.cantidad,
       datos.autorizaCompra,
       +datos.precioVentaPublico,
@@ -64,12 +61,10 @@ function crearCompra(datos) {
   guardarCompras(compras);
 }
 
-// Eliminar
 function eliminarCompra(id) {
   guardarCompras(obtenerCompras().filter((c) => c.id !== id));
 }
 
-// Actualizar
 function actualizarCompra(id, datos) {
   const compras = obtenerCompras();
   const idx = compras.findIndex((c) => c.id === id);
@@ -168,7 +163,6 @@ function totalInvertidoGeneral() {
 /****************************************
  * GRÁFICAS CON CHART.JS
  ***************************************/
-// Función genérica para generar datos agrupados por fecha
 function generarDatos(callback) {
   const mapa = {};
   obtenerCompras().forEach((c) => {
@@ -178,13 +172,12 @@ function generarDatos(callback) {
   return { labels: Object.keys(mapa), data: Object.values(mapa) };
 }
 
-// Gráfica de barras (productos comprados por día)
 function dibujarGraficaBarrasChartJS(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
   const { labels, data } = generarDatos((c) => +c.cantidad || 0);
-  if (!labels.length) return; // si no hay datos, no dibuja
+  if (!labels.length) return;
 
   new Chart(canvas, {
     type: "bar",
@@ -205,26 +198,14 @@ function dibujarGraficaBarrasChartJS(canvasId) {
       maintainAspectRatio: true,
       aspectRatio: 2,
       scales: {
-        x: {
-          ticks: { color: "#fff" },
-          grid: { display: false },
-        },
-        y: {
-          beginAtZero: true,
-          ticks: { color: "#fff" },
-          grid: { color: "#555" },
-        },
+        x: { ticks: { color: "#fff" }, grid: { display: false } },
+        y: { beginAtZero: true, ticks: { color: "#fff" }, grid: { color: "#555" } },
       },
-      plugins: {
-        legend: {
-          labels: { color: "#fff" },
-        },
-      },
+      plugins: { legend: { labels: { color: "#fff" } } },
     },
   });
 }
 
-// Gráfica de línea (dinero invertido por día)
 function dibujarGraficaLineaChartJS(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
@@ -255,23 +236,31 @@ function dibujarGraficaLineaChartJS(canvasId) {
       maintainAspectRatio: true,
       aspectRatio: 2,
       scales: {
-        x: {
-          ticks: { color: "#fff" },
-          grid: { display: false },
-        },
-        y: {
-          beginAtZero: true,
-          ticks: { color: "#fff" },
-          grid: { color: "#555" },
-        },
+        x: { ticks: { color: "#fff" }, grid: { display: false } },
+        y: { beginAtZero: true, ticks: { color: "#fff" }, grid: { color: "#555" } },
       },
-      plugins: {
-        legend: {
-          labels: { color: "#fff" },
-        },
-      },
+      plugins: { legend: { labels: { color: "#fff" } } },
     },
   });
+}
+
+/****************************************
+ * NOTIFICACIONES PERSONALIZADAS
+ ***************************************/
+function showNotification(message, type = "success") {
+  const container = document.getElementById("notification-container");
+  if (!container) return;
+  const notification = document.createElement("div");
+  notification.className = `notification ${type}`;
+  notification.innerText = message;
+  container.appendChild(notification);
+  // Después de 3 segundos se desvanece y se elimina
+  setTimeout(() => {
+    notification.classList.add("fade-out");
+    notification.addEventListener("transitionend", () => {
+      notification.remove();
+    });
+  }, 3000);
 }
 
 /****************************************
@@ -298,12 +287,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputAutoriza = document.getElementById("prov-autoriza");
   const inputPrecioVentaPublico = document.getElementById("prov-precioVentaPublico");
 
-  // Solo si existe la tabla, renderizamos
-  if (tbody) {
-    renderizarTablaCompras("compras-tbody");
-  }
+  if (tbody) renderizarTablaCompras("compras-tbody");
 
-  // Modal: abrir/cerrar
   function abrirModal() {
     if (modal) modal.style.display = "block";
   }
@@ -320,28 +305,20 @@ document.addEventListener("DOMContentLoaded", () => {
       abrirModal();
     });
   }
-
-  if (btnCerrarModal) {
-    btnCerrarModal.addEventListener("click", cerrarModal);
-  }
-
+  if (btnCerrarModal) btnCerrarModal.addEventListener("click", cerrarModal);
   window.addEventListener("click", (e) => {
     if (e.target === modal) cerrarModal();
   });
 
-  // Cálculo automático del total
   function recalcularTotal() {
     const precio = parseFloat(inputPrecio?.value) || 0;
     const cantidad = parseFloat(inputCantidad?.value) || 0;
-    if (inputTotal) {
-      inputTotal.value = (precio * cantidad).toFixed(2);
-    }
+    if (inputTotal) inputTotal.value = (precio * cantidad).toFixed(2);
   }
   inputPrecio?.addEventListener("input", recalcularTotal);
   inputCantidad?.addEventListener("input", recalcularTotal);
 
-  // Submit form (crear o actualizar)
-  form?.addEventListener("submit", async (e) => {
+  form?.addEventListener("submit", (e) => {
     e.preventDefault();
     const hiddenId = inputId?.value.trim();
     const datos = {
@@ -359,23 +336,11 @@ document.addEventListener("DOMContentLoaded", () => {
     cerrarModal();
 
     if (hiddenId) {
-      // Actualizar
       actualizarCompra(+hiddenId, datos);
-      await Swal.fire({
-        title: "¡Actualizado!",
-        text: "El registro se actualizó con éxito",
-        icon: "success",
-        confirmButtonColor: "#00e676",
-      });
+      showNotification("¡Actualizado! El registro se actualizó con éxito", "success");
     } else {
-      // Crear
       crearCompra(datos);
-      await Swal.fire({
-        title: "¡Creado!",
-        text: "El registro se creó con éxito",
-        icon: "success",
-        confirmButtonColor: "#00e676",
-      });
+      showNotification("¡Creado! El registro se creó con éxito", "success");
     }
 
     form.reset();
@@ -384,32 +349,16 @@ document.addEventListener("DOMContentLoaded", () => {
     renderizarTablaCompras("compras-tbody");
   });
 
-  // Botones Editar/Eliminar
-  tbody?.addEventListener("click", async (e) => {
+  tbody?.addEventListener("click", (e) => {
     const btn = e.target.closest("button");
     if (!btn) return;
     const id = +btn.dataset.id;
 
     if (btn.classList.contains("btn-eliminar")) {
-      const result = await Swal.fire({
-        title: "¿Eliminar?",
-        text: "Esta acción no se puede deshacer.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Sí, eliminar",
-        cancelButtonText: "Cancelar",
-      });
-      if (result.isConfirmed) {
+      if (window.confirm("¿Eliminar? Esta acción no se puede deshacer.")) {
         eliminarCompra(id);
         renderizarTablaCompras("compras-tbody");
-        await Swal.fire({
-          title: "¡Eliminado!",
-          text: "El registro fue eliminado.",
-          icon: "success",
-          confirmButtonColor: "#00e676",
-        });
+        showNotification("¡Eliminado! El registro fue eliminado.", "success");
       }
     } else if (btn.classList.contains("btn-editar")) {
       const compra = obtenerCompras().find((c) => c.id === id);
@@ -425,9 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (inputPrecio) inputPrecio.value = compra.precioProducto;
       if (inputCantidad) inputCantidad.value = compra.cantidad;
       if (inputAutoriza) inputAutoriza.value = compra.autorizaCompra;
-      if (inputPrecioVentaPublico) {
-        inputPrecioVentaPublico.value = compra.precioVentaPublico;
-      }
+      if (inputPrecioVentaPublico) inputPrecioVentaPublico.value = compra.precioVentaPublico;
       recalcularTotal();
       abrirModal();
     }
@@ -436,29 +383,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Para index.html (widgets, gráficas) ---
   const spanTotalProductos = document.getElementById("widget-total-productos");
   const spanTotalInvertido = document.getElementById("widget-total-capital");
-  if (spanTotalProductos) {
-    spanTotalProductos.textContent = totalProductosComprados();
-  }
-  if (spanTotalInvertido) {
-    spanTotalInvertido.textContent = totalInvertidoGeneral().toFixed(2);
-  }
+  if (spanTotalProductos) spanTotalProductos.textContent = totalProductosComprados();
+  if (spanTotalInvertido) spanTotalInvertido.textContent = totalInvertidoGeneral().toFixed(2);
 
-  // Dibuja gráficas solo si existen los canvas
   dibujarGraficaBarrasChartJS("chart-barras");
   dibujarGraficaLineaChartJS("chart-linea");
 });
-
-/****************************************
- * EXPORT (si deseas importar en otros scripts)
- ***************************************/
-export {
-  crearCompra,
-  actualizarCompra,
-  eliminarCompra,
-  obtenerCompras,
-  renderizarTablaCompras,
-  totalProductosComprados,
-  totalInvertidoGeneral,
-  dibujarGraficaBarrasChartJS,
-  dibujarGraficaLineaChartJS,
-};
