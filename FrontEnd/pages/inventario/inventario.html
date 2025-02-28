@@ -38,6 +38,14 @@
     <section>
       <h2>Inventario</h2>
 
+      <!-- Contenedor de búsqueda y filtros -->
+      <div class="filter-container">
+        <input type="text" id="search-input" placeholder="Buscar por proveedor o producto..." />
+        <button id="btn-filter-high">Filtrar Total Más Alto</button>
+        <button id="btn-filter-low">Filtrar Total Más Bajo</button>
+        <button id="btn-refresh">Refrescar</button>
+      </div>
+
       <!-- Tabla de compras -->
       <div class="tabla-contenedor">
 
@@ -88,6 +96,7 @@
                       <input type="text" id="prov-proveedor" name="proveedor" required
                              pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
                              placeholder="Ingresar nombre"
+                             autocomplete="off"
                              title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
                   </div>
       
@@ -96,6 +105,7 @@
                       <input type="text" id="prov-ciudad" name="ciudad" required
                              pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
                              placeholder="Ingresar ubicación"
+                             autocomplete="off"
                              title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
                   </div>
       
@@ -105,6 +115,7 @@
                              pattern="(^[0-9]{7}$)|(^09[0-9]{8}$)"
                              maxlength="10"
                              placeholder="Ingresar número fijo o celular"
+                             autocomplete="off"
                              title="Ingrese un número fijo (7 dígitos) o celular (10 dígitos, comenzando con 09)" />
                   </div>
       
@@ -113,6 +124,7 @@
                       <input type="email" id="prov-correo" name="correo" required
                              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                              placeholder="Ingrese su correo electrónico"
+                             autocomplete="off"
                              title="Ingrese un correo válido, por ejemplo: usuario@example.com" />
                   </div>
       
@@ -121,6 +133,7 @@
                       <input type="text" id="prov-producto" name="producto" required
                              pattern="^[a-zA-Z0-9À-ÿ\s]{3,50}$"
                              placeholder="Nombre del producto"
+                             autocomplete="off"
                              title="Ingrese entre 3 y 50 caracteres, solo letras, números y espacios" />
                   </div>
               </div>
@@ -130,6 +143,7 @@
                       <label for="prov-precio">Precio del Producto ($):</label>
                       <input type="number" id="prov-precio" name="precio" step="0.01" min="0.01" required
                              placeholder="0.00"
+                             autocomplete="off"
                              title="Ingrese un precio válido mayor a 0" />
                   </div>
       
@@ -137,6 +151,7 @@
                       <label for="prov-cantidad">Cantidad:</label>
                       <input type="number" id="prov-cantidad" name="cantidad" min="1" required
                              placeholder="Cantidad"
+                             autocomplete="off"
                              title="Ingrese una cantidad mínima de 1" />
                   </div>
       
@@ -150,6 +165,7 @@
                       <input type="text" id="prov-autoriza" name="autoriza" required
                              pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
                              placeholder="Nombre del autorizado"
+                             autocomplete="off"
                              title="Ingrese entre 3 y 50 caracteres, solo letras y espacios" />
                   </div>
       
@@ -157,6 +173,7 @@
                       <label for="prov-precioVentaPublico">Precio Venta al Público ($):</label>
                       <input type="number" id="prov-precioVentaPublico" name="precio_venta" step="0.01" min="0.01" required
                              placeholder="0.00"
+                             autocomplete="off"
                              title="Ingrese un precio válido mayor a 0" />
                   </div>
               </div>

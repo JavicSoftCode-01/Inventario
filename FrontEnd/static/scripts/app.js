@@ -1,6 +1,3 @@
-/****************************************
- * IMPORTS (se eliminó SweetAlert2)
- ***************************************/
 import { Compra } from "../../../BackEnd/models/models.js";
 import { getData, setData } from "../../../BackEnd/database/localStorage.js";
 
@@ -69,7 +66,6 @@ function actualizarCompra(id, datos) {
   const compras = obtenerCompras();
   const idx = compras.findIndex((c) => c.id === id);
   if (idx === -1) return false;
-
   const compraOriginal = compras[idx];
   compras[idx] = new Compra(
     id,
@@ -90,18 +86,45 @@ function actualizarCompra(id, datos) {
 }
 
 /****************************************
+ * BUSQUEDAS Y FILTROS
+ ***************************************/
+// Función para calcular el total de una compra
+function calcularTotal(compra) {
+  return (+compra.precioProducto || 0) * (+compra.cantidad || 0);
+}
+
+// Función de búsqueda (filtra por proveedor o producto, sin necesidad de ordenar)
+// Para volúmenes moderados, el uso de .filter es muy eficaz (O(n))
+function filtrarComprasPorQuery(query) {
+  const todasCompras = obtenerCompras();
+  const q = query.toLowerCase();
+  return todasCompras.filter((compra) => {
+    return compra.proveedor.toLowerCase().includes(q) ||
+           compra.producto.toLowerCase().includes(q);
+  });
+}
+
+// Función para filtrar por total (mayor o menor)
+function filtrarComprasPorTotal(orden = "max") {
+  const todasCompras = obtenerCompras();
+  if (!todasCompras.length) return [];
+  const totales = todasCompras.map(calcularTotal);
+  const valorFiltro = orden === "max" ? Math.max(...totales) : Math.min(...totales);
+  return todasCompras.filter((compra) => calcularTotal(compra) === valorFiltro);
+}
+
+/****************************************
  * RENDER TABLA (inventario.html)
  ***************************************/
+// Función original que renderiza la tabla completa
 function renderizarTablaCompras(tbodyId) {
   const tbody = document.getElementById(tbodyId);
   if (!tbody) return;
-
   const compras = obtenerCompras();
   tbody.innerHTML = "";
-
   compras.forEach((compra, i) => {
     const filaNumero = i + 1;
-    const totalPagar = (+compra.precioProducto || 0) * (+compra.cantidad || 0);
+    const totalPagar = calcularTotal(compra);
     const diff = compra.precioVentaPublico - compra.precioProducto;
     const porcentaje =
       compra.precioVentaPublico > 0 && compra.precioProducto > 0
@@ -112,7 +135,57 @@ function renderizarTablaCompras(tbodyId) {
         ? diff.toFixed(2)
         : "N/A";
     const colorPorcentaje = diff < 0 ? "red" : "inherit";
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${filaNumero}</td>
+      <td>${compra.proveedor}</td>
+      <td>${compra.ciudad}</td>
+      <td>${compra.telefono}</td>
+      <td>${compra.correo}</td>
+      <td>${compra.producto}</td>
+      <td>$ ${(+compra.precioProducto).toFixed(2)}</td>
+      <td>${compra.cantidad}</td>
+      <td>$ ${totalPagar.toFixed(2)}</td>
+      <td>${compra.autorizaCompra}</td>
+      <td>${compra.fecha}</td>
+      <td>${compra.hora}</td>
+      <td>
+        <span style="color:${colorPorcentaje}">
+          ${porcentaje === "N/A" ? "N/A" : "% " + porcentaje}
+          (${ganancia === "N/A" ? "N/A" : "$ " + ganancia})
+        </span>
+      </td>
+      <td>
+        <button class="btn-editar" data-id="${compra.id}">
+          <i class="fa-solid fa-pencil fa-lg"></i>
+        </button>
+        <button class="btn-eliminar" data-id="${compra.id}">
+          <i class="fa-solid fa-trash-can fa-lg"></i>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
 
+// Función para renderizar la tabla con un arreglo filtrado (útil para búsqueda y filtros)
+function renderizarTablaComprasConDatos(comprasArray) {
+  const tbody = document.getElementById("compras-tbody");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+  comprasArray.forEach((compra, i) => {
+    const filaNumero = i + 1;
+    const totalPagar = calcularTotal(compra);
+    const diff = compra.precioVentaPublico - compra.precioProducto;
+    const porcentaje =
+      compra.precioVentaPublico > 0 && compra.precioProducto > 0
+        ? ((diff / compra.precioProducto) * 100).toFixed(2)
+        : "N/A";
+    const ganancia =
+      compra.precioVentaPublico > 0 && compra.precioProducto > 0
+        ? diff.toFixed(2)
+        : "N/A";
+    const colorPorcentaje = diff < 0 ? "red" : "inherit";
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${filaNumero}</td>
@@ -175,10 +248,8 @@ function generarDatos(callback) {
 function dibujarGraficaBarrasChartJS(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
-
   const { labels, data } = generarDatos((c) => +c.cantidad || 0);
   if (!labels.length) return;
-
   new Chart(canvas, {
     type: "bar",
     data: {
@@ -209,12 +280,8 @@ function dibujarGraficaBarrasChartJS(canvasId) {
 function dibujarGraficaLineaChartJS(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
-
-  const { labels, data } = generarDatos(
-    (c) => (+c.precioProducto || 0) * (+c.cantidad || 0)
-  );
+  const { labels, data } = generarDatos((c) => (+c.precioProducto || 0) * (+c.cantidad || 0));
   if (!labels.length) return;
-
   new Chart(canvas, {
     type: "line",
     data: {
@@ -270,15 +337,12 @@ function showConfirmModal(message, onConfirm, onCancel) {
   const messageEl = document.getElementById("confirm-modal-message");
   const yesBtn = document.getElementById("confirm-modal-yes");
   const noBtn = document.getElementById("confirm-modal-no");
-
   messageEl.textContent = message;
   modal.style.display = "flex";
-
   yesBtn.onclick = function() {
     modal.style.display = "none";
     if (typeof onConfirm === "function") onConfirm();
   };
-
   noBtn.onclick = function() {
     modal.style.display = "none";
     if (typeof onCancel === "function") onCancel();
@@ -289,13 +353,18 @@ function showConfirmModal(message, onConfirm, onCancel) {
  * INICIALIZACIÓN DE LA PÁGINA
  ***************************************/
 document.addEventListener("DOMContentLoaded", () => {
-  // --- Para inventario.html ---
+  // Elementos de la tabla, formulario, modal, etc.
   const tbody = document.getElementById("compras-tbody");
   const form = document.getElementById("form-inventario");
   const modal = document.getElementById("modal-inventario");
   const btnAbrirModal = document.getElementById("btn-abrir-modal");
   const btnCerrarModal = document.getElementById("modal-cerrar");
   const modalTitulo = document.getElementById("modal-titulo");
+  // Elementos para búsqueda y filtros:
+  const searchInput = document.getElementById("search-input");
+  const btnFilterHigh = document.getElementById("btn-filter-high");
+  const btnFilterLow = document.getElementById("btn-filter-low");
+  const btnRefresh = document.getElementById("btn-refresh");
 
   const inputId = document.getElementById("compra-id");
   const inputProveedor = document.getElementById("prov-proveedor");
@@ -309,15 +378,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputAutoriza = document.getElementById("prov-autoriza");
   const inputPrecioVentaPublico = document.getElementById("prov-precioVentaPublico");
 
+  // Al iniciar, muestra la tabla completa
   if (tbody) renderizarTablaCompras("compras-tbody");
 
+  // Funciones para abrir/cerrar modal de formulario
   function abrirModal() {
     if (modal) modal.style.display = "block";
   }
   function cerrarModal() {
     if (modal) modal.style.display = "none";
   }
-
+  
   if (btnAbrirModal) {
     btnAbrirModal.addEventListener("click", () => {
       if (modalTitulo) modalTitulo.textContent = "Nueva Compra";
@@ -332,6 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) cerrarModal();
   });
 
+  // Cálculo automático del total en el formulario
   function recalcularTotal() {
     const precio = parseFloat(inputPrecio?.value) || 0;
     const cantidad = parseFloat(inputCantidad?.value) || 0;
@@ -340,6 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
   inputPrecio?.addEventListener("input", recalcularTotal);
   inputCantidad?.addEventListener("input", recalcularTotal);
 
+  // Submit del formulario: crear o actualizar registro
   form?.addEventListener("submit", (e) => {
     e.preventDefault();
     const hiddenId = inputId?.value.trim();
@@ -354,9 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
       autorizaCompra: inputAutoriza?.value,
       precioVentaPublico: inputPrecioVentaPublico?.value
     };
-
     cerrarModal();
-
     if (hiddenId) {
       actualizarCompra(+hiddenId, datos);
       showNotification("¡Actualizado! El registro se actualizó con éxito", "success");
@@ -364,26 +435,54 @@ document.addEventListener("DOMContentLoaded", () => {
       crearCompra(datos);
       showNotification("¡Creado! El registro se creó con éxito", "success");
     }
-
     form.reset();
     if (inputId) inputId.value = "";
     if (inputTotal) inputTotal.value = "";
     renderizarTablaCompras("compras-tbody");
   });
 
+  // Eventos para búsqueda y filtros
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim();
+      if (query === "") {
+        renderizarTablaCompras("compras-tbody");
+      } else {
+        const filtradas = filtrarComprasPorQuery(query);
+        renderizarTablaComprasConDatos(filtradas);
+      }
+    });
+  }
+  if (btnFilterHigh) {
+    btnFilterHigh.addEventListener("click", () => {
+      const filtradas = filtrarComprasPorTotal("max");
+      renderizarTablaComprasConDatos(filtradas);
+    });
+  }
+  if (btnFilterLow) {
+    btnFilterLow.addEventListener("click", () => {
+      const filtradas = filtrarComprasPorTotal("min");
+      renderizarTablaComprasConDatos(filtradas);
+    });
+  }
+  if (btnRefresh) {
+    btnRefresh.addEventListener("click", () => {
+      if (searchInput) searchInput.value = "";
+      renderizarTablaCompras("compras-tbody");
+    });
+  }
+
+  // Eventos para botones de editar y eliminar en la tabla
   tbody?.addEventListener("click", (e) => {
     const btn = e.target.closest("button");
     if (!btn) return;
     const id = +btn.dataset.id;
-
     if (btn.classList.contains("btn-eliminar")) {
-      // Buscar la compra correspondiente para obtener datos a mostrar en el mensaje
       const compra = obtenerCompras().find((c) => c.id === id);
       if (!compra) return;
       const compras = obtenerCompras();
       const rowIndex = compras.findIndex((c) => c.id === id) + 1;
       const message = `Está a punto de eliminar la fila #${rowIndex} del proveedor "${compra.proveedor}", compra autorizada por ${compra.autorizaCompra}. Esta acción es irreversible. ¿Desea proceder con la eliminación?`;
-
       showConfirmModal(
         message,
         () => {
@@ -392,13 +491,12 @@ document.addEventListener("DOMContentLoaded", () => {
           showNotification("¡Eliminado! El registro fue eliminado.", "success");
         },
         () => {
-          // No hacer nada al cancelar
+          // Cancelado: no se realiza acción.
         }
       );
     } else if (btn.classList.contains("btn-editar")) {
       const compra = obtenerCompras().find((c) => c.id === id);
       if (!compra) return;
-
       if (modalTitulo) modalTitulo.textContent = "Editar Compra";
       if (inputId) inputId.value = compra.id;
       if (inputProveedor) inputProveedor.value = compra.proveedor;
@@ -415,12 +513,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // --- Para index.html (widgets, gráficas) ---
+  // Actualización de widgets y gráficos (si existen en index.html)
   const spanTotalProductos = document.getElementById("widget-total-productos");
   const spanTotalInvertido = document.getElementById("widget-total-capital");
   if (spanTotalProductos) spanTotalProductos.textContent = totalProductosComprados();
   if (spanTotalInvertido) spanTotalInvertido.textContent = totalInvertidoGeneral().toFixed(2);
-
   dibujarGraficaBarrasChartJS("chart-barras");
   dibujarGraficaLineaChartJS("chart-linea");
 });
