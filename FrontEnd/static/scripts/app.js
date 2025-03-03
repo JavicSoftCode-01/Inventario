@@ -32,8 +32,14 @@ import {
   filtrarComprasPorTotal
 } from "./utils/searchFilters.js";
 
+import { verificarAutenticacion, actualizarUISegunSesion } from "../../../BackEnd/services/authService.js";
+
+import { cerrarSesion } from "../../../BackEnd/services/usuarioServices.js";
+
 // Aquí va tu código de inicialización de la página
 document.addEventListener("DOMContentLoaded", () => {
+  verificarAutenticacion();
+  actualizarUISegunSesion();
   const tbody = document.getElementById("compras-tbody");
   const form = document.getElementById("form-inventario");
   const modal = document.getElementById("modal-inventario");
@@ -108,23 +114,25 @@ document.addEventListener("DOMContentLoaded", () => {
       producto: inputProducto?.value,
       precioProducto: inputPrecio?.value,
       cantidad: inputCantidad?.value,
-      autorizaCompra: inputAutoriza?.value,
       precioVentaPublico: inputPrecioVentaPublico?.value
     };
     cerrarModal();
-    if (hiddenId) {
-      // Actualizar
-      actualizarCompra(+hiddenId, datos);
-      showNotification("¡Actualizado! El registro se actualizó con éxito", "success");
-    } else {
-      // Crear
-      crearCompra(datos);
-      showNotification("¡Creado! El registro se creó con éxito", "success");
+    try {
+      if (hiddenId) {
+        // Actualizar
+        actualizarCompra(+hiddenId, datos);
+        showNotification("¡Actualizado con éxito!", "success");
+      } else {
+        // Crear
+        crearCompra(datos);
+        showNotification("¡Creado con éxito!", "success");
+      }
+      cerrarModal();
+      form.reset();
+      renderizarTablaCompras("compras-tbody");
+    } catch (error) {
+      showNotification(error.message, "error");
     }
-    form.reset();
-    if (inputId) inputId.value = "";
-    if (inputTotal) inputTotal.value = "";
-    renderizarTablaCompras("compras-tbody");
   });
 
   // Búsqueda
@@ -175,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!compra) return;
       const compras = obtenerCompras();
       const rowIndex = compras.findIndex((c) => c.id === id) + 1;
-      const message = `Está a punto de eliminar la fila #${rowIndex} del proveedor "${compra.proveedor}", compra autorizada por ${compra.autorizaCompra}. Esta acción es irreversible. ¿Desea proceder con la eliminación?`;
+      const message = `Está a punto de eliminar la fila #${rowIndex} del proveedor "${compra.proveedor}", compra autorizada por ${compra.nombreUsuario}. Esta acción es irreversible. ¿Desea proceder con la eliminación?`;
 
       showConfirmModal(
         message,
@@ -200,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (inputProducto) inputProducto.value = compra.producto;
       if (inputPrecio) inputPrecio.value = compra.precioProducto;
       if (inputCantidad) inputCantidad.value = compra.cantidad;
-      if (inputAutoriza) inputAutoriza.value = compra.autorizaCompra;
       if (inputPrecioVentaPublico) inputPrecioVentaPublico.value = compra.precioVentaPublico;
       recalcularTotal();
       abrirModal();
@@ -233,5 +240,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCerrarDetalles = document.getElementById("modal-detalles-cerrar");
   if (btnCerrarDetalles) {
     btnCerrarDetalles.addEventListener("click", cerrarDetallesModal);
+  }
+
+  const btnLogout = document.getElementById("btn-logout");
+  if (btnLogout) {
+    btnLogout.addEventListener("click", (e) => {
+      e.preventDefault();
+      cerrarSesion();
+      // Redirigir a login
+      window.location.href = "../auth/login.html";
+    });
   }
 });

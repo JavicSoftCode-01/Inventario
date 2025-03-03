@@ -1,5 +1,3 @@
-// BackEnd/models/models.js
-
 class Compra {
   constructor(
     id,
@@ -10,41 +8,23 @@ class Compra {
     producto,
     precioProducto,
     cantidad,
-    autorizaCompra,
     precioVentaPublico,
     fecha,
-    hora
+    hora,
+    nombreUsuario 
   ) {
-    this.id = id;                 
-    this.proveedor = proveedor;   
-    this.ciudad = ciudad;         
-    this.telefono = telefono;     
-    this.correo = correo;         
-    this.producto = producto;     
-    this.precioProducto = precioProducto;    // número
-    this.cantidad = cantidad;                // número
-    this.autorizaCompra = autorizaCompra;
-    this.precioVentaPublico = precioVentaPublico; // número
+    this.id = id;
+    this.proveedor = proveedor;
+    this.ciudad = ciudad;
+    this.telefono = telefono;
+    this.correo = correo;
+    this.producto = producto;
+    this.precioProducto = precioProducto;
+    this.cantidad = cantidad;
+    this.precioVentaPublico = precioVentaPublico;
     this.fecha = fecha;
     this.hora = hora;
-  }
-
-  // Total a pagar = precioProducto * cantidad
-  get totalPagar() {
-    return this.precioProducto * this.cantidad;
-  }
-
-  // % de incremento = (precioVentaPublico - precioProducto) / precioProducto
-  get porcentajeIncremento() {
-    if (this.precioVentaPublico > 0 && this.precioProducto > 0) {
-      return (this.precioVentaPublico - this.precioProducto) / this.precioProducto;
-    }
-    return 0;
-  }
-
-  // Diferencia en dólares
-  get gananciaDolares() {
-    return this.precioVentaPublico - this.precioProducto;
+    this.nombreUsuario = nombreUsuario; 
   }
 }
 
