@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b4e64e3a-e974-4e95-9a2e-f3fb3dc4ea1b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/pages/auth/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/auth/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/pages/inventario/inventario.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/inventario/inventario.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/authService.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/authService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/dinamicTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/dinamicTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/usuarioServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/usuarioServices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/modal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/styles/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +45,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.sync",
+    "settings.editor.selected.configurable": "inlay.hints",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -61,7 +65,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1740972136258</updated>
-      <workItem from="1740972140789" duration="13948000" />
+      <workItem from="1740972140789" duration="22219000" />
     </task>
     <servers />
   </component>

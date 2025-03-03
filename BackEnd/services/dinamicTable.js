@@ -1,5 +1,13 @@
-import { obtenerCompras } from "./comprasServices.js";
-import { esUsuarioPropietario, obtenerSesionActual } from "./usuarioServices.js";
+import {obtenerCompras} from "./comprasServices.js";
+import {esUsuarioPropietario, obtenerSesionActual, nombreCompleto} from "./usuarioServices.js";
+
+
+// function nombreCompleto() {
+//     const KEY_SESION_ACTUAL = "sesionActual";
+//     const usuarioSesion = JSON.parse(sessionStorage.getItem(KEY_SESION_ACTUAL));
+//     const nombreCompleto = usuarioSesion ? `${usuarioSesion.nombres} ${usuarioSesion.apellidos}` : "Desconocido";
+//     return KEY_SESION_ACTUAL && usuarioSesion && nombreCompleto;
+// }
 
 function renderizarTablaCompras(tbodyId) {
     const tbody = document.getElementById(tbodyId);
@@ -10,16 +18,15 @@ function renderizarTablaCompras(tbodyId) {
 
     tbody.innerHTML = "";
     compras.forEach((compra, i) => {
-      const totalPagar =
-      (parseFloat(compra.precioProducto) || 0) *
-      (parseFloat(compra.cantidad) || 0);
-      const filaNumero = i + 1;
+        const totalPagar =
+            (parseFloat(compra.precioProducto) || 0) *
+            (parseFloat(compra.cantidad) || 0);
+        const filaNumero = i + 1;
 
-      // Verificar si el usuario puede editar/eliminar este registro
-      const puedeEditar = sesionActual && esUsuarioPropietario(null, compra.nombreUsuario );
-
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
+        // Verificar si el usuario puede editar/eliminar este registro
+        const puedeEditar = sesionActual && esUsuarioPropietario(null, compra.nombreUsuario);
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
         <td>${filaNumero}</td>
         <td>${compra.proveedor}</td>
         <td>${compra.ciudad}</td>
@@ -28,7 +35,9 @@ function renderizarTablaCompras(tbodyId) {
         <td>$ ${(+compra.precioProducto).toFixed(2)}</td>
         <td>${compra.cantidad}</td>
         <td>$ ${totalPagar.toFixed(2)}</td>
-        <td>${compra.nombreUsuario}</td>
+<!--        <td>${compra.nombreUsuario}</td>-->
+      <td>${nombreCompleto()}</td>
+
         <td>
           <button class="btn-detalles" data-id="${compra.id}" title="Ver detalles">
             <i class="fa-solid fa-eye"></i>
@@ -49,11 +58,11 @@ function renderizarTablaCompras(tbodyId) {
           `}
         </td>
       `;
-      tbody.appendChild(tr);
+        tbody.appendChild(tr);
     });
-  }
+}
 
-  function renderizarTablaComprasConDatos(comprasArray) {
+function renderizarTablaComprasConDatos(comprasArray) {
     const tbody = document.getElementById("compras-tbody");
     if (!tbody) return;
 
@@ -61,16 +70,16 @@ function renderizarTablaCompras(tbodyId) {
 
     tbody.innerHTML = "";
     comprasArray.forEach((compra, i) => {
-      const totalPagar =
-      (parseFloat(compra.precioProducto) || 0) *
-      (parseFloat(compra.cantidad) || 0);
-      const filaNumero = i + 1;
+        const totalPagar =
+            (parseFloat(compra.precioProducto) || 0) *
+            (parseFloat(compra.cantidad) || 0);
+        const filaNumero = i + 1;
 
-      // Verificar si el usuario puede editar/eliminar este registro
-      const puedeEditar = sesionActual && esUsuarioPropietario(null, compra.nombreUsuario );
+        // Verificar si el usuario puede editar/eliminar este registro
+        const puedeEditar = sesionActual && esUsuarioPropietario(null, compra.nombreUsuario);
 
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
         <td>${filaNumero}</td>
         <td>${compra.proveedor}</td>
         <td>${compra.ciudad}</td>
@@ -79,7 +88,9 @@ function renderizarTablaCompras(tbodyId) {
         <td>$ ${(+compra.precioProducto).toFixed(2)}</td>
         <td>${compra.cantidad}</td>
         <td>$ ${totalPagar.toFixed(2)}</td>
-        <td>${compra.nombreUsuario}</td>
+<!--  <td>${compra.nombreUsuario}</td>-->
+        <td>${nombreCompleto()}</td>
+
         <td>
           <button class="btn-detalles" data-id="${compra.id}" title="Ver detalles">
             <i class="fa-solid fa-eye"></i>
@@ -100,8 +111,8 @@ function renderizarTablaCompras(tbodyId) {
           `}
         </td>
       `;
-      tbody.appendChild(tr);
+        tbody.appendChild(tr);
     });
-  }
+}
 
-export { renderizarTablaCompras, renderizarTablaComprasConDatos };
+export {renderizarTablaCompras, renderizarTablaComprasConDatos};
