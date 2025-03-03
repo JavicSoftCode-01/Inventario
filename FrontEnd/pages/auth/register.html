@@ -1,3 +1,147 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="es">-->
+<!--  <head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>-->
+<!--    <title>Registro de Usuario</title>-->
+<!--    <link rel="stylesheet" href="../../static/styles/styles.css" />-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">-->
+<!--  </head>-->
+<!--  <body>-->
+<!--    <div class="auth-container">-->
+<!--      <div class="auth-form-container">-->
+<!--        <h1 class="auth-title">Registro de Usuario</h1>-->
+<!--        <form id="registro-form" class="auth-form">-->
+<!--          <div class="form-row">-->
+<!--            <div class="form-group">-->
+<!--              <label for="nombres" class="form-label">Nombres:</label>-->
+<!--              <input -->
+<!--                type="text" -->
+<!--                id="nombres" -->
+<!--                name="nombres" -->
+<!--                class="form-input" -->
+<!--                required -->
+<!--                pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$" -->
+<!--                placeholder="Ingresa tus nombres" -->
+<!--                autocomplete="off"-->
+<!--                title="Solo letras, mínimo 3 caracteres"-->
+<!--              />-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label for="apellidos" class="form-label">Apellidos:</label>-->
+<!--              <input -->
+<!--                type="text" -->
+<!--                id="apellidos" -->
+<!--                name="apellidos" -->
+<!--                class="form-input" -->
+<!--                required -->
+<!--                pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$" -->
+<!--                placeholder="Ingresa tus apellidos" -->
+<!--                autocomplete="off"-->
+<!--                title="Solo letras, mínimo 3 caracteres"-->
+<!--              />-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          -->
+<!--          <div class="form-row">-->
+<!--            <div class="form-group">-->
+<!--              <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento:</label>-->
+<!--              <input -->
+<!--                type="date" -->
+<!--                id="fechaNacimiento" -->
+<!--                name="fechaNacimiento" -->
+<!--                class="form-input" -->
+<!--                required -->
+<!--                autocomplete="off"-->
+<!--              />-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label for="telefono" class="form-label">Teléfono:</label>-->
+<!--              <input -->
+<!--                type="tel" -->
+<!--                id="telefono" -->
+<!--                name="telefono" -->
+<!--                class="form-input" -->
+<!--                required -->
+<!--                pattern="(^[0-9]{7}$)|(^09[0-9]{8}$)" -->
+<!--                maxlength="10"-->
+<!--                placeholder="Número fijo o celular" -->
+<!--                autocomplete="off"-->
+<!--                title="Ingrese un número fijo (7 dígitos) o celular (10 dígitos, comenzando con 09)"-->
+<!--              />-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          -->
+<!--          <div class="form-group">-->
+<!--            <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>-->
+<!--            <input -->
+<!--              type="text" -->
+<!--              id="nombreUsuario" -->
+<!--              name="nombreUsuario" -->
+<!--              class="form-input" -->
+<!--              required -->
+<!--              pattern="^[a-zA-Z0-9_]{4,16}$" -->
+<!--              placeholder="Nombre de usuario único" -->
+<!--              autocomplete="off"-->
+<!--              title="Solo letras, números y guiones bajos. Entre 4 y 16 caracteres."-->
+<!--            />-->
+<!--          </div>-->
+<!--          -->
+<!--          <div class="form-row">-->
+<!--            <div class="form-group">-->
+<!--              <label for="contrasena" class="form-label">Contraseña:</label>-->
+<!--              <div class="password-container">-->
+<!--                <input -->
+<!--                  type="password" -->
+<!--                  id="contrasena" -->
+<!--                  name="contrasena" -->
+<!--                  class="form-input" -->
+<!--                  required -->
+<!--                  minlength="6" -->
+<!--                  placeholder="Mínimo 6 caracteres" -->
+<!--                  autocomplete="off"-->
+<!--                />-->
+<!--                <button type="button" class="toggle-password" title="Mostrar/Ocultar contraseña">-->
+<!--                  <i class="fa-solid fa-eye"></i>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label for="confirmarContrasena" class="form-label">Confirmar Contraseña:</label>-->
+<!--              <div class="password-container">-->
+<!--                <input -->
+<!--                  type="password" -->
+<!--                  id="confirmarContrasena" -->
+<!--                  name="confirmarContrasena" -->
+<!--                  class="form-input" -->
+<!--                  required -->
+<!--                  minlength="6" -->
+<!--                  placeholder="Repite tu contraseña" -->
+<!--                  autocomplete="off"-->
+<!--                />-->
+<!--                <button type="button" class="toggle-password" title="Mostrar/Ocultar contraseña">-->
+<!--                  <i class="fa-solid fa-eye"></i>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          -->
+<!--          <button type="submit" class="btn btn-auth">Registrar Usuario</button>-->
+<!--          -->
+<!--          <div class="auth-links">-->
+<!--            <p>¿Ya tienes una cuenta? <a href="./login.html">Iniciar Sesión</a></p>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Contenedor para notificaciones &ndash;&gt;-->
+<!--    <div id="notification-container" class="notification-container"></div>-->
+
+<!--    <script type="module" src="../../static/scripts/auth/register.js"></script>-->
+<!--  </body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -15,90 +159,90 @@
           <div class="form-row">
             <div class="form-group">
               <label for="nombres" class="form-label">Nombres:</label>
-              <input 
-                type="text" 
-                id="nombres" 
-                name="nombres" 
-                class="form-input" 
-                required 
-                pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$" 
-                placeholder="Ingresa tus nombres" 
+              <input
+                type="text"
+                id="nombres"
+                name="nombres"
+                class="form-input"
+                required
+                pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
+                placeholder="Ingresa tus nombres"
                 autocomplete="off"
                 title="Solo letras, mínimo 3 caracteres"
               />
             </div>
             <div class="form-group">
               <label for="apellidos" class="form-label">Apellidos:</label>
-              <input 
-                type="text" 
-                id="apellidos" 
-                name="apellidos" 
-                class="form-input" 
-                required 
-                pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$" 
-                placeholder="Ingresa tus apellidos" 
+              <input
+                type="text"
+                id="apellidos"
+                name="apellidos"
+                class="form-input"
+                required
+                pattern="^[a-zA-ZÀ-ÿ\s]{3,50}$"
+                placeholder="Ingresa tus apellidos"
                 autocomplete="off"
                 title="Solo letras, mínimo 3 caracteres"
               />
             </div>
           </div>
-          
+
           <div class="form-row">
             <div class="form-group">
               <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento:</label>
-              <input 
-                type="date" 
-                id="fechaNacimiento" 
-                name="fechaNacimiento" 
-                class="form-input" 
-                required 
+              <input
+                type="date"
+                id="fechaNacimiento"
+                name="fechaNacimiento"
+                class="form-input"
+                required
                 autocomplete="off"
               />
             </div>
             <div class="form-group">
               <label for="telefono" class="form-label">Teléfono:</label>
-              <input 
-                type="tel" 
-                id="telefono" 
-                name="telefono" 
-                class="form-input" 
-                required 
-                pattern="(^[0-9]{7}$)|(^09[0-9]{8}$)" 
+              <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                class="form-input"
+                required
+                pattern="(^[0-9]{7}$)|(^09[0-9]{8}$)"
                 maxlength="10"
-                placeholder="Número fijo o celular" 
+                placeholder="Número fijo o celular"
                 autocomplete="off"
                 title="Ingrese un número fijo (7 dígitos) o celular (10 dígitos, comenzando con 09)"
               />
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
-            <input 
-              type="text" 
-              id="nombreUsuario" 
-              name="nombreUsuario" 
-              class="form-input" 
-              required 
-              pattern="^[a-zA-Z0-9_]{4,16}$" 
-              placeholder="Nombre de usuario único" 
+            <input
+              type="text"
+              id="nombreUsuario"
+              name="nombreUsuario"
+              class="form-input"
+              required
+              pattern="^[a-zA-Z0-9_]{4,16}$"
+              placeholder="Nombre de usuario único"
               autocomplete="off"
               title="Solo letras, números y guiones bajos. Entre 4 y 16 caracteres."
             />
           </div>
-          
+
           <div class="form-row">
             <div class="form-group">
               <label for="contrasena" class="form-label">Contraseña:</label>
               <div class="password-container">
-                <input 
-                  type="password" 
-                  id="contrasena" 
-                  name="contrasena" 
-                  class="form-input" 
-                  required 
-                  minlength="6" 
-                  placeholder="Mínimo 6 caracteres" 
+                <input
+                  type="password"
+                  id="contrasena"
+                  name="contrasena"
+                  class="form-input"
+                  required
+                  minlength="6"
+                  placeholder="Mínimo 6 caracteres"
                   autocomplete="off"
                 />
                 <button type="button" class="toggle-password" title="Mostrar/Ocultar contraseña">
@@ -109,14 +253,14 @@
             <div class="form-group">
               <label for="confirmarContrasena" class="form-label">Confirmar Contraseña:</label>
               <div class="password-container">
-                <input 
-                  type="password" 
-                  id="confirmarContrasena" 
-                  name="confirmarContrasena" 
-                  class="form-input" 
-                  required 
-                  minlength="6" 
-                  placeholder="Repite tu contraseña" 
+                <input
+                  type="password"
+                  id="confirmarContrasena"
+                  name="confirmarContrasena"
+                  class="form-input"
+                  required
+                  minlength="6"
+                  placeholder="Repite tu contraseña"
                   autocomplete="off"
                 />
                 <button type="button" class="toggle-password" title="Mostrar/Ocultar contraseña">
@@ -125,9 +269,9 @@
               </div>
             </div>
           </div>
-          
+
           <button type="submit" class="btn btn-auth">Registrar Usuario</button>
-          
+
           <div class="auth-links">
             <p>¿Ya tienes una cuenta? <a href="./login.html">Iniciar Sesión</a></p>
           </div>

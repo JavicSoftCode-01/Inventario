@@ -41,10 +41,10 @@ function showDetallesModal(compra, filaNumero) {
     <p><strong>Teléfono:</strong> ${compra.telefono}</p>
     <p><strong>Correo:</strong> ${compra.correo}</p>
     <p><strong>Producto:</strong> ${compra.producto}</p>
+     <p><strong>Precio:</strong> $ ${(+compra.precioProducto).toFixed(2)}</p>
   `;
 
     colRight.innerHTML = `
-    <p><strong>Precio:</strong> $ ${(+compra.precioProducto).toFixed(2)}</p>
     <p><strong>Cantidad:</strong> ${compra.cantidad}</p>
     <p><strong>Total:</strong> $ ${total}</p>
     <p><strong>Precio Venta Público:</strong> $ ${compra.precioVentaPublico}</p>

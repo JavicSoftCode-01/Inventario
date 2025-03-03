@@ -79,6 +79,8 @@ section {
   border-radius: var(--border-radius);
   padding: var(--padding-standard);
   width: 100%;
+   transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 /* ---------------------
@@ -117,12 +119,7 @@ form {
   gap: 0.5rem;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  margin-bottom: 0.5rem;
-}
+
 
 .form-label, label {
   font-weight: bold;
@@ -166,7 +163,7 @@ button:hover, .btn:hover {
 }
 
 /* Botones de acción */
-.btn-editar, 
+.btn-editar,
 .btn-eliminar {
   padding: 0.4rem 0.8rem;
   margin: 0 0.2rem;
@@ -390,35 +387,7 @@ td {
   background-color: #3085d6;
 }
 
-/* Notificaciones */
-.notification-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-}
 
-.notification {
-  padding: 10px 20px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  background-color: #333;
-  color: #fff;
-  opacity: 0.9;
-  transition: opacity 0.5s ease;
-}
-
-.notification.success {
-  background-color: #02b11c;
-}
-
-.notification.error {
-  background-color: #d32f2f;
-}
-
-.notification.fade-out {
-  opacity: 0;
-}
 
 /* Estilos para las páginas de autenticación */
 .auth-container {
@@ -441,50 +410,50 @@ td {
 ---------------------- */
 /* Pantallas pequeñas (smartphones) */
 @media (max-width: 576px) {
-  
+
   .nav-list, nav ul {
     flex-direction: column;
     gap: 0.2rem;
   }
-  
+
   .nav-item, nav li {
     width: 100%;
     text-align: center;
     font-size: 22px;
   }
-  
+
   .header-bar {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .filter-container, .btn-container {
     width: 100%;
     justify-content: center;
   }
-  
+
   .search-input {
     width: 100%;
   }
-  
+
   button, .btn {
     padding: 0.6rem 0.8rem;
   }
-  
+
   .modal-content {
     width: 95%;
     margin: 2% auto;
     padding: 0.8rem;
   }
-  
+
   .widget {
     padding: 0.8rem;
   }
-  
+
   h1 {
     font-size: 1.5rem;
   }
-  
+
   h2 {
     font-size: 1.3rem;
   }
@@ -493,7 +462,6 @@ td {
     width: 100%;
   }
 
- 
 }
 
 /* Pantallas medianas (tablets) */
@@ -501,11 +469,11 @@ td {
   .form-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .header-bar {
     flex-wrap: wrap;
   }
-  
+
   .search-input {
     width: 100%;
   }
@@ -516,12 +484,339 @@ td {
   body {
     padding: 1.5rem;
   }
-  
+
   .chart-container {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .form-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------------------
+   Estilos adicionales para formularios de autenticación
+---------------------- */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: var(--color-background);
+}
+
+.auth-form-container {
+  width: 100%;
+  max-width: 650px;
+  background-color: var(--color-background-secondary);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-title {
+  text-align: center;
+  color: var(--color-accent);
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-row .form-group {
+  flex: 1 1 250px;
+  min-width: 0;
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background-color: var(--color-background-tertiary);
+  color: var(--color-text);
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(0, 230, 118, 0.2);
+}
+
+.form-input::placeholder {
+  color: #777;
+  opacity: 0.7;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #777;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-password:hover {
+  color: var(--color-accent);
+  background: transparent;
+}
+
+.btn-auth {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: var(--color-accent);
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.btn-auth:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-2px);
+}
+
+.btn-auth:active {
+  transform: translateY(0);
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.auth-links a {
+  color: var(--color-accent);
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.auth-links a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+/* ---------------------
+   Notificaciones mejoradas
+---------------------- */
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  max-width: 100%;
+  width: 350px;
+}
+
+.notification {
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #fff;
+  opacity: 1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.notification.success {
+  background-color: #10b981;
+  border-left: 5px solid #059669;
+}
+
+.notification.error {
+  background-color: #ef4444;
+  border-left: 5px solid #dc2626;
+}
+
+.notification.fade-out {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* ---------------------
+   Media Queries mejoradas para formularios de autenticación
+---------------------- */
+@media (max-width: 576px) {
+  .auth-form-container {
+    padding: 1.25rem;
+    border-radius: 10px;
+  }
+
+  .auth-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+  }
+
+  .form-input {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-auth {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .notification-container {
+    width: calc(100% - 30px);
+    right: 15px;
+  }
+
+  .toggle-password {
+    padding: 0.4rem;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .auth-form-container {
+    max-width: 500px;
+    padding: 1.5rem;
+  }
+
+  .form-row .form-group {
+    flex: 1 1 100%;
+  }
+
+  .notification-container {
+    width: 300px;
+  }
+}
+
+/* Sistema de validación visual para formularios */
+.form-input:valid {
+  border-color: #10b981;
+}
+
+.form-input:invalid:not(:placeholder-shown) {
+  border-color: #ef4444;
+}
+
+/* Efecto de foco para campos */
+.form-group:focus-within .form-label {
+  color: var(--color-accent);
+}
+
+/* Mejoras adicionales para dispositivos táctiles */
+@media (hover: none) {
+  .form-input, .btn-auth {
+    font-size: 16px; /* Previene zoom en iOS */
+  }
+
+  .form-input {
+    padding: 12px;
+  }
+
+  .toggle-password {
+    width: 44px;
+    height: 44px;
+    right: 0;
+  }
+}
+
+/* Modo oscuro optimizado para OLED */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #000;
+    --color-background-secondary: #0a0a0a;
+    --color-background-tertiary: #121212;
+  }
+}
+
+/* Soporte para pantallas de alta densidad */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .auth-form-container {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* Animaciones condicionales (respeta preferencia de reducción de movimiento) */
+@media (prefers-reduced-motion: reduce) {
+  .auth-form-container,
+  .notification,
+  .btn-auth {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Mejora para modo landscape en dispositivos móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .auth-container {
+    align-items: flex-start;
+    padding: 1rem 1rem 3rem;
+    overflow-y: auto;
+  }
+
+  .auth-form-container {
+    margin: 1rem auto;
+  }
+
+  .form-row {
+    flex-direction: row;
   }
 }

@@ -13,8 +13,7 @@ function showNotification(message, type = "success") {
       notification.addEventListener("transitionend", () => {
         notification.remove();
       });
-    }, 3000);
+    }, 5000);
   }
-  
+
   export { showNotification };
-  

@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Redirigir a inventario después de un breve retraso
       setTimeout(() => {
         window.location.href = "../inventario/inventario.html";
-      }, 500);
+      }, 1500);
     } else {
       showNotification(resultado.mensaje, "error");
     }

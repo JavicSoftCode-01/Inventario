@@ -93,12 +93,20 @@ function cerrarSesion() {
 }
 
 // Verificar si un usuario es propietario de un registro
+// function esUsuarioPropietario(usuarioId, autorizado) {
+//   const sesion = obtenerSesionActual();
+//   if (!sesion) return false;
+//
+//   // Verificamos si el usuario coincide con quien autorizó el registro
+//   return sesion.nombreCompleto === autorizado;
+// }
+// Verificar si un usuario es propietario de un registro
 function esUsuarioPropietario(usuarioId, autorizado) {
   const sesion = obtenerSesionActual();
   if (!sesion) return false;
 
-  // Verificamos si el usuario coincide con quien autorizó el registro
-  return sesion.nombreCompleto === autorizado;
+  // Verificamos si el nombre de usuario coincide con quien autorizó el registro
+  return sesion.nombreUsuario === autorizado;
 }
 
 export {
