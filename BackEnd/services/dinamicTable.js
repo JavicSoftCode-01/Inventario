@@ -35,9 +35,7 @@ function renderizarTablaCompras(tbodyId) {
         <td>$ ${(+compra.precioProducto).toFixed(2)}</td>
         <td>${compra.cantidad}</td>
         <td>$ ${totalPagar.toFixed(2)}</td>
-<!--        <td>${compra.nombreUsuario}</td>-->
-      <td>${nombreCompleto()}</td>
-
+        <td>${compra.nombreUsuario}</td>
         <td>
           <button class="btn-detalles" data-id="${compra.id}" title="Ver detalles">
             <i class="fa-solid fa-eye"></i>
@@ -88,9 +86,7 @@ function renderizarTablaComprasConDatos(comprasArray) {
         <td>$ ${(+compra.precioProducto).toFixed(2)}</td>
         <td>${compra.cantidad}</td>
         <td>$ ${totalPagar.toFixed(2)}</td>
-<!--  <td>${compra.nombreUsuario}</td>-->
-        <td>${nombreCompleto()}</td>
-
+        <td>${compra.nombreUsuario}</td>
         <td>
           <button class="btn-detalles" data-id="${compra.id}" title="Ver detalles">
             <i class="fa-solid fa-eye"></i>

@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!compra) return;
             const compras = obtenerCompras();
             const rowIndex = compras.findIndex((c) => c.id === id) + 1;
-            const message = `Está a punto de eliminar la fila #${rowIndex} del proveedor "${compra.proveedor}", compra autorizada por ${nombreCompleto()}. Esta acción es irreversible. ¿Desea proceder con la eliminación?`;
+            const message = `Está a punto de eliminar la fila #${rowIndex} del proveedor "${compra.proveedor}", compra autorizada por ${compra.nombreUsuario}. Esta acción es irreversible. ¿Desea proceder con la eliminación?`;
             const messageDelete = `¡Eliminado! El registro del proveedor "${compra.proveedor}" fue eliminado.`;
 
             showConfirmModal(

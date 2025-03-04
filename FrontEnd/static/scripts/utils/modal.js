@@ -1,5 +1,4 @@
 import {calcularTotal} from "./searchFilters.js";
-import { nombreCompleto } from "../../../../BackEnd/services/usuarioServices.js";
 
 /**
  * Muestra un modal de confirmación personalizado.
@@ -49,7 +48,7 @@ function showDetallesModal(compra, filaNumero) {
     <p><strong>Cantidad:</strong> ${compra.cantidad}</p>
     <p><strong>Total:</strong> $ ${total}</p>
     <p><strong>Precio Venta Público:</strong> $ ${compra.precioVentaPublico}</p>
-    <p><strong>Autoriza:</strong> ${nombreCompleto()}</p>
+    <p><strong>Autoriza:</strong> ${compra.nombreUsuario}</p>
     <p><strong>Fecha:</strong> ${compra.fecha}</p>
     <p><strong>Hora:</strong> ${compra.hora}</p>
     <p><strong>Ganancia:</strong> $ ${ganancia}</p>
