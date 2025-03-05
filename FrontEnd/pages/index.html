@@ -14,13 +14,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   </head>
   <body>
+
+    <div id="notification-container" class="notification-container"></div>
+
     <nav class="navigation">
-      <ul class="nav-list">
+      <ul class="nav-list" style="display: flex; align-items: center;">
         <li class="nav-item"><a href="./index.html" class="nav-link">Inicio</a></li>
         <li class="nav-item"><a href="./inventario/inventario.html" class="nav-link">Inventario</a></li>
-        <li class="nav-item"><a href="#" id="btn-logout" class="nav-link">Cerrar Sesión</a></li>
+        <li style="margin-left: auto; position: relative;">
+          <span id="usuario-logueado" style="cursor: pointer;">Usuario</span>
+          <ul id="logout-menu" style="position: absolute; top: calc(100% + 10px); right: 0; list-style: none; padding: 0; margin: 0; display: none;">
+            <li class="nav-item">
+              <a href="#" id="btn-logout" class="nav-link">Cerrar Sesión</a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
+    <script>
+      document.getElementById('usuario-logueado').addEventListener('click', function() {
+        const logoutMenu = document.getElementById('logout-menu');
+        logoutMenu.style.display = logoutMenu.style.display === 'none' || logoutMenu.style.display === '' ? 'block' : 'none';
+      });
+    </script>
     
 
     <section>

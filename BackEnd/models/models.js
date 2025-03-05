@@ -11,7 +11,8 @@ class Compra {
     precioVentaPublico,
     fecha,
     hora,
-    nombreUsuario 
+    nombreUsuario,
+    autorizador
   ) {
     this.id = id;
     this.proveedor = proveedor;
@@ -25,6 +26,7 @@ class Compra {
     this.fecha = fecha;
     this.hora = hora;
     this.nombreUsuario = nombreUsuario; 
+    this.autorizador = autorizador;
   }
 }
 

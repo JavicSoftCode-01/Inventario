@@ -11,12 +11,25 @@
   </head>
   <body>
     <nav class="navigation">
-      <ul class="nav-list">
-        <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
-        <li class="nav-item"><a href="inventario.html" class="nav-link">Inventario</a></li>
-        <li class="nav-item"><a href="#" id="btn-logout" class="nav-link">Cerrar Sesión</a></li>
+      <ul class="nav-list" style="display: flex; align-items: center;">
+        <li class="nav-item"><a href="./../index.html" class="nav-link">Inicio</a></li>
+        <li class="nav-item"><a href="./inventario.html" class="nav-link">Inventario</a></li>
+        <li style="margin-left: auto; position: relative;">
+          <span id="usuario-logueado" style="cursor: pointer;">Usuario</span>
+          <ul id="logout-menu" style="position: absolute; top: calc(100% + 10px); right: 0; list-style: none; padding: 0; margin: 0; display: none;">
+            <li class="nav-item">
+              <a href="#" id="btn-logout" class="nav-link">Cerrar Sesión</a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
+    <script>
+      document.getElementById('usuario-logueado').addEventListener('click', function() {
+        const logoutMenu = document.getElementById('logout-menu');
+        logoutMenu.style.display = logoutMenu.style.display === 'none' || logoutMenu.style.display === '' ? 'block' : 'none';
+      });
+    </script>
 
 
     <section class="inventario-section">
@@ -25,7 +38,7 @@
       <!-- Header con búsqueda, filtros y botón crear -->
       <div class="header-bar">
         <div class="filter-container">
-          <input type="text" id="search-input" class="search-input form-input" placeholder="Proveedor o Telefono" title="Buscar por" />
+          <input type="text" id="search-input" class="search-input form-input" placeholder="Proveedor o Telefono o Autoriza" title="Buscar por" />
           <button id="btn-filter-high" class="btn btn-filter" title="Total más alto">
             <i class="fa-solid fa-arrow-trend-up"></i>
           </button>
@@ -73,7 +86,7 @@
     <!-- Modal para crear/editar registro -->
     <div id="modal-inventario" class="modal modal-inventario">
       <div class="modal-content">
-        <span id="modal-cerrar" class="modal-cerrar">
+        <span id="modal-cerrar-form" class="modal-cerrar">
           <i class="fa-solid fa-circle-xmark fa-lg"></i>
         </span>
         <h1 id="modal-titulo" class="auth-title">Crear/Editar Compra</h1>
