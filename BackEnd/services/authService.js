@@ -1,3 +1,5 @@
+import { NotificationManager } from "./../../FrontEnd/static/scripts/utils/showNotifications.js";
+import { UserManager } from "./usuarioServices.js";
 class AuthService {
   constructor() {
     this.notificationManager = new NotificationManager();
