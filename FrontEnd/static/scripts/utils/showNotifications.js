@@ -1,33 +1,5 @@
-/**
- * Muestra una notificación personalizada.
- */
-//function showNotification(message, type = "success") {
-//    const container = document.getElementById("notification-container");
-//    if (!container) return;
-//    const notification = document.createElement("div");
-//    notification.className = `notification ${type}`;
-//    notification.innerText = message;
-//    container.appendChild(notification);
-//    setTimeout(() => {
-//      notification.classList.add("fade-out");
-//      notification.addEventListener("transitionend", () => {
-//        notification.remove();
-//      });
-//    }, 5000);
-//  }
-//
-//  export { showNotification };
-
-// NotificationManager.js
-
-/**
- * Clase para manejar las notificaciones en la web.
- */
 class NotificationManager {
-  /**
-   * Constructor de la clase NotificationManager.
-   * @param {string} containerId - ID del contenedor de notificaciones (por defecto "notification-container").
-   */
+
   constructor(containerId = "notification-container") {
     // Asigna el ID del contenedor
     this.containerId = containerId;
@@ -39,11 +11,6 @@ class NotificationManager {
     }
   }
 
-  /**
-   * Muestra una notificación personalizada.
-   * @param {string} message - Mensaje a mostrar.
-   * @param {string} [type="success"] - Tipo de notificación (por defecto "success").
-   */
   showNotification(message, type = "success") {
     try {
       // Verifica si el contenedor existe
@@ -74,5 +41,4 @@ class NotificationManager {
   }
 }
 
-// Exporta la clase para ser utilizada en otros módulos
 export { NotificationManager };

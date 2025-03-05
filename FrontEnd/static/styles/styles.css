@@ -1,1546 +1,765 @@
-/*!* ---------------------*/
-/*   Reset básico y configuración global*/
-/*---------------------- *!*/
-/** {*/
-/*  margin: 0;*/
-/*  padding: 0;*/
-/*  box-sizing: border-box;*/
-/*  font-family: 'Times New Roman', Times, serif;*/
-/*}*/
-
-/*:root {*/
-/*  --color-background: #0b0b0b;*/
-/*  --color-background-secondary: #141414;*/
-/*  --color-background-tertiary: #1f1f1f;*/
-/*  --color-accent: #00e676;*/
-/*  --color-accent-hover: #03c420;*/
-/*  --color-text: #ffffff;*/
-/*  --color-border: #333;*/
-/*  --border-radius: 8px;*/
-/*  --padding-standard: 1rem;*/
-/*  --gap-standard: 1rem;*/
-/*  --transition-standard: 0.2s ease-in-out;*/
-/*}*/
-
-/*!* Oculta la barra de desplazamiento en navegadores WebKit *!*/
-/*html::-webkit-scrollbar {*/
-/*  width: 0;*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Estilos base*/
-/*---------------------- *!*/
-/*body {*/
-/*  background-color: var(--color-background);*/
-/*  color: var(--color-text);*/
-/*  line-height: 1.5;*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  min-height: 100vh;*/
-/*  padding: 1rem;*/
-/*}*/
-
-/*a {*/
-/*  color: var(--color-text);*/
-/*  text-decoration: none;*/
-/*  transition: color var(--transition-standard);*/
-/*}*/
-
-/*a:hover {*/
-/*  color: var(--color-accent);*/
-/*}*/
-
-/*i {*/
-/*  cursor: pointer;*/
-/*}*/
-
-/*!* Títulos *!*/
-/*h1, h2, h3 {*/
-/*  margin-bottom: 1rem;*/
-/*}*/
-
-/*h1 {*/
-/*  font-size: 1.8rem;*/
-/*}*/
-
-/*h2 {*/
-/*  font-size: 1.5rem;*/
-/*  text-align: center;*/
-/*}*/
-
-/*h3 {*/
-/*  font-size: 1.2rem;*/
-/*  color: var(--color-accent);*/
-/*}*/
-
-/*!* Contenedores comunes *!*/
-/*section {*/
-/*  background-color: var(--color-background-secondary);*/
-/*  border-radius: var(--border-radius);*/
-/*  padding: var(--padding-standard);*/
-/*  width: 100%;*/
-/*   transition: all 0.3s ease;*/
-/*  animation: fadeIn 0.5s ease-in-out;*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Navegación*/
-/*---------------------- *!*/
-/*.nav-list, nav ul {*/
-/*  list-style: none;*/
-/*  display: flex;*/
-/*  gap: var(--gap-standard);*/
-/*}*/
-
-/*.nav-link, nav a {*/
-/*  font-weight: 500;*/
-/*  padding: 0.5rem;*/
-/*  display: inline-block;*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Formularios*/
-/*---------------------- *!*/
-/*form {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  gap: 0.5rem;*/
-/*}*/
-
-/*.form-grid {*/
-/*  display: grid;*/
-/*  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));*/
-/*  gap: 1rem;*/
-/*}*/
-
-/*.form-column {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  gap: 0.5rem;*/
-/*}*/
-
-
-
-/*.form-label, label {*/
-/*  font-weight: bold;*/
-/*  font-size: 20px;*/
-/*}*/
-
-/*.form-input,*/
-/*input[type="text"],*/
-/*input[type="number"],*/
-/*input[type="email"],*/
-/*input[type="tel"],*/
-/*select {*/
-/*  background-color: var(--color-background-tertiary);*/
-/*  border: 1px solid var(--color-border);*/
-/*  color: var(--color-text);*/
-/*  padding: 0.6rem;*/
-/*  border-radius: 4px;*/
-/*  font-size: 1rem;*/
-/*  width: 100%;*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Botones*/
-/*---------------------- *!*/
-/*button, .btn {*/
-/*  background-color: var(--color-accent);*/
-/*  border: none;*/
-/*  color: var(--color-text);*/
-/*  padding: 0.7rem 1rem;*/
-/*  cursor: pointer;*/
-/*  border-radius: 4px;*/
-/*  font-weight: 500;*/
-/*  transition: background-color var(--transition-standard);*/
-/*  text-align: center;*/
-/*  display: inline-block;*/
-/*  font-size: 1rem;*/
-/*}*/
-
-/*button:hover, .btn:hover {*/
-/*  background-color: var(--color-accent-hover);*/
-/*}*/
-
-/*!* Botones de acción *!*/
-/*.btn-editar,*/
-/*.btn-eliminar {*/
-/*  padding: 0.4rem 0.8rem;*/
-/*  margin: 0 0.2rem;*/
-/*}*/
-
-/*.btn-editar {*/
-/*  background-color: rgb(237, 237, 3);*/
-/*}*/
-
-/*.btn-editar:hover {*/
-/*  background-color: rgb(224, 232, 7);*/
-/*}*/
-
-/*.btn-eliminar {*/
-/*  background-color: red;*/
-/*}*/
-
-/*.btn-eliminar:hover {*/
-/*  background-color: #ff5f52;*/
-/*}*/
-
-/*.btn-save {*/
-/*  width: 100%;*/
-/*  padding: 0.8rem;*/
-/*  font-weight: bold;*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Tablas*/
-/*---------------------- *!*/
-/*.tabla-contenedor {*/
-/*  overflow-x: auto; !* Permite desplazamiento horizontal en pantallas pequeñas *!*/
-/*  background-color: var(--color-background-secondary);*/
-/*  padding: var(--padding-standard);*/
-/*  border-radius: var(--border-radius);*/
-/*}*/
-
-/*table {*/
-/*  width: 100%;*/
-/*  border-collapse: collapse;*/
-/*  text-align: center;*/
-/*  min-width: 650px; !* Mínimo ancho para evitar compresión excesiva *!*/
-/*}*/
-
-/*thead {*/
-/*  background-color: #202020;*/
-/*}*/
-
-/*th, td {*/
-/*  padding: 0.5rem;*/
-/*  border: 1px solid var(--color-border);*/
-/*}*/
-
-/*th {*/
-/*  color: var(--color-accent);*/
-/*  font-weight: 600;*/
-/*  white-space: nowrap; !* Evita saltos de línea en encabezados *!*/
-/*}*/
-
-/*td {*/
-/*  word-break: break-word; !* Permite que el texto se rompa en pantallas pequeñas *!*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Widgets*/
-/*---------------------- *!*/
-/*.widgets-container {*/
-/*  display: grid;*/
-/*  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));*/
-/*  gap: var(--gap-standard);*/
-/*  margin-bottom: 1rem;*/
-/*}*/
-
-/*.widget {*/
-/*  background-color: var(--color-background-tertiary);*/
-/*  padding: var(--padding-standard);*/
-/*  border-radius: var(--border-radius);*/
-/*  text-align: center;*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Contenedor de gráficas*/
-/*---------------------- *!*/
-/*.chart-container {*/
-/*  display: grid;*/
-/*  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));*/
-/*  gap: var(--gap-standard);*/
-/*  width: 100%;*/
-/*}*/
-
-/*.chart-box {*/
-/*  background-color: var(--color-background-tertiary);*/
-/*  padding: var(--padding-standard);*/
-/*  border-radius: var(--border-radius);*/
-/*}*/
-
-/*.chart-box canvas {*/
-/*  width: 100% !important;*/
-/*  max-height: 310px;*/
-/*  background-color: #191919;*/
-/*  border: 1px solid var(--color-border);*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Header bar (filtros + botones)*/
-/*---------------------- *!*/
-/*.header-bar {*/
-/*  display: flex;*/
-/*  flex-wrap: wrap;*/
-/*  justify-content: space-between;*/
-/*  align-items: center;*/
-/*  gap: 0.8rem;*/
-/*}*/
-
-/*.filter-container {*/
-/*  display: flex;*/
-/*  flex-wrap: wrap;*/
-/*  gap: 0.5rem;*/
-/*  align-items: center;*/
-/*}*/
-
-/*.search-input {*/
-/*  flex: 1;*/
-/*  min-width: 200px;*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Modales*/
-/*---------------------- *!*/
-/*.modal {*/
-/*  display: none;*/
-/*  position: fixed;*/
-/*  z-index: 999;*/
-/*  left: 0;*/
-/*  top: 0;*/
-/*  width: 100%;*/
-/*  height: 100%;*/
-/*  overflow: auto;*/
-/*  background-color: rgba(0, 0, 0, 0.6);*/
-/*}*/
-
-/*.modal-content {*/
-/*  background-color: var(--color-background-tertiary);*/
-/*  margin: 5% auto;*/
-/*  padding: var(--padding-standard);*/
-/*  border-radius: var(--border-radius);*/
-/*  width: 90%;*/
-/*  max-width: 600px;*/
-/*  position: relative;*/
-/*}*/
-
-/*.modal-cerrar {*/
-/*  position: absolute;*/
-/*  top: 8px;*/
-/*  right: 12px;*/
-/*  color: var(--color-text);*/
-/*  font-size: 1.4rem;*/
-/*  cursor: pointer;*/
-/*  transition: color var(--transition-standard);*/
-/*}*/
-
-/*.modal-cerrar:hover {*/
-/*  color: #f44336;*/
-/*}*/
-
-/*!* Modal de detalles *!*/
-/*.detalles-grid {*/
-/*  display: grid;*/
-/*  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));*/
-/*  gap: 1rem;*/
-/*}*/
-
-/*.detalles-col {*/
-/*  background-color: var(--color-background-secondary);*/
-/*  padding: 0.8rem;*/
-/*  border-radius: 4px;*/
-/*}*/
-
-/*!* Modal de confirmación *!*/
-/*.confirm-modal {*/
-/*  position: fixed;*/
-/*  top: 0;*/
-/*  left: 0;*/
-/*  width: 100%;*/
-/*  height: 100%;*/
-/*  background: rgba(0, 0, 0, 0.5);*/
-/*  display: none;*/
-/*  align-items: center;*/
-/*  justify-content: center;*/
-/*  z-index: 10000;*/
-/*}*/
-
-/*.confirm-modal-content {*/
-/*  background: #fff;*/
-/*  padding: 20px;*/
-/*  border-radius: var(--border-radius);*/
-/*  text-align: center;*/
-/*  max-width: 400px;*/
-/*  width: 90%;*/
-/*}*/
-
-/*.confirm-modal-message {*/
-/*  margin-bottom: 20px;*/
-/*  font-size: 17px;*/
-/*  font-weight: bold;*/
-/*  color: black;*/
-/*}*/
-
-/*.confirm-modal-buttons {*/
-/*  display: flex;*/
-/*  justify-content: space-around;*/
-/*  flex-wrap: wrap;*/
-/*  gap: 0.8rem;*/
-/*}*/
-
-/*.btn-confirm-yes {*/
-/*  background-color: #d33;*/
-/*}*/
-
-/*.btn-confirm-no {*/
-/*  background-color: #3085d6;*/
-/*}*/
-
-
-
-/*!* Estilos para las páginas de autenticación *!*/
-/*.auth-container {*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*  min-height: 100vh;*/
-/*  padding: 20px;*/
-/*}*/
-
-/*.auth-form-container {*/
-/*  width: 100%;*/
-/*  max-width: 600px;*/
-/*  border-radius: 10px;*/
-/*  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Media Queries*/
-/*---------------------- *!*/
-/*!* Pantallas pequeñas (smartphones) *!*/
-/*@media (max-width: 576px) {*/
-
-/*  .nav-list, nav ul {*/
-/*    flex-direction: column;*/
-/*    gap: 0.2rem;*/
-/*  }*/
-
-/*  .nav-item, nav li {*/
-/*    width: 100%;*/
-/*    text-align: center;*/
-/*    font-size: 22px;*/
-/*  }*/
-
-/*  .header-bar {*/
-/*    flex-direction: column;*/
-/*    align-items: stretch;*/
-/*  }*/
-
-/*  .filter-container, .btn-container {*/
-/*    width: 100%;*/
-/*    justify-content: center;*/
-/*  }*/
-
-/*  .search-input {*/
-/*    width: 100%;*/
-/*  }*/
-
-/*  button, .btn {*/
-/*    padding: 0.6rem 0.8rem;*/
-/*  }*/
-
-/*  .modal-content {*/
-/*    width: 95%;*/
-/*    margin: 2% auto;*/
-/*    padding: 0.8rem;*/
-/*  }*/
-
-/*  .widget {*/
-/*    padding: 0.8rem;*/
-/*  }*/
-
-/*  h1 {*/
-/*    font-size: 1.5rem;*/
-/*  }*/
-
-/*  h2 {*/
-/*    font-size: 1.3rem;*/
-/*  }*/
-
-/*  .btn-open-modal{*/
-/*    width: 100%;*/
-/*  }*/
-
-/*}*/
-
-/*!* Pantallas medianas (tablets) *!*/
-/*@media (min-width: 577px) and (max-width: 768px) {*/
-/*  .form-grid {*/
-/*    grid-template-columns: 1fr;*/
-/*  }*/
-
-/*  .header-bar {*/
-/*    flex-wrap: wrap;*/
-/*  }*/
-
-/*  .search-input {*/
-/*    width: 100%;*/
-/*  }*/
-/*}*/
-
-/*!* Pantallas grandes (desktops) *!*/
-/*@media (min-width: 992px) {*/
-/*  body {*/
-/*    padding: 1.5rem;*/
-/*  }*/
-
-/*  .chart-container {*/
-/*    grid-template-columns: repeat(2, 1fr);*/
-/*  }*/
-
-/*  .form-grid {*/
-/*    grid-template-columns: repeat(2, 1fr);*/
-/*  }*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Estilos adicionales para formularios de autenticación*/
-/*---------------------- *!*/
-/*.auth-container {*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*  min-height: 100vh;*/
-/*  padding: 1rem;*/
-/*  background-color: var(--color-background);*/
-/*}*/
-
-/*.auth-form-container {*/
-/*  width: 100%;*/
-/*  max-width: 650px;*/
-/*  background-color: var(--color-background-secondary);*/
-/*  border-radius: 12px;*/
-/*  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);*/
-/*  padding: 2rem;*/
-/*  transition: all 0.3s ease;*/
-/*  animation: fadeIn 0.5s ease-in-out;*/
-/*}*/
-
-/*@keyframes fadeIn {*/
-/*  from { opacity: 0; transform: translateY(-10px); }*/
-/*  to { opacity: 1; transform: translateY(0); }*/
-/*}*/
-
-/*.auth-title {*/
-/*  text-align: center;*/
-/*  color: var(--color-accent);*/
-/*  margin-bottom: 1.5rem;*/
-/*  font-size: 2rem;*/
-/*  font-weight: bold;*/
-/*}*/
-
-/*.auth-form {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  gap: 1rem;*/
-/*}*/
-
-/*.form-row {*/
-/*  display: flex;*/
-/*  gap: 1rem;*/
-/*  flex-wrap: wrap;*/
-/*}*/
-
-/*.form-row .form-group {*/
-/*  flex: 1 1 250px;*/
-/*  min-width: 0;*/
-/*}*/
-
-/*.form-group {*/
-/*  margin-bottom: 0.5rem;*/
-/*}*/
-
-/*.form-label {*/
-/*  display: block;*/
-/*  font-size: 1rem;*/
-/*  color: var(--color-text);*/
-/*}*/
-
-/*.form-input {*/
-/*  width: 100%;*/
-/*  padding: 0.8rem 1rem;*/
-/*  border: 1px solid var(--color-border);*/
-/*  border-radius: 6px;*/
-/*  background-color: var(--color-background-tertiary);*/
-/*  color: var(--color-text);*/
-/*  font-size: 1rem;*/
-/*  transition: border-color 0.3s, box-shadow 0.3s;*/
-/*}*/
-
-/*.form-input:focus {*/
-/*  outline: none;*/
-/*  border-color: var(--color-accent);*/
-/*  box-shadow: 0 0 0 2px rgba(0, 230, 118, 0.2);*/
-/*}*/
-
-/*.form-input::placeholder {*/
-/*  color: #777;*/
-/*  opacity: 0.7;*/
-/*}*/
-
-/*.password-container {*/
-/*  position: relative;*/
-/*  width: 100%;*/
-/*}*/
-
-/*.toggle-password {*/
-/*  position: absolute;*/
-/*  right: 10px;*/
-/*  top: 50%;*/
-/*  transform: translateY(-50%);*/
-/*  background: transparent;*/
-/*  border: none;*/
-/*  color: #777;*/
-/*  padding: 0;*/
-/*  cursor: pointer;*/
-/*  font-size: 1rem;*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  justify-content: center;*/
-/*}*/
-
-/*.toggle-password:hover {*/
-/*  color: var(--color-accent);*/
-/*  background: transparent;*/
-/*}*/
-
-/*.btn-auth {*/
-/*  margin-top: 1rem;*/
-/*  padding: 0.9rem;*/
-/*  font-size: 1.1rem;*/
-/*  font-weight: bold;*/
-/*  width: 100%;*/
-/*  text-transform: uppercase;*/
-/*  letter-spacing: 1px;*/
-/*  border-radius: 6px;*/
-/*  background-color: var(--color-accent);*/
-/*  transition: transform 0.2s, background-color 0.3s;*/
-/*}*/
-
-/*.btn-auth:hover {*/
-/*  background-color: var(--color-accent-hover);*/
-/*  transform: translateY(-2px);*/
-/*}*/
-
-/*.btn-auth:active {*/
-/*  transform: translateY(0);*/
-/*}*/
-
-/*.auth-links {*/
-/*  text-align: center;*/
-/*  margin-top: 1.5rem;*/
-/*}*/
-
-/*.auth-links a {*/
-/*  color: var(--color-accent);*/
-/*  font-weight: bold;*/
-/*  transition: color 0.3s;*/
-/*}*/
-
-/*.auth-links a:hover {*/
-/*  color: var(--color-accent-hover);*/
-/*  text-decoration: underline;*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Notificaciones mejoradas*/
-/*---------------------- *!*/
-/*.notification-container {*/
-/*  position: fixed;*/
-/*  top: 20px;*/
-/*  right: 20px;*/
-/*  z-index: 9999;*/
-/*  max-width: 100%;*/
-/*  width: 350px;*/
-/*}*/
-
-/*.notification {*/
-/*  padding: 15px 20px;*/
-/*  margin-bottom: 15px;*/
-/*  border-radius: 8px;*/
-/*  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);*/
-/*  color: #fff;*/
-/*  opacity: 1;*/
-/*  transition: transform 0.3s ease, opacity 0.3s ease;*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  animation: slideIn 0.3s;*/
-/*}*/
-
-/*@keyframes slideIn {*/
-/*  from { transform: translateX(100%); opacity: 0; }*/
-/*  to { transform: translateX(0); opacity: 1; }*/
-/*}*/
-
-/*.notification.success {*/
-/*  background-color: #10b981;*/
-/*  border-left: 5px solid #059669;*/
-/*}*/
-
-/*.notification.error {*/
-/*  background-color: #ef4444;*/
-/*  border-left: 5px solid #dc2626;*/
-/*}*/
-
-/*.notification.fade-out {*/
-/*  transform: translateX(100%);*/
-/*  opacity: 0;*/
-/*  transition: transform 0.5s ease, opacity 0.5s ease;*/
-/*}*/
-
-/*!* ---------------------*/
-/*   Media Queries mejoradas para formularios de autenticación*/
-/*---------------------- *!*/
-/*@media (max-width: 576px) {*/
-/*  .auth-form-container {*/
-/*    padding: 1.25rem;*/
-/*    border-radius: 10px;*/
-/*  }*/
-
-/*  .auth-title {*/
-/*    font-size: 1.6rem;*/
-/*    margin-bottom: 1.2rem;*/
-/*  }*/
-
-/*  .form-row {*/
-/*    flex-direction: column;*/
-/*    gap: 0.5rem;*/
-/*  }*/
-
-/*  .form-label {*/
-/*    font-size: 0.9rem;*/
-/*  }*/
-
-/*  .form-input {*/
-/*    padding: 0.7rem;*/
-/*    font-size: 0.95rem;*/
-/*  }*/
-
-/*  .btn-auth {*/
-/*    padding: 0.8rem;*/
-/*    font-size: 1rem;*/
-/*  }*/
-
-/*  .notification-container {*/
-/*    width: calc(100% - 30px);*/
-/*    right: 15px;*/
-/*  }*/
-
-/*  .toggle-password {*/
-/*    padding: 0.4rem;*/
-/*  }*/
-/*}*/
-
-/*@media (min-width: 577px) and (max-width: 768px) {*/
-/*  .auth-form-container {*/
-/*    max-width: 500px;*/
-/*    padding: 1.5rem;*/
-/*  }*/
-
-/*  .form-row .form-group {*/
-/*    flex: 1 1 100%;*/
-/*  }*/
-
-/*  .notification-container {*/
-/*    width: 300px;*/
-/*  }*/
-/*}*/
-
-/*!* Sistema de validación visual para formularios *!*/
-/*.form-input:valid {*/
-/*  border-color: #10b981;*/
-/*}*/
-
-/*.form-input:invalid:not(:placeholder-shown) {*/
-/*  border-color: #ef4444;*/
-/*}*/
-
-/*!* Efecto de foco para campos *!*/
-/*.form-group:focus-within .form-label {*/
-/*  color: var(--color-accent);*/
-/*}*/
-
-/*!* Mejoras adicionales para dispositivos táctiles *!*/
-/*@media (hover: none) {*/
-/*  .form-input, .btn-auth {*/
-/*    font-size: 16px; !* Previene zoom en iOS *!*/
-/*  }*/
-
-/*  .form-input {*/
-/*    padding: 12px;*/
-/*  }*/
-
-/*  .toggle-password {*/
-/*    width: 44px;*/
-/*    height: 44px;*/
-/*    right: 0;*/
-/*  }*/
-/*}*/
-
-/*!* Modo oscuro optimizado para OLED *!*/
-/*@media (prefers-color-scheme: dark) {*/
-/*  :root {*/
-/*    --color-background: #000;*/
-/*    --color-background-secondary: #0a0a0a;*/
-/*    --color-background-tertiary: #121212;*/
-/*  }*/
-/*}*/
-
-/*!* Soporte para pantallas de alta densidad *!*/
-/*@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {*/
-/*  .auth-form-container {*/
-/*    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);*/
-/*  }*/
-/*}*/
-
-/*!* Animaciones condicionales (respeta preferencia de reducción de movimiento) *!*/
-/*@media (prefers-reduced-motion: reduce) {*/
-/*  .auth-form-container,*/
-/*  .notification,*/
-/*  .btn-auth {*/
-/*    animation: none;*/
-/*    transition: none;*/
-/*  }*/
-/*}*/
-
-/*!* Mejora para modo landscape en dispositivos móviles *!*/
-/*@media (max-height: 500px) and (orientation: landscape) {*/
-/*  .auth-container {*/
-/*    align-items: flex-start;*/
-/*    padding: 1rem 1rem 3rem;*/
-/*    overflow-y: auto;*/
-/*  }*/
-
-/*  .auth-form-container {*/
-/*    margin: 1rem auto;*/
-/*  }*/
-
-/*  .form-row {*/
-/*    flex-direction: row;*/
-/*  }*/
-/*}*/                                                                   /* ---------------------
+                                                              /* ---------------------
    Reset básico y configuración global
 ---------------------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Times New Roman', Times, serif;
-}
+                                                              * {
+                                                                margin: 0;
+                                                                padding: 0;
+                                                                box-sizing: border-box;
+                                                                font-family: 'Times New Roman', Times, serif;
+                                                              }
 
-:root {
-  /* Colores profundos para pantallas AMOLED y no AMOLED */
-  --color-background: #000;
-  --color-background-secondary: #0d0d0d;
-  --color-background-tertiary: #141414;
-  /* Verde base algo más oscuro, y hover ligeramente más claro */
-  --color-accent: #00c700;
-  --color-accent-hover: #00ff00;
-  --color-text: #ffffff;
-  --color-border: #333;
-  --border-radius: 8px;
-  --padding-standard: 1rem;
-  --gap-standard: 1rem;
-  --transition-standard: 0.2s ease-in-out;
-}
+                                                              :root {
+                                                                /* Colores profundos para pantallas AMOLED y no AMOLED */
+                                                                --color-background: #000;
+                                                                --color-background-secondary: #0d0d0d;
+                                                                --color-background-tertiary: #141414;
+                                                                /* Verde base algo más oscuro, y hover ligeramente más claro */
+                                                                --color-accent: #00c700;
+                                                                --color-accent-hover: #00ff00;
+                                                                --color-text: #ffffff;
+                                                                --color-border: #333;
+                                                                --border-radius: 8px;
+                                                                --padding-standard: 1rem;
+                                                                --gap-standard: 1rem;
+                                                                --transition-standard: 0.2s ease-in-out;
+                                                              }
 
-/* Oculta la barra de desplazamiento en navegadores WebKit */
-html::-webkit-scrollbar {
-  width: 0;
-}
+                                                              /* Oculta la barra de desplazamiento en navegadores WebKit */
+                                                              html::-webkit-scrollbar {
+                                                                width: 0;
+                                                              }
 
-/* ---------------------
+                                                              /* ---------------------
    Estilos base
 ---------------------- */
-body {
-  background-color: var(--color-background);
-  color: var(--color-text);
-  line-height: 1.5;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  padding: 1rem;
-}
+                                                              body {
+                                                                background-color: var(--color-background);
+                                                                color: var(--color-text);
+                                                                line-height: 1.5;
+                                                                display: flex;
+                                                                flex-direction: column;
+                                                                min-height: 100vh;
+                                                                padding: 1rem;
+                                                              }
 
-a {
-  color: var(--color-text);
-  text-decoration: none;
-  transition: color var(--transition-standard);
-}
+                                                              a {
+                                                                color: var(--color-text);
+                                                                text-decoration: none;
+                                                                transition: color var(--transition-standard);
+                                                              }
 
-a:hover {
-  color: var(--color-accent);
-}
+                                                              a:hover {
+                                                                color: var(--color-accent);
+                                                              }
 
-i {
-  cursor: pointer;
-}
+                                                              i {
+                                                                cursor: pointer;
+                                                              }
 
-/* Títulos */
-h1, h2, h3 {
-  margin-bottom: 1rem;
-}
+                                                              /* Títulos */
+                                                              h1,
+                                                              h2,
+                                                              h3 {
+                                                                margin-bottom: 1rem;
+                                                              }
 
-h1 {
-  font-size: 1.8rem;
-}
+                                                              h1 {
+                                                                font-size: 1.8rem;
+                                                              }
 
-h2 {
-  font-size: 1.5rem;
-  text-align: center;
-}
+                                                              h2 {
+                                                                font-size: 1.5rem;
+                                                                text-align: center;
+                                                              }
 
-h3 {
-  font-size: 1.2rem;
-  color: var(--color-accent);
-}
+                                                              h3 {
+                                                                font-size: 1.2rem;
+                                                                color: var(--color-accent);
+                                                              }
 
-/* Contenedores comunes */
-section {
-  background-color: var(--color-background-secondary);
-  border-radius: var(--border-radius);
-  padding: var(--padding-standard);
-  width: 100%;
-  transition: all 0.3s ease;
-  animation: fadeIn 0.5s ease-in-out;
-}
+                                                              /* Contenedores comunes */
+                                                              section {
+                                                                background-color: var(--color-background-secondary);
+                                                                border-radius: var(--border-radius);
+                                                                padding: var(--padding-standard);
+                                                                width: 100%;
+                                                                transition: all 0.3s ease;
+                                                                animation: fadeIn 0.5s ease-in-out;
+                                                              }
 
-/* ---------------------
+                                                              /* ---------------------
    Navegación
 ---------------------- */
-.nav-list, nav ul {
-  list-style: none;
-  display: flex;
-  gap: var(--gap-standard);
-}
+                                                              .nav-list,
+                                                              nav ul {
+                                                                list-style: none;
+                                                                display: flex;
+                                                                gap: var(--gap-standard);
+                                                              }
 
-/* En pantallas grandes y medianas la navegación se mantiene en fila */
-.nav-link, nav a {
-  font-weight: 500;
-  padding: 0.5rem;
-  display: inline-block;
-}
+                                                              /* En pantallas grandes y medianas la navegación se mantiene en fila */
+                                                              .nav-link,
+                                                              nav a {
+                                                                font-weight: 500;
+                                                                padding: 0.5rem;
+                                                                display: inline-block;
+                                                              }
 
-/* ---------------------
+                                                              /* ---------------------
    Formularios, Botones, Tablas, Widgets, etc.
    (Se mantienen la mayor parte de estilos originales, con ajustes mínimos)
 ---------------------- */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-}
-
-.form-column {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-label, label {
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.form-input,
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="tel"],
-select {
-  background-color: var(--color-background-tertiary);
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-  padding: 0.6rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  width: 100%;
-}
-
-/* Botones */
-button, .btn {
-  background-color: var(--color-accent);
-  border: none;
-  color: var(--color-text);
-  padding: 0.7rem 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background-color var(--transition-standard);
-  text-align: center;
-  display: inline-block;
-  font-size: 1rem;
-}
-
-button:hover, .btn:hover {
-  background-color: var(--color-accent-hover);
-}
-
-/* Botones de acción: editar y eliminar */
-.btn-editar,
-.btn-eliminar {
-  padding: 0.4rem 0.8rem;
-  margin: 0 0.2rem;
-}
-
-.btn-editar {
-  background-color: rgb(237, 237, 3);
-}
-
-.btn-editar:hover {
-  background-color: rgb(224, 232, 7);
-}
-
-.btn-eliminar {
-  background-color: red;
-}
-
-.btn-eliminar:hover {
-  background-color: #ff3535;
-}
-
-.btn-save {
-  width: 100%;
-  padding: 0.8rem;
-  font-weight: bold;
-}
-
-/* Tablas */
-.tabla-contenedor {
-  overflow-x: auto;
-  background-color: var(--color-background-secondary);
-  padding: var(--padding-standard);
-  border-radius: var(--border-radius);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-  min-width: 650px;
-}
-
-thead {
-  background-color: #202020;
-}
-
-th, td {
-  padding: 0.5rem;
-  border: 1px solid var(--color-border);
-}
-
-th {
-  color: var(--color-accent);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-td {
-  word-break: break-word;
-}
-
-/* Widgets */
-.widgets-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--gap-standard);
-  margin-bottom: 1rem;
-}
-
-.widget {
-  background-color: var(--color-background-tertiary);
-  padding: var(--padding-standard);
-  border-radius: var(--border-radius);
-  text-align: center;
-}
-
-/* Gráficas */
-.chart-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--gap-standard);
-  width: 100%;
-}
-
-.chart-box {
-  background-color: var(--color-background-tertiary);
-  padding: var(--padding-standard);
-  border-radius: var(--border-radius);
-}
-
-.chart-box canvas {
-  width: 100% !important;
-  max-height: 310px;
-  background-color: #191919;
-  border: 1px solid var(--color-border);
-}
-
-/* Header bar (filtros + botones) */
-.header-bar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.filter-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.search-input {
-  flex: 1;
-  min-width: 200px;
-}
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-.modal-content {
-  background-color: var(--color-background-tertiary);
-  margin: 5% auto;
-  padding: var(--padding-standard);
-  border-radius: var(--border-radius);
-  width: 90%;
-  max-width: 600px;
-  position: relative;
-}
-
-.modal-cerrar {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  color: var(--color-text);
-  font-size: 1.4rem;
-  cursor: pointer;
-  transition: color var(--transition-standard);
-}
-
-.modal-cerrar:hover {
-  color: #ff3535;
-}
-
-/* Detalles en modal */
-.detalles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
-
-.detalles-col {
-  background-color: var(--color-background-secondary);
-  padding: 0.8rem;
-  border-radius: 4px;
-}
-
-/* Modal de confirmación */
-.confirm-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-}
-
-.confirm-modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: var(--border-radius);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-}
-
-.confirm-modal-message {
-  margin-bottom: 20px;
-  font-size: 17px;
-  font-weight: bold;
-  color: black;
-}
-
-.confirm-modal-buttons {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
-.btn-confirm-yes {
-  background-color: red;
-}
-
-.btn-confirm-yes:hover {
-  background-color: #ff3535;
-}
-
-.btn-confirm-no {
-  background-color: rgba(48, 133, 214, 0.76);
-}
-
-/* Páginas de autenticación */
-.auth-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  background-color: var(--color-background);
-}
-
-.auth-form-container {
-  width: 100%;
-  max-width: 650px;
-  background-color: var(--color-background-secondary);
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-  padding: 2rem;
-  transition: all 0.3s ease;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.auth-title {
-  text-align: center;
-  color: var(--color-accent);
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.form-row {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.form-row .form-group {
-  flex: 1 1 250px;
-  min-width: 0;
-}
-
-.form-group {
-  margin-bottom: 0.5rem;
-}
-
-.form-label {
-  display: block;
-  font-size: 1rem;
-  color: var(--color-text);
-}
-
-.form-input {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  background-color: var(--color-background-tertiary);
-  color: var(--color-text);
-  font-size: 1rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(0, 179, 89, 0.2);
-}
-
-.form-input::placeholder {
-  color: #777;
-  opacity: 0.7;
-}
-
-.password-container {
-  position: relative;
-  width: 100%;
-}
-
-.toggle-password {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  color: #777;
-  padding: 0;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.toggle-password:hover {
-  color: var(--color-accent);
-}
-
-.btn-auth {
-  margin-top: 1rem;
-  padding: 0.9rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  width: 100%;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  background-color: var(--color-accent);
-  transition: transform 0.2s, background-color 0.3s;
-}
-
-.btn-auth:hover {
-  background-color: var(--color-accent-hover);
-  transform: translateY(-2px);
-}
-
-.btn-auth:active {
-  transform: translateY(0);
-}
-
-.auth-links {
-  text-align: center;
-  margin-top: 1.5rem;
-}
-
-.auth-links a {
-  color: var(--color-accent);
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
-.auth-links a:hover {
-  color: var(--color-accent-hover);
-  text-decoration: underline;
-}
-
-/* Notificaciones */
-.notification-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-  max-width: 100%;
-  width: 500px;
-}
-
-.notification {
-  padding: 15px 20px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  color: #fff;
-  opacity: 1;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  display: flex;
-  align-items: center;
-  animation: slideIn 0.3s;
-}
-
-@keyframes slideIn {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-.notification.success {
-  background-color: #00c700;
-  border-left: 5px solid #00ff00;
-}
-
-.notification.error {
-  background-color: red;
-  border-left: 5px solid #dc2626;
-}
-
-.notification.fade-out {
-  transform: translateX(100%);
-  opacity: 0;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-/* Validación visual */
-.form-input:valid {
-  border-color: #00ff00;
-}
-
-.form-input:invalid:not(:placeholder-shown) {
-  border-color: red;
-}
-
-.form-group:focus-within .form-label {
-  color: var(--color-accent);
-}
-
-/* Mejoras para dispositivos táctiles */
-@media (hover: none) {
-  .form-input, .btn-auth {
-    font-size: 16px;
-  }
-  .form-input {
-    padding: 12px;
-  }
-  .toggle-password {
-    width: 44px;
-    height: 44px;
-    right: 0;
-  }
-}
-
-/* ---------------------
+                                                              form {
+                                                                display: flex;
+                                                                flex-direction: column;
+                                                                gap: 0.5rem;
+                                                              }
+
+                                                              .form-grid {
+                                                                display: grid;
+                                                                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                                                                gap: 1rem;
+                                                              }
+
+                                                              .form-column {
+                                                                display: flex;
+                                                                flex-direction: column;
+                                                                gap: 0.5rem;
+                                                              }
+
+                                                              .form-label,
+                                                              label {
+                                                                font-weight: bold;
+                                                                font-size: 20px;
+                                                              }
+
+                                                              .form-input,
+                                                              input[type="text"],
+                                                              input[type="number"],
+                                                              input[type="email"],
+                                                              input[type="tel"],
+                                                              select {
+                                                                background-color: var(--color-background-tertiary);
+                                                                border: 1px solid var(--color-border);
+                                                                color: var(--color-text);
+                                                                padding: 0.6rem;
+                                                                border-radius: 4px;
+                                                                font-size: 1rem;
+                                                                width: 100%;
+                                                              }
+
+                                                              /* Botones */
+                                                              button,
+                                                              .btn {
+                                                                background-color: var(--color-accent);
+                                                                border: none;
+                                                                color: var(--color-text);
+                                                                padding: 0.7rem 1rem;
+                                                                cursor: pointer;
+                                                                border-radius: 4px;
+                                                                font-weight: 500;
+                                                                transition: background-color var(--transition-standard);
+                                                                text-align: center;
+                                                                display: inline-block;
+                                                                font-size: 1rem;
+                                                              }
+
+                                                              button:hover,
+                                                              .btn:hover {
+                                                                background-color: var(--color-accent-hover);
+                                                              }
+
+                                                              /* Botones de acción: editar y eliminar */
+                                                              .btn-editar,
+                                                              .btn-eliminar {
+                                                                padding: 0.4rem 0.8rem;
+                                                                margin: 0 0.2rem;
+                                                              }
+
+                                                              .btn-editar {
+                                                                background-color: rgb(237, 237, 3);
+                                                              }
+
+                                                              .btn-editar:hover {
+                                                                background-color: rgb(224, 232, 7);
+                                                              }
+
+                                                              .btn-eliminar {
+                                                                background-color: red;
+                                                              }
+
+                                                              .btn-eliminar:hover {
+                                                                background-color: #ff3535;
+                                                              }
+
+                                                              .btn-save {
+                                                                width: 100%;
+                                                                padding: 0.8rem;
+                                                                font-weight: bold;
+                                                              }
+
+                                                              /* Tablas */
+                                                              .tabla-contenedor {
+                                                                overflow-x: auto;
+                                                                background-color: var(--color-background-secondary);
+                                                                padding: var(--padding-standard);
+                                                                border-radius: var(--border-radius);
+                                                              }
+
+                                                              table {
+                                                                width: 100%;
+                                                                border-collapse: collapse;
+                                                                text-align: center;
+                                                                min-width: 650px;
+                                                              }
+
+                                                              thead {
+                                                                background-color: #202020;
+                                                              }
+
+                                                              th,
+                                                              td {
+                                                                padding: 0.5rem;
+                                                                border: 1px solid var(--color-border);
+                                                              }
+
+                                                              th {
+                                                                color: var(--color-accent);
+                                                                font-weight: 600;
+                                                                white-space: nowrap;
+                                                              }
+
+                                                              td {
+                                                                word-break: break-word;
+                                                              }
+
+                                                              /* Widgets */
+                                                              .widgets-container {
+                                                                display: grid;
+                                                                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                                                                gap: var(--gap-standard);
+                                                                margin-bottom: 1rem;
+                                                              }
+
+                                                              .widget {
+                                                                background-color: var(--color-background-tertiary);
+                                                                padding: var(--padding-standard);
+                                                                border-radius: var(--border-radius);
+                                                                text-align: center;
+                                                              }
+
+                                                              /* Gráficas */
+                                                              .chart-container {
+                                                                display: grid;
+                                                                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                                                                gap: var(--gap-standard);
+                                                                width: 100%;
+                                                              }
+
+                                                              .chart-box {
+                                                                background-color: var(--color-background-tertiary);
+                                                                padding: var(--padding-standard);
+                                                                border-radius: var(--border-radius);
+                                                              }
+
+                                                              .chart-box canvas {
+                                                                width: 100% !important;
+                                                                max-height: 310px;
+                                                                background-color: #191919;
+                                                                border: 1px solid var(--color-border);
+                                                              }
+
+                                                              /* Header bar (filtros + botones) */
+                                                              .header-bar {
+                                                                display: flex;
+                                                                flex-wrap: wrap;
+                                                                justify-content: space-between;
+                                                                align-items: center;
+                                                                gap: 0.8rem;
+                                                              }
+
+                                                              .filter-container {
+                                                                display: flex;
+                                                                flex-wrap: wrap;
+                                                                gap: 0.5rem;
+                                                                align-items: center;
+                                                              }
+
+                                                              .search-input {
+                                                                flex: 1;
+                                                                min-width: 200px;
+                                                              }
+
+                                                              /* Modal */
+                                                              .modal {
+                                                                display: none;
+                                                                position: fixed;
+                                                                z-index: 999;
+                                                                left: 0;
+                                                                top: 0;
+                                                                width: 100%;
+                                                                height: 100%;
+                                                                overflow: auto;
+                                                                background-color: rgba(0, 0, 0, 0.6);
+                                                              }
+
+                                                              .modal-content {
+                                                                background-color: var(--color-background-tertiary);
+                                                                margin: 5% auto;
+                                                                padding: var(--padding-standard);
+                                                                border-radius: var(--border-radius);
+                                                                width: 90%;
+                                                                max-width: 600px;
+                                                                position: relative;
+                                                              }
+
+                                                              .modal-cerrar {
+                                                                position: absolute;
+                                                                top: 8px;
+                                                                right: 12px;
+                                                                color: var(--color-text);
+                                                                font-size: 1.4rem;
+                                                                cursor: pointer;
+                                                                transition: color var(--transition-standard);
+                                                              }
+
+                                                              .modal-cerrar:hover {
+                                                                color: #ff3535;
+                                                              }
+
+                                                              /* Detalles en modal */
+                                                              .detalles-grid {
+                                                                display: grid;
+                                                                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                                                                gap: 1rem;
+                                                              }
+
+                                                              .detalles-col {
+                                                                background-color: var(--color-background-secondary);
+                                                                padding: 0.8rem;
+                                                                border-radius: 4px;
+                                                              }
+
+                                                              /* Modal de confirmación */
+                                                              .confirm-modal {
+                                                                position: fixed;
+                                                                top: 0;
+                                                                left: 0;
+                                                                width: 100%;
+                                                                height: 100%;
+                                                                background: rgba(0, 0, 0, 0.5);
+                                                                display: none;
+                                                                align-items: center;
+                                                                justify-content: center;
+                                                                z-index: 10000;
+                                                              }
+
+                                                              .confirm-modal-content {
+                                                                background: #fff;
+                                                                padding: 20px;
+                                                                border-radius: var(--border-radius);
+                                                                text-align: center;
+                                                                max-width: 400px;
+                                                                width: 90%;
+                                                              }
+
+                                                              .confirm-modal-message {
+                                                                margin-bottom: 20px;
+                                                                font-size: 17px;
+                                                                font-weight: bold;
+                                                                color: black;
+                                                              }
+
+                                                              .confirm-modal-buttons {
+                                                                display: flex;
+                                                                justify-content: space-around;
+                                                                flex-wrap: wrap;
+                                                                gap: 0.8rem;
+                                                              }
+
+                                                              .btn-confirm-yes {
+                                                                background-color: red;
+                                                              }
+
+                                                              .btn-confirm-yes:hover {
+                                                                background-color: #ff3535;
+                                                              }
+
+                                                              .btn-confirm-no {
+                                                                background-color: rgba(48, 133, 214, 0.76);
+                                                              }
+
+                                                              /* Páginas de autenticación */
+                                                              .auth-container {
+                                                                display: flex;
+                                                                justify-content: center;
+                                                                align-items: center;
+                                                                min-height: 100vh;
+                                                                padding: 20px;
+                                                                background-color: var(--color-background);
+                                                              }
+
+                                                              .auth-form-container {
+                                                                width: 100%;
+                                                                max-width: 650px;
+                                                                background-color: var(--color-background-secondary);
+                                                                border-radius: 12px;
+                                                                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+                                                                padding: 2rem;
+                                                                transition: all 0.3s ease;
+                                                                animation: fadeIn 0.5s ease-in-out;
+                                                              }
+
+                                                              @keyframes fadeIn {
+                                                                from {
+                                                                  opacity: 0;
+                                                                  transform: translateY(-10px);
+                                                                }
+
+                                                                to {
+                                                                  opacity: 1;
+                                                                  transform: translateY(0);
+                                                                }
+                                                              }
+
+                                                              .auth-title {
+                                                                text-align: center;
+                                                                color: var(--color-accent);
+                                                                margin-bottom: 1.5rem;
+                                                                font-size: 2rem;
+                                                                font-weight: bold;
+                                                              }
+
+                                                              .auth-form {
+                                                                display: flex;
+                                                                flex-direction: column;
+                                                                gap: 1rem;
+                                                              }
+
+                                                              .form-row {
+                                                                display: flex;
+                                                                gap: 1rem;
+                                                                flex-wrap: wrap;
+                                                              }
+
+                                                              .form-row .form-group {
+                                                                flex: 1 1 250px;
+                                                                min-width: 0;
+                                                              }
+
+                                                              .form-group {
+                                                                margin-bottom: 0.5rem;
+                                                              }
+
+                                                              .form-label {
+                                                                display: block;
+                                                                font-size: 1rem;
+                                                                color: var(--color-text);
+                                                              }
+
+                                                              .form-input {
+                                                                width: 100%;
+                                                                padding: 0.8rem 1rem;
+                                                                border: 1px solid var(--color-border);
+                                                                border-radius: 6px;
+                                                                background-color: var(--color-background-tertiary);
+                                                                color: var(--color-text);
+                                                                font-size: 1rem;
+                                                                transition: border-color 0.3s, box-shadow 0.3s;
+                                                              }
+
+                                                              .form-input:focus {
+                                                                outline: none;
+                                                                border-color: var(--color-accent);
+                                                                box-shadow: 0 0 0 2px rgba(0, 179, 89, 0.2);
+                                                              }
+
+                                                              .form-input::placeholder {
+                                                                color: #777;
+                                                                opacity: 0.7;
+                                                              }
+
+                                                              .password-container {
+                                                                position: relative;
+                                                                width: 100%;
+                                                              }
+
+                                                              .toggle-password {
+                                                                position: absolute;
+                                                                right: 10px;
+                                                                top: 50%;
+                                                                transform: translateY(-50%);
+                                                                background: transparent;
+                                                                border: none;
+                                                                color: #777;
+                                                                padding: 0;
+                                                                cursor: pointer;
+                                                                font-size: 1rem;
+                                                                display: flex;
+                                                                align-items: center;
+                                                                justify-content: center;
+                                                              }
+
+                                                              .toggle-password:hover {
+                                                                color: var(--color-accent);
+                                                              }
+
+                                                              .btn-auth {
+                                                                margin-top: 1rem;
+                                                                padding: 0.9rem;
+                                                                font-size: 1.1rem;
+                                                                font-weight: bold;
+                                                                width: 100%;
+                                                                text-transform: uppercase;
+                                                                letter-spacing: 1px;
+                                                                border-radius: 6px;
+                                                                background-color: var(--color-accent);
+                                                                transition: transform 0.2s, background-color 0.3s;
+                                                              }
+
+                                                              .btn-auth:hover {
+                                                                background-color: var(--color-accent-hover);
+                                                                transform: translateY(-2px);
+                                                              }
+
+                                                              .btn-auth:active {
+                                                                transform: translateY(0);
+                                                              }
+
+                                                              .auth-links {
+                                                                text-align: center;
+                                                                margin-top: 1.5rem;
+                                                              }
+
+                                                              .auth-links a {
+                                                                color: var(--color-accent);
+                                                                font-weight: bold;
+                                                                transition: color 0.3s;
+                                                              }
+
+                                                              .auth-links a:hover {
+                                                                color: var(--color-accent-hover);
+                                                                text-decoration: underline;
+                                                              }
+
+                                                              /* Notificaciones */
+                                                              .notification-container {
+                                                                position: fixed;
+                                                                top: 20px;
+                                                                right: 20px;
+                                                                z-index: 9999;
+                                                                max-width: 100%;
+                                                                width: 500px;
+                                                              }
+
+                                                              .notification {
+                                                                padding: 15px 20px;
+                                                                margin-bottom: 15px;
+                                                                border-radius: 8px;
+                                                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                                                                color: #fff;
+                                                                opacity: 1;
+                                                                transition: transform 0.3s ease, opacity 0.3s ease;
+                                                                display: flex;
+                                                                align-items: center;
+                                                                animation: slideIn 0.3s;
+                                                              }
+
+                                                              @keyframes slideIn {
+                                                                from {
+                                                                  transform: translateX(100%);
+                                                                  opacity: 0;
+                                                                }
+
+                                                                to {
+                                                                  transform: translateX(0);
+                                                                  opacity: 1;
+                                                                }
+                                                              }
+
+                                                              .notification.success {
+                                                                background-color: #00c700;
+                                                                border-left: 5px solid #00ff00;
+                                                              }
+
+                                                              .notification.error {
+                                                                background-color: red;
+                                                                border-left: 5px solid #dc2626;
+                                                              }
+
+                                                              .notification.fade-out {
+                                                                transform: translateX(100%);
+                                                                opacity: 0;
+                                                                transition: transform 0.5s ease, opacity 0.5s ease;
+                                                              }
+
+                                                              /* Validación visual */
+                                                              .form-input:valid {
+                                                                border-color: #00ff00;
+                                                              }
+
+                                                              .form-input:invalid:not(:placeholder-shown) {
+                                                                border-color: red;
+                                                              }
+
+                                                              .form-group:focus-within .form-label {
+                                                                color: var(--color-accent);
+                                                              }
+
+                                                              /* Mejoras para dispositivos táctiles */
+                                                              @media (hover: none) {
+
+                                                                .form-input,
+                                                                .btn-auth {
+                                                                  font-size: 16px;
+                                                                }
+
+                                                                .form-input {
+                                                                  padding: 12px;
+                                                                }
+
+                                                                .toggle-password {
+                                                                  width: 44px;
+                                                                  height: 44px;
+                                                                  right: 0;
+                                                                }
+                                                              }
+
+                                                              /* ---------------------
    Media Queries
 ---------------------- */
-/* Pantallas pequeñas (smartphones) */
-@media (max-width: 576px) {
-  /* Navegación: disposición horizontal y centrada */
-  .nav-list, nav ul {
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .nav-item, nav li {
-    width: auto;
-    text-align: center;
-    font-size: 18px;
-  }
+                                                              /* Pantallas pequeñas (smartphones) */
+                                                              @media (max-width: 576px) {
 
-  .header-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
+                                                                /* Navegación: disposición horizontal y centrada */
+                                                                .nav-list,
+                                                                nav ul {
+                                                                  flex-direction: row;
+                                                                  justify-content: center;
+                                                                  gap: 1rem;
+                                                                }
 
-  .filter-container, .btn-container {
-    width: 100%;
-    justify-content: center;
-  }
+                                                                .nav-item,
+                                                                nav li {
+                                                                  width: auto;
+                                                                  text-align: center;
+                                                                  font-size: 18px;
+                                                                }
 
-  .search-input {
-    width: 100%;
-  }
+                                                                .header-bar {
+                                                                  flex-direction: column;
+                                                                  align-items: stretch;
+                                                                }
 
-  button, .btn {
-    padding: 0.6rem 0.8rem;
-  }
+                                                                .filter-container,
+                                                                .btn-container {
+                                                                  width: 100%;
+                                                                  justify-content: center;
+                                                                }
 
-  .modal-content {
-    width: 95%;
-    margin: 2% auto;
-    padding: 0.8rem;
-  }
+                                                                .search-input {
+                                                                  width: 100%;
+                                                                }
 
-  .widget {
-    padding: 0.8rem;
-  }
+                                                                button,
+                                                                .btn {
+                                                                  padding: 0.6rem 0.8rem;
+                                                                }
 
-  h1 {
-    font-size: 1.5rem;
-  }
+                                                                .modal-content {
+                                                                  width: 95%;
+                                                                  margin: 2% auto;
+                                                                  padding: 0.8rem;
+                                                                }
 
-  h2 {
-    font-size: 1.3rem;
-  }
+                                                                .widget {
+                                                                  padding: 0.8rem;
+                                                                }
 
-  .btn-open-modal {
-    width: 100%;
-  }
-}
+                                                                h1 {
+                                                                  font-size: 1.5rem;
+                                                                }
 
-/* Pantallas medianas (tablets) */
-@media (min-width: 577px) and (max-width: 768px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-  .header-bar {
-    flex-wrap: wrap;
-  }
-  .search-input {
-    width: 100%;
-  }
-}
+                                                                h2 {
+                                                                  font-size: 1.3rem;
+                                                                }
 
-/* Pantallas grandes (desktops) */
-@media (min-width: 992px) {
-  body {
-    padding: 1.5rem;
-  }
-  .chart-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .form-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+                                                                .btn-open-modal {
+                                                                  width: 100%;
+                                                                }
+                                                              }
 
-/* Modo oscuro optimizado para OLED (se refuerza con negros profundos) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: #000;
-    --color-background-secondary: #0d0d0d;
-    --color-background-tertiary: #141414;
-  }
-}
+                                                              /* Pantallas medianas (tablets) */
+                                                              @media (min-width: 577px) and (max-width: 768px) {
+                                                                .form-grid {
+                                                                  grid-template-columns: 1fr;
+                                                                }
 
-/* Soporte para pantallas de alta densidad */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .auth-form-container {
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-  }
-}
+                                                                .header-bar {
+                                                                  flex-wrap: wrap;
+                                                                }
 
-/* Reducción de animaciones si se prefiere */
-@media (prefers-reduced-motion: reduce) {
-  .auth-form-container,
-  .notification,
-  .btn-auth {
-    animation: none;
-    transition: none;
-  }
-}
+                                                                .search-input {
+                                                                  width: 100%;
+                                                                }
+                                                              }
 
-/* Modo landscape en móviles */
-@media (max-height: 500px) and (orientation: landscape) {
-  .auth-container {
-    align-items: flex-start;
-    padding: 1rem 1rem 3rem;
-    overflow-y: auto;
-  }
-  .auth-form-container {
-    margin: 1rem auto;
-  }
-  .form-row {
-    flex-direction: row;
-  }
-}
+                                                              /* Pantallas grandes (desktops) */
+                                                              @media (min-width: 992px) {
+                                                                body {
+                                                                  padding: 1.5rem;
+                                                                }
+
+                                                                .chart-container {
+                                                                  grid-template-columns: repeat(2, 1fr);
+                                                                }
+
+                                                                .form-grid {
+                                                                  grid-template-columns: repeat(2, 1fr);
+                                                                }
+                                                              }
+
+                                                              /* Modo oscuro optimizado para OLED (se refuerza con negros profundos) */
+                                                              @media (prefers-color-scheme: dark) {
+                                                                :root {
+                                                                  --color-background: #000;
+                                                                  --color-background-secondary: #0d0d0d;
+                                                                  --color-background-tertiary: #141414;
+                                                                }
+                                                              }
+
+                                                              /* Soporte para pantallas de alta densidad */
+                                                              @media (-webkit-min-device-pixel-ratio: 2),
+                                                              (min-resolution: 192dpi) {
+                                                                .auth-form-container {
+                                                                  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+                                                                }
+                                                              }
+
+                                                              /* Reducción de animaciones si se prefiere */
+                                                              @media (prefers-reduced-motion: reduce) {
+
+                                                                .auth-form-container,
+                                                                .notification,
+                                                                .btn-auth {
+                                                                  animation: none;
+                                                                  transition: none;
+                                                                }
+                                                              }
+
+                                                              /* Modo landscape en móviles */
+                                                              @media (max-height: 500px) and (orientation: landscape) {
+                                                                .auth-container {
+                                                                  align-items: flex-start;
+                                                                  padding: 1rem 1rem 3rem;
+                                                                  overflow-y: auto;
+                                                                }
+
+                                                                .auth-form-container {
+                                                                  margin: 1rem auto;
+                                                                }
+
+                                                                .form-row {
+                                                                  flex-direction: row;
+                                                                }
+                                                              }

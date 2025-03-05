@@ -1,89 +1,7 @@
-//import { registrarUsuario } from "../../../../BackEnd/services/usuarioServices.js";
-//import { showNotification } from "../utils/showNotifications.js";
-//import { verificarAutenticacion } from "../../../../BackEnd/services/authService.js";
-//
-//document.addEventListener("DOMContentLoaded", () => {
-//  // Verificar autenticación (redirige si ya hay sesión)
-//  verificarAutenticacion();
-//
-//  const form = document.getElementById("registro-form");
-//  const togglePasswordButtons = document.querySelectorAll(".toggle-password");
-//
-//  // Gestionar visibilidad de contraseñas
-//  togglePasswordButtons.forEach(button => {
-//    button.addEventListener("click", () => {
-//      const input = button.previousElementSibling;
-//      const type = input.getAttribute("type") === "password" ? "text" : "password";
-//      input.setAttribute("type", type);
-//
-//      // Cambiar el ícono
-//      const icon = button.querySelector("i");
-//      icon.classList.toggle("fa-eye");
-//      icon.classList.toggle("fa-eye-slash");
-//    });
-//  });
-//
-//  // Procesar formulario de registro
-//  form.addEventListener("submit", (e) => {
-//    e.preventDefault();
-//
-//    const nombres = document.getElementById("nombres").value.trim();
-//    const apellidos = document.getElementById("apellidos").value.trim();
-//    const fechaNacimiento = document.getElementById("fechaNacimiento").value;
-//    const telefono = document.getElementById("telefono").value.trim();
-//    const nombreUsuario = document.getElementById("nombreUsuario").value.trim();
-//    const contrasena = document.getElementById("contrasena").value;
-//    const confirmarContrasena = document.getElementById("confirmarContrasena").value;
-//
-//    // Validar que las contraseñas coincidan
-//    if (contrasena !== confirmarContrasena) {
-//      showNotification("Las contraseñas no coinciden", "error");
-//      return;
-//    }
-//
-//    // Validar fecha de nacimiento
-//    const fechaNac = new Date(fechaNacimiento);
-//    const hoy = new Date();
-//    const edadMinima = 18;
-//
-//    const anios = hoy.getFullYear() - fechaNac.getFullYear();
-//    const meses = hoy.getMonth() - fechaNac.getMonth();
-//
-//    if (anios < edadMinima || (anios === edadMinima && meses < 0)) {
-//      showNotification("Debes ser mayor de 18 años para registrarte", "error");
-//      return;
-//    }
-//
-//    // Crear el usuario
-//    const resultado = registrarUsuario({
-//      nombres,
-//      apellidos,
-//      fechaNacimiento,
-//      telefono,
-//      nombreUsuario,
-//      contrasena
-//    });
-//
-//    if (resultado.exito) {
-//      showNotification(resultado.mensaje, "success");
-//
-//      // Redirigir al login después de un breve retraso
-//      setTimeout(() => {
-//        window.location.href = "../auth/login.html";
-//      }, 1000);
-//    } else {
-//      showNotification(resultado.mensaje, "error");
-//    }
-//  });
-//});
-
 import { UserManager } from "../../../../BackEnd/services/usuarioServices.js";
 import { NotificationManager } from "../utils/showNotifications.js";
 import { AuthService } from "../../../../BackEnd/services/authService.js";
 
-/**
- * Clase para manejar el registro de usuarios
- */
 class RegisterManager {
   constructor() {
     this.form = document.getElementById("registro-form");
@@ -92,9 +10,9 @@ class RegisterManager {
     this.authService = new AuthService();
   }
 
-  /**
-   * Inicializa los manejadores de eventos
-   */
+  
+  //  Inicializa los manejadores de eventos
+   
   init() {
     // Verifica autenticación al cargar
     this.authService.verifyAuthentication();
@@ -104,9 +22,9 @@ class RegisterManager {
     this.setupFormSubmission();
   }
 
-  /**
-   * Configura los botones para mostrar/ocultar contraseñas
-   */
+  
+  //  Configura los botones para mostrar/ocultar contraseñas
+   
   setupPasswordToggles() {
     this.passwordToggleButtons.forEach(button => {
       button.addEventListener("click", () => {
@@ -125,9 +43,6 @@ class RegisterManager {
     });
   }
 
-  /**
-   * Configura el evento de envío del formulario
-   */
   setupFormSubmission() {
     this.form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -135,10 +50,6 @@ class RegisterManager {
     });
   }
 
-  /**
-   * Obtiene y valida los datos del formulario
-   * @returns {Object|null} Datos del formulario o null si hay errores
-   */
   getFormData() {
     const formData = {
       nombres: document.getElementById("nombres").value.trim(),
@@ -159,12 +70,6 @@ class RegisterManager {
     return formData;
   }
 
-  /**
-   * Valida las contraseñas
-   * @param {string} password - Contraseña
-   * @param {string} confirmPassword - Confirmación de contraseña
-   * @returns {boolean} True si son válidas
-   */
   validatePasswords(password, confirmPassword) {
     if (password !== confirmPassword) {
       this.notificationManager.showNotification("Las contraseñas no coinciden", "error");
@@ -173,11 +78,6 @@ class RegisterManager {
     return true;
   }
 
-  /**
-   * Valida la edad del usuario
-   * @param {string} birthDate - Fecha de nacimiento
-   * @returns {boolean} True si la edad es válida
-   */
   validateAge(birthDate) {
     const birthDateTime = new Date(birthDate);
     const today = new Date();
@@ -191,9 +91,6 @@ class RegisterManager {
     return true;
   }
 
-  /**
-   * Maneja el envío del formulario
-   */
   async handleFormSubmit() {
     try {
       const formData = this.getFormData();

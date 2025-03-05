@@ -1,31 +1,5 @@
-//function obtenerFechaYHora() {
-//    const ahora = new Date();
-//    const anio = ahora.getFullYear();
-//    const mes = String(ahora.getMonth() + 1).padStart(2, "0");
-//    const dia = String(ahora.getDate()).padStart(2, "0");
-//    const fecha = `${anio}-${mes}-${dia}`;
-//  
-//    let horas = ahora.getHours();
-//    const minutos = String(ahora.getMinutes()).padStart(2, "0");
-//    const sufijo = horas >= 12 ? "PM" : "AM";
-//    horas = horas % 12 || 12;
-//    const horaStr = `${horas}:${minutos} ${sufijo}`;
-//  
-//    return { fecha, hora: horaStr };
-//  }
-//  
-//  export { obtenerFechaYHora };  
-
-// DateTimeManager.js
-
-/**
- * Clase para gestionar operaciones relacionadas con la fecha y la hora.
- */
 class DateTimeManager {
-  /**
-   * Obtiene la fecha y la hora actuales.
-   * @returns {Object} - Objeto con las propiedades 'fecha' (formato YYYY-MM-DD) y 'hora' (formato de 12 horas con AM/PM).
-   */
+
   static getDateTime() {
     try {
       // Crear un objeto Date para obtener la fecha y hora actual
@@ -55,5 +29,4 @@ class DateTimeManager {
   }
 }
 
-// Exportar la clase para su uso en otros módulos
 export { DateTimeManager };

@@ -1,28 +1,5 @@
-//// BackEnd/database/localStorage.js
-//
-//function getData(key) {
-//  const data = localStorage.getItem(key);
-//  return data ? JSON.parse(data) : [];
-//}
-//
-//function setData(key, data) {
-//  localStorage.setItem(key, JSON.stringify(data));
-//}
-//
-//export { getData, setData };
-//
-
-// LocalStorageManager.js
-
-/**
- * Clase para gestionar operaciones CRUD en el localStorage.
- */
 class LocalStorageManager {
-  /**
-   * Obtiene datos del localStorage.
-   * @param {string} key - Clave para obtener los datos.
-   * @returns {Array|Object} - Datos parseados o arreglo vacío si no existen datos.
-   */
+
   static getData(key) {
     try {
       const data = localStorage.getItem(key);
@@ -33,11 +10,6 @@ class LocalStorageManager {
     }
   }
 
-  /**
-   * Guarda datos en el localStorage.
-   * @param {string} key - Clave para almacenar los datos.
-   * @param {Array|Object} data - Datos a almacenar.
-   */
   static setData(key, data) {
     try {
       localStorage.setItem(key, JSON.stringify(data));
@@ -46,12 +18,6 @@ class LocalStorageManager {
     }
   }
 
-  /**
-   * Crea un nuevo registro en el localStorage.
-   * @param {string} key - Clave donde se guardarán los datos.
-   * @param {Object} newItem - Nuevo elemento a agregar.
-   * @returns {boolean} - Retorna true si se agregó correctamente.
-   */
   static create(key, newItem) {
     try {
       const data = LocalStorageManager.getData(key);
@@ -64,14 +30,6 @@ class LocalStorageManager {
     }
   }
 
-  /**
-   * Actualiza un registro en el localStorage.
-   * @param {string} key - Clave donde se encuentran los datos.
-   * @param {string|number} id - Identificador del registro a actualizar.
-   * @param {Object} updatedItem - Datos actualizados para el registro.
-   * @param {string} [idField="id"] - Campo que identifica el registro (por defecto "id").
-   * @returns {boolean} - Retorna true si se actualizó correctamente.
-   */
   static update(key, id, updatedItem, idField = "id") {
     try {
       const data = LocalStorageManager.getData(key);
@@ -89,13 +47,6 @@ class LocalStorageManager {
     }
   }
 
-  /**
-   * Elimina un registro del localStorage.
-   * @param {string} key - Clave donde se encuentran los datos.
-   * @param {string|number} id - Identificador del registro a eliminar.
-   * @param {string} [idField="id"] - Campo que identifica el registro (por defecto "id").
-   * @returns {boolean} - Retorna true si se eliminó correctamente.
-   */
   static delete(key, id, idField = "id") {
     try {
       const data = LocalStorageManager.getData(key);
@@ -113,5 +64,4 @@ class LocalStorageManager {
   }
 }
 
-// Exporta la clase para ser utilizada en otros módulos
 export { LocalStorageManager };
