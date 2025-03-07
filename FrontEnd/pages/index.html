@@ -1,73 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>Panel Administrador</title>
-    <!-- Paleta de colores y estilo -->
-    <link rel="stylesheet" href="../static/styles/styles.css" />
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Panel Administrador</title>
+  <!-- Paleta de colores y estilo -->
+  <link rel="stylesheet" href="../static/styles/styles.css"/>
 
-    <!-- Incluir Chart.js desde CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Incluir Chart.js desde CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Incluir Font Awesome desde CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  </head>
-  <body>
+  <!-- Incluir Font Awesome desde CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
 
-    <div id="notification-container" class="notification-container"></div>
+<div id="notification-container" class="notification-container"></div>
 
-    <nav class="navigation">
-      <ul class="nav-list" style="display: flex; align-items: center;">
-        <li class="nav-item"><a href="./index.html" class="nav-link">Inicio</a></li>
-        <li class="nav-item"><a href="./inventario/inventario.html" class="nav-link">Inventario</a></li>
-        <li style="margin-left: auto; position: relative;">
-          <span id="usuario-logueado" style="cursor: pointer;">Usuario</span>
-          <ul id="logout-menu" style="position: absolute; top: calc(100% + 10px); right: 0; list-style: none; padding: 0; margin: 0; display: none;">
-            <li class="nav-item">
-              <a href="#" id="btn-logout" class="nav-link">Cerrar Sesión</a>
-            </li>
-          </ul>
+<nav class="navigation">
+  <ul class="nav-list" style="display: flex; align-items: center;">
+    <li class="nav-item"><a href="./index.html" class="nav-link">Inicio</a></li>
+    <li class="nav-item"><a href="./inventario/inventario.html" class="nav-link">Inventario</a></li>
+    <li style="margin-left: auto; position: relative;">
+      <span id="usuario-logueado" style="cursor: pointer;">Usuario</span>
+      <ul id="logout-menu"
+          style="position: absolute; top: calc(100% + 10px); right: 0; list-style: none; padding: 0; margin: 0; display: none;">
+        <li class="nav-item">
+          <a href="#" id="btn-logout" class="nav-link">Cerrar Sesión</a>
         </li>
       </ul>
-    </nav>
-    <script>
-      document.getElementById('usuario-logueado').addEventListener('click', function() {
+    </li>
+  </ul>
+</nav>
+<script>
+    document.getElementById('usuario-logueado').addEventListener('click', function () {
         const logoutMenu = document.getElementById('logout-menu');
         logoutMenu.style.display = logoutMenu.style.display === 'none' || logoutMenu.style.display === '' ? 'block' : 'none';
-      });
-    </script>
-    
+    });
+</script>
 
-    <section>
-      <h1>Panel de Administrador</h1>
 
-      <!-- Widgets -->
-      <div class="widgets-container">
-        <div class="widget">
-          <h3>Productos</h3>
-          <i class="fa-solid fa-box-open fa-2x" title="COMPRADOS"></i> <span id="widget-total-productos" style="font-size: 1.5rem;">0</span>
-        </div>
-        <div class="widget">
-          <h3>Capital</h3>
-          <i class="fa-solid fa-comments-dollar fa-2x" title="INVERTIDO"></i> <span id="widget-total-capital" style="font-size: 1.5rem;">0.00</span>
-        </div>
-      </div>
+<section>
+  <h1>Panel de Administrador</h1>
 
-      <!-- Contenedor de gráficas -->
-      <div class="chart-container">
-        <div class="chart-box">
-          <h3>Productos</h3>
-          <canvas id="chart-barras"></canvas>
-        </div>
-        <div class="chart-box">
-          <h3>Capital</h3>
-          <canvas id="chart-linea"></canvas>
-        </div>
-      </div>
-    </section>
+  <!-- Widgets -->
+  <div class="widgets-container">
+    <div class="widget">
+      <h3>Productos</h3>
+      <i class="fa-solid fa-box-open fa-2x" title="COMPRADOS"></i> <span id="widget-total-productos"
+                                                                         style="font-size: 1.5rem;">0</span>
+    </div>
+    <div class="widget">
+      <h3>Capital</h3>
+      <i class="fa-solid fa-comments-dollar fa-2x" title="INVERTIDO"></i> <span id="widget-total-capital"
+                                                                                style="font-size: 1.5rem;">0.00</span>
+    </div>
+  </div>
 
-    <!-- Tu script principal -->
-    <script type="module" src="../static/scripts/app.js"></script>
-  </body>
+  <!-- Contenedor de gráficas -->
+  <div class="chart-container">
+    <div class="chart-box">
+      <h3>Productos</h3>
+      <canvas id="chart-barras"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>Capital</h3>
+      <canvas id="chart-linea"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- Tu script principal -->
+<script type="module" src="../static/scripts/app.js"></script>
+</body>
 </html>

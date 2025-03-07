@@ -5,13 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4e64e3a-e974-4e95-9a2e-f3fb3dc4ea1b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/database/localStorage.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/database/localStorage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/database/sessionStorage.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/database/sessionStorage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/models/models.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/models/models.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/models/usuario.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/models/usuario.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/services/authService.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/authService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/comprasServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/comprasServices.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/services/dinamicTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/dinamicTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/services/usuarioServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/usuarioServices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/widgetsGraphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/widgetsGraphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/pages/auth/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/auth/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/pages/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/pages/inventario/inventario.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/inventario/inventario.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/datetime.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/datetime.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/searchFilters.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/searchFilters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/showNotifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/showNotifications.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/styles/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,10 +34,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2tmzdgy3TDQdZj4S8zS9DGKztUr" />
   <component name="ProjectViewState">
     <option name="compactDirectories" value="true" />
@@ -35,20 +50,20 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "inlay.hints",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -66,6 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740972136258</updated>
       <workItem from="1740972140789" duration="22219000" />
+      <workItem from="1741317425181" duration="783000" />
     </task>
     <servers />
   </component>

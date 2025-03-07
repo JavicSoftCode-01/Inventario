@@ -1,60 +1,60 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="../../static/styles/styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  </head>
-  <body>
-    <div class="auth-container">
-      <div class="auth-form-container">
-        <h1 class="auth-title">Iniciar Sesión</h1>
-        <form id="login-form" class="auth-form">
-          <div class="form-group">
-            <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
-            <input
-              type="text"
-              id="nombreUsuario"
-              name="nombreUsuario"
-              class="form-input"
-              required
-              placeholder="Ingresa tu nombre de usuario"
-              autocomplete="off"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="contrasena" class="form-label">Contraseña:</label>
-            <div class="password-container">
-              <input
-                type="password"
-                id="contrasena"
-                name="contrasena"
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Iniciar Sesión</title>
+  <link rel="stylesheet" href="../../static/styles/styles.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+<div class="auth-container">
+  <div class="auth-form-container">
+    <h1 class="auth-title">Iniciar Sesión</h1>
+    <form id="login-form" class="auth-form">
+      <div class="form-group">
+        <label for="nombreUsuario" class="form-label">Nombre de Usuario:</label>
+        <input
+                type="text"
+                id="nombreUsuario"
+                name="nombreUsuario"
                 class="form-input"
                 required
-                placeholder="Ingresa tu contraseña"
+                placeholder="Ingresa tu nombre de usuario"
                 autocomplete="off"
-              />
-              <button type="button" class="toggle-password" title="Mostrar/Ocultar contraseña">
-                <i class="fa-solid fa-eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-auth">Iniciar Sesión</button>
-
-          <div class="auth-links">
-            <p>¿No tienes una cuenta? <a href="./register.html">Registrarse</a></p>
-          </div>
-        </form>
+        />
       </div>
-    </div>
 
-    <!-- Contenedor para notificaciones -->
-    <div id="notification-container" class="notification-container"></div>
+      <div class="form-group">
+        <label for="contrasena" class="form-label">Contraseña:</label>
+        <div class="password-container">
+          <input
+                  type="password"
+                  id="contrasena"
+                  name="contrasena"
+                  class="form-input"
+                  required
+                  placeholder="Ingresa tu contraseña"
+                  autocomplete="off"
+          />
+          <button type="button" class="toggle-password" title="Mostrar/Ocultar contraseña">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+      </div>
 
-    <script type="module" src="../../static/scripts/auth/login.js"></script>
-  </body>
+      <button type="submit" class="btn btn-auth">Iniciar Sesión</button>
+
+      <div class="auth-links">
+        <p>¿No tienes una cuenta? <a href="./register.html">Registrarse</a></p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Contenedor para notificaciones -->
+<div id="notification-container" class="notification-container"></div>
+
+<script type="module" src="../../static/scripts/auth/login.js"></script>
+</body>
 </html>
