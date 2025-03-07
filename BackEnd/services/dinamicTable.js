@@ -1,63 +1,8 @@
 import { PurchaseService } from "./comprasServices.js";
 import { UserManager } from "./usuarioServices.js";
+import { NotificationManager } from "./../../FrontEnd/static/scripts/utils/showNotifications.js";
 
 class DynamicTable {
-
-  static renderTable(tbodyId) {
-    const tbody = document.getElementById(tbodyId);
-    if (!tbody) return;
-
-    const purchases = PurchaseService.getPurchases();
-    const currentSession = UserManager.getCurrentSession();
-
-    tbody.innerHTML = "";
-    purchases.forEach((purchase, i) => {
-      const canEdit = UserManager.isUserOwner(purchase.nombreUsuario);
-      console.log('Permisos para editar:', {
-        purchaseId: purchase.id,
-        canEdit,
-        purchaseUser: purchase.nombreUsuario,
-        currentUser: currentSession?.nombreUsuario
-      });
-
-      const total = (Number(purchase.precioProducto) || 0) * (Number(purchase.cantidad) || 0);
-      const rowNumber = i + 1;
-
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-          <td>${rowNumber}</td>
-          <td>${purchase.proveedor}</td>
-          <td>${purchase.ciudad}</td>
-          <td>${purchase.telefono}</td>
-          <td>${purchase.producto}</td>
-          <td>$ ${Number(purchase.precioProducto).toFixed(2)}</td>
-          <td>${purchase.cantidad}</td>
-          <td>$ ${total.toFixed(2)}</td>
-          <td>${purchase.autorizador}</td>
-          <td>
-            <button class="btn-detalles" data-id="${purchase.id}" title="Ver detalles">
-              <i class="fa-solid fa-eye"></i>
-            </button>
-          </td>
-          <td>
-            ${canEdit ? `
-              <button class="btn-editar" data-id="${purchase.id}" title="Editar">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </button>
-              <button class="btn-eliminar" data-id="${purchase.id}" title="Eliminar">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            ` : `
-              <button class="btn-locked" title="No tienes permisos para editar">
-                <i class="fa-solid fa-lock"></i>
-              </button>
-            `}
-          </td>
-        `;
-      tbody.appendChild(tr);
-    });
-  }
-
   static renderTableWithData(comprasArray) {
     try {
       const tbody = document.getElementById("compras-tbody");
@@ -66,19 +11,15 @@ class DynamicTable {
       }
 
       const currentSession = UserManager.getCurrentSession();
-
-      // Limpiar el contenido del tbody
       tbody.innerHTML = "";
 
-      // Recorrer el arreglo de compras para crear cada fila
       comprasArray.forEach((compra, index) => {
-        const totalToPay =
-          (parseFloat(compra.precioProducto) || 0) *
-          (parseFloat(compra.cantidad) || 0);
+        const totalToPay = (parseFloat(compra.precioProducto) || 0) * 
+                          (parseFloat(compra.cantidad) || 0);
         const rowNumber = index + 1;
 
-        // Validar si el usuario tiene permisos para editar o eliminar
-        const canEdit = currentSession && UserManager.isUserOwner(null, compra.nombreUsuario);
+        // Corregir la verificación de permisos eliminando el null
+        const canEdit = currentSession && UserManager.isUserOwner(compra.nombreUsuario);
 
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -92,33 +33,82 @@ class DynamicTable {
           <td>$ ${totalToPay.toFixed(2)}</td>
           <td>${compra.autorizador}</td>
           <td>
+            <div class="stock-control">
+              <span class="stock-value">${compra.stock}</span>
+              <div class="stock-buttons">
+                <button class="btn-stock" data-id="${compra.id}" data-action="increment" ${compra.stock >= compra.cantidad ? 'disabled' : ''}>
+                  <i class="fas fa-plus"></i>
+                </button>
+                <button class="btn-stock" data-id="${compra.id}" data-action="decrement" ${compra.stock <= 0 ? 'disabled' : ''}>
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+          </td>
+          <td>
             <button class="btn-detalles" data-id="${compra.id}" title="Ver detalles">
               <i class="fa-solid fa-eye"></i>
             </button>
           </td>
           <td>
             ${canEdit
-            ? `
-              <button class="btn-editar" data-id="${compra.id}" title="Editar">
-                <i class="fa-solid fa-pencil fa-lg"></i>
-              </button>
-              <button class="btn-eliminar" data-id="${compra.id}" title="Eliminar">
-                <i class="fa-solid fa-trash-can fa-lg"></i>
-              </button>
-            `
-            : `
-              <button class="btn-disabled" disabled title="No tienes permisos">
-                <i class="fa-solid fa-lock fa-lg"></i>
-              </button>
-            `
-          }
+              ? `
+                <button class="btn-editar" data-id="${compra.id}" title="Editar">
+                  <i class="fa-solid fa-pencil fa-lg"></i>
+                </button>
+                <button class="btn-eliminar" data-id="${compra.id}" title="Eliminar">
+                  <i class="fa-solid fa-trash-can fa-lg"></i>
+                </button>
+              `
+              : `
+                <button class="btn-disabled" disabled title="No tienes permisos">
+                  <i class="fa-solid fa-lock fa-lg"></i>
+                </button>
+              `
+            }
           </td>
         `;
         tbody.appendChild(row);
       });
+
+      // Agregar event listeners para los botones de stock
+      tbody.querySelectorAll('.btn-stock').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const button = e.target.closest('button');
+          const id = Number(button.dataset.id);
+          const action = button.dataset.action;
+          const change = action === 'increment' ? 1 : -1;
+          
+          const result = PurchaseService.updateStock(id, change);
+          
+          if (result.success) {
+            // Actualizar el valor del stock en la tabla
+            const row = button.closest('tr');
+            const stockValue = row.querySelector('.stock-value');
+            stockValue.textContent = result.updatedPurchase.stock;
+            
+            // Actualizar estado de los botones
+            const incrementBtn = row.querySelector('[data-action="increment"]');
+            const decrementBtn = row.querySelector('[data-action="decrement"]');
+            
+            incrementBtn.disabled = result.updatedPurchase.stock >= result.updatedPurchase.cantidad;
+            decrementBtn.disabled = result.updatedPurchase.stock <= 0;
+          } else {
+            new NotificationManager().showNotification(result.message, "error");
+          }
+        });
+      });
     } catch (error) {
       console.error("Error al renderizar la tabla con datos:", error);
     }
+  }
+
+  static renderTable(tbodyId) {
+    const tbody = document.getElementById(tbodyId);
+    if (!tbody) return;
+
+    const purchases = PurchaseService.getPurchases();
+    this.renderTableWithData(purchases);
   }
 }
 

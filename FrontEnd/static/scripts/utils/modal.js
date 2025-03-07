@@ -1,7 +1,10 @@
 import { PurchaseManager } from "./searchFilters.js";
+import { Compra } from "./../../../../BackEnd/models/models.js";
 
 class ModalManager {
   constructor() {
+    this.purchase = new Compra()
+
     // Elementos del modal de confirmación
     this.confirmModal = document.getElementById("confirm-modal");
     this.confirmMessage = document.getElementById("confirm-modal-message");
@@ -75,14 +78,42 @@ class ModalManager {
   }
 
   generateRightColumnHTML(purchase, total, profit) {
+    // Crear una instancia de Compra con los datos actuales
+    const compraInstance = new Compra(
+      purchase.id,
+      purchase.proveedor,
+      purchase.ciudad,
+      purchase.telefono,
+      purchase.correo,
+      purchase.producto,
+      purchase.precioProducto,
+      purchase.cantidad,
+      purchase.precioVentaPublico,
+      purchase.fecha,
+      purchase.hora,
+      purchase.nombreUsuario,
+      purchase.autorizador
+    );
+  
+    // Actualizar el stock y productos vendidos
+    compraInstance.stock = purchase.stock;
+    compraInstance.productosVendidos = purchase.cantidad - purchase.stock;
+  
+    const ventasTotales = compraInstance.calcularVentasTotales();
+    const gananciaTotal = compraInstance.calcularGananciaVentas();
+    
     return `
       <p><strong>Cantidad:</strong> ${purchase.cantidad || '0'}</p>
+      <p><strong>Stock Actual:</strong> ${purchase.stock || '0'}</p>
+      <p><strong>Productos Vendidos:</strong> ${purchase.productosVendidos || '0'}</p>
       <p><strong>Total:</strong> $ ${total}</p>
       <p><strong>Precio Venta Público:</strong> $ ${purchase.precioVentaPublico || '0.00'}</p>
+      <p><strong>Ventas Totales:</strong> $ ${ventasTotales.toFixed(2)}</p>
+      <p><strong>Ganancia por Ventas:</strong> $ ${gananciaTotal.toFixed(2)}</p>
       <p><strong>Autoriza:</strong> ${purchase.autorizador || 'No especificado'}</p>
       <p><strong>Fecha:</strong> ${purchase.fecha || 'No especificada'}</p>
       <p><strong>Hora:</strong> ${purchase.hora || 'No especificada'}</p>
-      <p><strong>Ganancia:</strong> $ ${profit}</p>
+      <p><strong>Ganancia Unitaria:</strong> $ ${profit}</p>
     `;
   }
 

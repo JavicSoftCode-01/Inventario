@@ -10,7 +10,6 @@ class RegisterManager {
     this.authService = new AuthService();
   }
 
-  
   //  Inicializa los manejadores de eventos
    
   init() {
