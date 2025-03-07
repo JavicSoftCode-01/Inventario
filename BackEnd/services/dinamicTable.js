@@ -33,16 +33,18 @@ class DynamicTable {
           <td>$ ${totalToPay.toFixed(2)}</td>
           <td>${compra.autorizador}</td>
           <td>
+          <div style="display: flex; justify-content: center;">
             <div class="stock-control">
-              <span class="stock-value">${compra.stock}</span>
               <div class="stock-buttons">
                 <button class="btn-stock" data-id="${compra.id}" data-action="increment" ${compra.stock >= compra.cantidad ? 'disabled' : ''}>
                   <i class="fas fa-plus"></i>
                 </button>
+                <span class="stock-value">${compra.stock}</span>
                 <button class="btn-stock" data-id="${compra.id}" data-action="decrement" ${compra.stock <= 0 ? 'disabled' : ''}>
                   <i class="fas fa-minus"></i>
                 </button>
               </div>
+            </div>
             </div>
           </td>
           <td>
