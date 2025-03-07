@@ -1,0 +1,158 @@
+## Sistema de Gestión de Inventario
+
+## 🚀 Resumen
+Un sistema moderno basado en la web para la gestión de inventarios construido con JavaScript que permite a los usuarios realizar seguimiento de compras, gestionar el stock, analizar datos de ventas y monitorear métricas de negocio a través de una interfaz intuitiva.
+
+## ✨ Funciones Clave
+
+### Autenticación
+- Registro e inicio de sesión seguro
+- Gestión de sesiones con cierre automático
+- Alternancia de visibilidad de la contraseña
+- Verificación de edad para el registro (mayores de 18 años)
+
+### Gestión de Inventario
+- Crear, leer, actualizar y eliminar registros de compras
+- Seguimiento del stock en tiempo real
+- Información detallada de compras que incluye:
+    - Detalles del proveedor
+    - Información del producto
+    - Datos de precios
+    - Niveles de stock
+    - Historial de compras
+
+### Control de Stock
+- Ajuste dinámico del stock
+- Alertas automáticas de niveles bajos de stock
+- Seguimiento de productos vendidos
+- Historial de movimientos de stock
+
+### Análisis Financiero
+- Métricas financieras en tiempo real
+- Cálculo de totales de compras
+- Análisis de márgenes de beneficio
+- Seguimiento del rendimiento de ventas
+
+### Visualización de Datos
+- Gráficos interactivos con Chart.js
+- Visualización de tendencias de compra
+- Seguimiento de inversiones de capital
+- Análisis diario de ventas
+
+### Búsqueda y Filtrado
+- Funcionalidad de búsqueda dinámica
+- Filtrar por:
+    - Proveedor
+    - Número de teléfono
+    - Autorizador
+- Ordenar por monto total (de mayor a menor o viceversa)
+
+## 🛠 Arquitectura Técnica
+
+### Frontend
+- JavaScript puro (ES6+)
+- Estructura modular de componentes
+- Diseño responsivo con CSS Grid/Flexbox
+- Enfoque mobile-first
+- Tema oscuro optimizado para pantallas AMOLED
+
+### Backend
+- LocalStorage para la persistencia de datos
+- SessionStorage para la autenticación de usuarios
+- Arquitectura de servicios modular
+- Patrones de diseño orientados a objetos
+
+### Servicios
+- AuthService: Autenticación y gestión de sesiones
+- PurchaseService: Operaciones de compra e inventario
+- UserManager: Gestión de usuarios y permisos
+- LocalStorageManager: Persistencia de datos
+- SessionStorageManager: Gestión de sesiones
+
+## 🔒 Funciones de Seguridad
+- Cierre de sesión tras 1 hora
+- Protección de contraseñas
+- Control de acceso basado en permisos
+- Validación y sanitización de datos
+- Manejo seguro de formularios
+
+## 💼 Funciones Empresariales
+- Seguimiento de compras
+- Gestión de stock
+- Análisis de ventas
+- Cálculo de beneficios
+- Monitoreo de inversiones
+- Gestión de proveedores
+
+## 🎨 Funciones de UI/UX
+- Interfaz limpia y moderna
+- Diseño responsivo
+- Ventanas modales interactivas
+- Notificaciones personalizadas
+- Indicadores de carga
+- Validación de formularios
+- Manejo de errores
+- Soporte de accesibilidad
+
+## 🛡️ Manejo de Errores
+- Captura completa de errores
+- Mensajes de error amigables para el usuario
+- Soluciones alternativas elegantes
+- Registro de depuración
+
+## 💻 Compatibilidad con Navegadores
+- Navegadores modernos (Chrome, Firefox, Safari, Edge, Brave)
+- Optimización para navegadores móviles
+- Adaptación a diseños responsivos
+- Soporte para dispositivos táctiles
+
+## 🔍 Mejoras Futuras para quienes deseen colaborar
+- [ ] Funcionalidad de exportación de datos
+- [ ] Reportes avanzados
+- [ ] Soporte para múltiples monedas
+- [ ] Escaneo de códigos de barras
+- [ ] Generación de PDF
+- [ ] Notificaciones por correo electrónico
+- [ ] Sistema de respaldo
+
+## 📝 Estructura de Archivos
+├── BackEnd/
+│   ├── database/
+│   │   ├── localStorage.js
+│   │   └── sessionStorage.js
+│   ├── models/
+│   │   ├── models.js
+│   │   └── usuario.js
+│   └── services/
+│       ├── authService.js
+│       ├── comprasServices.js
+│       ├── dinamicTable.js
+│       ├── usuarioServices.js
+│       └── widgetsGraphs.js
+└── FrontEnd/
+    ├── pages/
+    │   ├── auth/
+    │   │   ├── login.html
+    │   │   └── register.html
+    │   ├── inventario/
+    │   │   └── inventario.html
+    │   └── index.html
+    └── static/
+        ├── scripts/
+        │   ├── auth/
+        │   ├── utils/
+        │   └── app.js
+        └── styles/
+            └── styles.css
+
+## 👥 Contribuciones
+¡Las contribuciones son bienvenidas! Por favor, siéntase libre de enviar un Pull Request.
+
+## 📄 Licencia
+Este proyecto se distribuye bajo la Licencia MIT.
+
+---
+Nota: Este proyecto utiliza características modernas de JavaScript y las mejores prácticas para el desarrollo web, manteniendo una base de código limpia y mantenible.
+
+Realizado por - Eduardo Javier Quinteros Pacheco - 
+Seudónimo - Javic Soft Code - JSC -   
