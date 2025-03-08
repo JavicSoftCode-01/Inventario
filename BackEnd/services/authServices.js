@@ -132,8 +132,8 @@ class AuthManager {
         SessionStorageManager.setData(this._KEY_CURRENT_SESSION, sessionData);
         NotificationManager.success("Bienvenido! " + this.getUserFullName());
         setTimeout(() => {
-          this.redirectTo(this._LOGIN_PATH);
-        }, 2500);
+          this.redirectTo(this._INVENTORY_PATH);
+        }, 2000);
       },
       "Éxito! Al iniciar sesión.",
       "Error! Al iniciar sesión:"
@@ -148,7 +148,7 @@ class AuthManager {
         NotificationManager.success("Exito! Cerrando Sesion");
         setTimeout(() => {
           this.redirectTo(this._LOGIN_PATH);
-        }, 2500);
+        }, 2000);
       },
       "Éxito! Al cerrar sesión.",
       "Error! Al cerrar sesión:"

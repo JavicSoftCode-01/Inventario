@@ -2,19 +2,21 @@ import {ExecuteManager} from "../../../../BackEnd/utils/execute.js";
 
 class NotificationManager {
 
+  // >>> Métodos utilizados solo dentro de esta clase. <<<
+
   // Propiedad getter para obtener el contenedor de notificaciones
-  get container() {
+  get containerNot() {
     return ExecuteManager.execute(() => {
       const container = document.getElementById("notification-container");
       if (!container) console.error('Contenedor con id "notification-container" no encontrado.');
       return container;
-    }, "Contenedor de notificaciones obtenido.", "Error al obtener el contenedor de notificaciones.");
+    }, "Exitó! Al obtener el contenedor de notificaciones.", "Error! Al obtener el contenedor de notificaciones:");
   }
 
   // Método de instancia para mostrar una notificación
   showNotification(message, type = "success") {
     return ExecuteManager.execute(() => {
-      const container = this.container;
+      const container = this.containerNot;
       if (!container) throw new Error("Contenedor de notificaciones no existe.");
 
       const notification = document.createElement("div");
@@ -26,32 +28,34 @@ class NotificationManager {
         notification.classList.add("fade-out");
         notification.ontransitionend = () => notification.remove();
       }, 5000);
-    }, "Notificación mostrada", "Error al mostrar la notificación");
+    }, "Exito! Al mostrar la notificación.", "Error! Al mostrar la notificación:");
   }
 
+  // >>> Métodos estáticos utilizados en otros archivos. <<<
+
   /**
-   * 🔰Muestra una notificación de éxito🔰
-   * */
+   * 🔰 Método para mostrar una notificación de éxito. 🔰
+   */
   static success(message) {
     new NotificationManager().showNotification(message, "success");
   }
 
   /**
-   * 🔰Muestra una notificación de advertencia🔰
+   * 🔰 Método para mostrar una notificación de advertencia. 🔰
    */
   static warning(message) {
     new NotificationManager().showNotification(message, "warning");
   }
 
   /**
-   * 🔰Muestra una notificación de error🔰
+   * 🔰 Método para mostrar una notificación de error. 🔰
    */
   static error(message) {
     new NotificationManager().showNotification(message, "error");
   }
 
   /**
-   * 🔰Muestra una notificación de información🔰
+   * 🔰 Método para mostrar una notificación de información. 🔰
    */
   static info(message) {
     new NotificationManager().showNotification(message, "info");

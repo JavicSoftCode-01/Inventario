@@ -5,32 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4e64e3a-e974-4e95-9a2e-f3fb3dc4ea1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackEnd/services/authServices.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackEnd/services/purchaseService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BackEnd/utils/execute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/dinamicTable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/widgetsGraphs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/database/localStorage.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/database/localStorage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/database/sessionStorage.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/database/sessionStorage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/authService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/comprasServices.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/dinamicTable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/usuarioServices.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/widgetsGraphs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/pages/auth/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/auth/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/pages/auth/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/auth/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/pages/inventario/inventario.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/inventario/inventario.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/authServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/authServices.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/datetime.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/datetime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/dinamicTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/dinamicTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/modal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/searchFilters.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/searchFilters.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/showNotifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/showNotifications.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/styles/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme" beforeDir="false" afterPath="$PROJECT_DIR$/Readme" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/widgetsGraphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/widgetsGraphs.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +83,7 @@
       <workItem from="1740972140789" duration="22219000" />
       <workItem from="1741317425181" duration="783000" />
       <workItem from="1741410653222" duration="3971000" />
-      <workItem from="1741416250975" duration="6803000" />
+      <workItem from="1741416250975" duration="13405000" />
     </task>
     <servers />
   </component>
