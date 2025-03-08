@@ -5,17 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4e64e3a-e974-4e95-9a2e-f3fb3dc4ea1b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/services/authServices.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/services/purchaseService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/utils/execute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/dinamicTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/widgetsGraphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/database/localStorage.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/database/localStorage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/database/sessionStorage.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/database/sessionStorage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/models/models.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/models/models.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/models/usuario.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/models/usuario.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/authService.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/authService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/comprasServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/comprasServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/dinamicTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/dinamicTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/usuarioServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/usuarioServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/widgetsGraphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/widgetsGraphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/authService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/comprasServices.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/dinamicTable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/usuarioServices.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/services/widgetsGraphs.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/pages/auth/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/auth/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/pages/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/pages/auth/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/auth/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/pages/inventario/inventario.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/pages/inventario/inventario.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/login.js" afterDir="false" />
@@ -25,6 +30,7 @@
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/searchFilters.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/searchFilters.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/showNotifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/showNotifications.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/styles/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme" beforeDir="false" afterPath="$PROJECT_DIR$/Readme" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,16 +60,28 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="QodanaCIConfigService">
+    <option name="ciType" value="GITHUB" />
+    <option name="path" value="$PROJECT_DIR$/.github/workflows/qodana_code_quality.yml" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\JavicSoftCode-01\Personal_Projects\Inventario\FrontEnd\static\scripts\utils" />
+      <recent name="C:\Users\JavicSoftCode-01\Personal_Projects\Inventario\BackEnd" />
+      <recent name="C:\Users\JavicSoftCode-01\Personal_Projects\Inventario\BackEnd\database" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -82,6 +100,8 @@
       <updated>1740972136258</updated>
       <workItem from="1740972140789" duration="22219000" />
       <workItem from="1741317425181" duration="783000" />
+      <workItem from="1741410653222" duration="3971000" />
+      <workItem from="1741416250975" duration="6803000" />
     </task>
     <servers />
   </component>

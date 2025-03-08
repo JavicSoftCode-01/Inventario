@@ -125,7 +125,7 @@ Un sistema moderno basado en la web para la gestión de inventarios construido c
 │   │   └── usuario.js
 │   └── services/
 │       ├── authService.js
-│       ├── comprasServices.js
+│       ├── purchaseService.js
 │       ├── dinamicTable.js
 │       ├── usuarioServices.js
 │       └── widgetsGraphs.js
@@ -154,5 +154,5 @@ Este proyecto se distribuye bajo la Licencia MIT.
 ---
 Nota: Este proyecto utiliza características modernas de JavaScript y las mejores prácticas para el desarrollo web, manteniendo una base de código limpia y mantenible.
 
-Realizado por - Eduardo Javier Quinteros Pacheco - 
-Seudónimo - Javic Soft Code - JSC -   
+Realizado por - Eduardo Javier Quinteros Pacheco -
+Seudónimo - Javic Soft Code - JSC -
