@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b4e64e3a-e974-4e95-9a2e-f3fb3dc4ea1b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/BackEnd/services/authServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/authServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/purchaseService.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/purchaseService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/utils/execute.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/utils/execute.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +77,7 @@
       <workItem from="1741317425181" duration="783000" />
       <workItem from="1741410653222" duration="3971000" />
       <workItem from="1741416250975" duration="13544000" />
-      <workItem from="1741537706763" duration="11953000" />
+      <workItem from="1741537706763" duration="12196000" />
     </task>
     <servers />
   </component>

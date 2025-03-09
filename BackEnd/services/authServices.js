@@ -44,7 +44,7 @@ class AuthManager {
   static redirectTo(path) {
     return ExecuteManager.execute(
       () => {
-        const basePath = this.getBasePath();
+        const basePath = new AuthManager().getBasePath();
         window.location.replace(`${basePath}${path.startsWith("/") ? path.slice(1) : path}`);
       },
       "Exito! Al redireccionar.",
@@ -150,7 +150,7 @@ class AuthManager {
           timestamp: Date.now()
         };
         SessionStorageManager.setData(this._KEY_CURRENT_SESSION, sessionData);
-        NotificationManager.success("Bienvenido! " + this.getUserFullName());
+        NotificationManager.success("Bienvenido! " + new AuthManager().getUserFullName());
         setTimeout(() => {
           this.redirectTo(this._INVENTORY_PATH);
         }, 2000);
