@@ -90,7 +90,7 @@ class AuthFormManager {
     );
   }
 
-  /**  Método de inicialización del formulario */
+  /**  🔰 Método de inicialización del formulario. 🔰 */
   init() {
     return ExecuteManager.execute(() => {
       AuthManager.verifyAuthentication();

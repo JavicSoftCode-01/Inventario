@@ -10,6 +10,7 @@
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/utils/authForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/utils/authForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/utils/validations.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/auth/utils/validations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/datetime.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/static/scripts/utils/datetime.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +82,7 @@
       <workItem from="1741317425181" duration="783000" />
       <workItem from="1741410653222" duration="3971000" />
       <workItem from="1741416250975" duration="13544000" />
-      <workItem from="1741537706763" duration="9558000" />
+      <workItem from="1741537706763" duration="10193000" />
     </task>
     <servers />
   </component>

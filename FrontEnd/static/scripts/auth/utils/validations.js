@@ -1,8 +1,11 @@
 import {ExecuteManager} from "../../../../../BackEnd/utils/execute.js";
-import {NotificationManager} from "../../../scripts/utils/showNotifications.js";
+import {NotificationManager} from "../../utils/showNotifications.js";
 
 class Validations {
 
+  /**
+   *  🔰 Valida que las contraseñas coincidan. 🔰
+   */
   static passwords(password, confirmPassword) {
     return ExecuteManager.execute(() => {
       const isValid = password === confirmPassword;
@@ -13,6 +16,9 @@ class Validations {
     }, "Exito! Contraseñas validadas.", "Error! Al validar las contraseñas:");
   }
 
+  /**
+   *  🔰 Valida si la fecha de nacimiento proporcionada corresponde a una persona mayor de 18 años. 🔰
+   */
   static age(birthDate) {
     return ExecuteManager.execute(() => {
       const today = new Date();
