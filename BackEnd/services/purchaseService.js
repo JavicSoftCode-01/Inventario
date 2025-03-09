@@ -8,10 +8,16 @@ import {ExecuteManager} from "../utils/execute.js";
 class PurchaseService {
   static KEY_PURCHASES = "compras";
 
+  /**
+   *  🔰 Obtiene todas las compras almacenadas en el LocalStorage. 🔰
+   */
   static getPurchases() {
     return ExecuteManager.execute(() => LocalStorageManager.getData(this.KEY_PURCHASES) || [], "Compras obtenidas exitosamente.", "Error al obtener las compras:");
   }
 
+  /**
+   *  🔰 Crea un nuevo registro. 🔰
+   */
   static createPurchase(data) {
     return ExecuteManager.execute(() => {
       const session = AuthManager.getCurrentSession();
@@ -33,76 +39,85 @@ class PurchaseService {
     }, "Exito! Compra creada.", "Error! Al crear la compra:");
   }
 
+  /**
+   *  🔰 Actualiza un registro, sí el usuario tiene permisos. 🔰
+   */
   static updatePurchase(id, data) {
     return ExecuteManager.execute(() => {
-        const purchases = this.getPurchases();
-        const purchase = purchases.find(p => p.id === Number(id));
-        
-        if (!purchase) {
-            NotificationManager.info("Registro no encontrado");
-            return false;
-        }
+      const purchases = this.getPurchases();
+      const purchase = purchases.find(p => p.id === Number(id));
 
-        // Get current session and check permissions
-        const session = AuthManager.getCurrentSession();
-        if (!session || session.nombreUsuario !== purchase.nombreUsuario) {
-            NotificationManager.info("No tienes permisos para actualizar este registro");
-            return false;
-        }
+      if (!purchase) {
+        NotificationManager.info("Registro no encontrado");
+        return false;
+      }
 
-        const newQuantity = Number(data.cantidad) || purchase.cantidad;
-        const updatedPurchase = {
-            ...purchase,
-            ...data,
-            id: Number(id), // Ensure ID remains the same
-            precioProducto: Number(data.precioProducto) || purchase.precioProducto,
-            cantidad: newQuantity,
-            precioVentaPublico: Number(data.precioVentaPublico) || purchase.precioVentaPublico,
-            stock: newQuantity,
-            productosVendidos: 0,
-            nombreUsuario: purchase.nombreUsuario, // Preserve original owner
-            autorizador: purchase.autorizador // Preserve original authorizer
-        };
+      // Get current session and check permissions
+      const session = AuthManager.getCurrentSession();
+      if (!session || session.nombreUsuario !== purchase.nombreUsuario) {
+        NotificationManager.info("No tienes permisos para actualizar este registro");
+        return false;
+      }
 
-        const result = LocalStorageManager.update(this.KEY_PURCHASES, Number(id), updatedPurchase);
-        if (result) {
-            NotificationManager.success("Exito! Registro actualizado");
-            return true;
-        } else {
-            NotificationManager.error("Error! Al actualizar el registro");
-            return false;
-        }
+      const newQuantity = Number(data.cantidad) || purchase.cantidad;
+      const updatedPurchase = {
+        ...purchase,
+        ...data,
+        id: Number(id), // Ensure ID remains the same
+        precioProducto: Number(data.precioProducto) || purchase.precioProducto,
+        cantidad: newQuantity,
+        precioVentaPublico: Number(data.precioVentaPublico) || purchase.precioVentaPublico,
+        stock: newQuantity,
+        productosVendidos: 0,
+        nombreUsuario: purchase.nombreUsuario, // Preserve original owner
+        autorizador: purchase.autorizador // Preserve original authorizer
+      };
+
+      const result = LocalStorageManager.update(this.KEY_PURCHASES, Number(id), updatedPurchase);
+      if (result) {
+        NotificationManager.success("Exito! Registro actualizado");
+        return true;
+      } else {
+        NotificationManager.error("Error! Al actualizar el registro");
+        return false;
+      }
     }, "Exito! Registro actualizado", "Error! Al actualizar el registro:");
-}
+  }
 
-static deletePurchase(id) {
+  /**
+   *  🔰 Elimina un registro,  sí el usuario tiene permisos. 🔰
+   */
+  static deletePurchase(id) {
     return ExecuteManager.execute(() => {
-        const purchases = this.getPurchases();
-        const purchase = purchases.find(p => p.id === Number(id));
-        
-        if (!purchase) {
-            NotificationManager.info("Registro no encontrado");
-            return false;
-        }
+      const purchases = this.getPurchases();
+      const purchase = purchases.find(p => p.id === Number(id));
 
-        // Get current session and check permissions
-        const session = AuthManager.getCurrentSession();
-        if (!session || session.nombreUsuario !== purchase.nombreUsuario) {
-            NotificationManager.info("No tienes permisos para eliminar este registro");
-            return false;
-        }
+      if (!purchase) {
+        NotificationManager.info("Registro no encontrado");
+        return false;
+      }
 
-        const result = LocalStorageManager.delete(this.KEY_PURCHASES, Number(id));
-        if (result) {
-            NotificationManager.success("Exito! Registro eliminado");
-            return true;
-        } else {
-            NotificationManager.error("Error! Al eliminar el registro");
-            return false;
-        }
+      // Get current session and check permissions
+      const session = AuthManager.getCurrentSession();
+      if (!session || session.nombreUsuario !== purchase.nombreUsuario) {
+        NotificationManager.info("No tienes permisos para eliminar este registro");
+        return false;
+      }
+
+      const result = LocalStorageManager.delete(this.KEY_PURCHASES, Number(id));
+      if (result) {
+        NotificationManager.success("Exito! Registro eliminado");
+        return true;
+      } else {
+        NotificationManager.error("Error! Al eliminar el registro");
+        return false;
+      }
     }, "Exito! Registro eliminado", "Error! Al eliminar el registro:");
-}
+  }
 
+  /**
+   *  🔰 Actualiza el stock y notifica si el stock es insuficiente o se ha agotado. 🔰
+   */
   static updateStock(id, change) {
     return ExecuteManager.execute(() => {
       const purchases = this.getPurchases();

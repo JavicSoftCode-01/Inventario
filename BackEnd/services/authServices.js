@@ -5,7 +5,7 @@ import {ExecuteManager} from "../utils/execute.js";
 
 class AuthManager {
 
-  // Bloque de inicialización estático 
+  // Bloque de inicialización estático
   static {
     this._KEY_USERS = "users";
     this._KEY_CURRENT_SESSION = "currentSession";
@@ -14,7 +14,7 @@ class AuthManager {
   }
 
   // Obtiene la ruta base según la estructura del proyecto.
-  static getBasePath() {
+  getBasePath() {
     return ExecuteManager.execute(
       () => {
         const path = window.location.pathname;
@@ -26,7 +26,21 @@ class AuthManager {
     );
   }
 
-  // Redirecciona a la ruta indicada, concatenándola a la ruta base.
+  // Retorna el nombre completo del usuario logueado
+  getUserFullName() {
+    return ExecuteManager.execute(
+      () => {
+        const session = this.getCurrentSession();
+        return session ? `${session.nombres} ${session.apellidos}` : "Desconocido";
+      },
+      "Exito! Al obtener el nombre completo.",
+      "Error! Al obtener el nombre completo:"
+    );
+  }
+
+  /**
+   * 🔰 Redirecciona a la ruta indicada, concatenándola a la ruta base. 🔰
+   */
   static redirectTo(path) {
     return ExecuteManager.execute(
       () => {
@@ -38,7 +52,9 @@ class AuthManager {
     );
   }
 
-  // Verifica la autenticación del usuario y redirecciona según el estado de la sesión.
+  /**
+   * 🔰 Verifica la autenticación del usuario y redirecciona según el estado de la sesión. 🔰
+   */
   static verifyAuthentication() {
     return ExecuteManager.execute(
       () => {
@@ -83,7 +99,9 @@ class AuthManager {
     );
   }
 
-  // Registra un nuevo usuario en el sessionStorage
+  /**
+   * 🔰 Registra un nuevo usuario en el sessionStorage. 🔰
+   */
   static register(userData) {
     return ExecuteManager.execute(
       () => {
@@ -111,7 +129,9 @@ class AuthManager {
     );
   }
 
-  // Inicia sesión buscando el usuario y almacenando la sesión en el sessionStorage
+  /**
+   * 🔰 Inicia sesión buscando el usuario y almacenando la sesión en el sessionStorage. 🔰
+   */
   static login(username, password) {
     return ExecuteManager.execute(
       () => {
@@ -140,7 +160,9 @@ class AuthManager {
     );
   }
 
-  // Cierra la sesión del usuario y redirecciona a la página de login
+  /**
+   *  🔰Cierra la sesión del usuario y redirecciona a la página de login. 🔰
+   */
   static logout() {
     return ExecuteManager.execute(
       () => {
@@ -155,42 +177,14 @@ class AuthManager {
     );
   }
 
-  // Retorna la sesión actual del usuario
+  /**
+   * 🔰 Retorna la sesión actual del usuario. 🔰
+   */
   static getCurrentSession() {
     return ExecuteManager.execute(
       () => SessionStorageManager.getData(this._KEY_CURRENT_SESSION),
       "Exito! Al obtener la sesión.",
       "Error! Al obtener la sesión:"
-    );
-  }
-
-  // Retorna el nombre completo del usuario logueado
-  static getUserFullName() {
-    return ExecuteManager.execute(
-      () => {
-        const session = this.getCurrentSession();
-        return session ? `${session.nombres} ${session.apellidos}` : "Desconocido";
-      },
-      "Exito! Al obtener el nombre completo.",
-      "Error! Al obtener el nombre completo:"
-    );
-  }
-
-  // Verifica si el usuario en sesión es el mismo que el usuario autorizado
-  static isUserOwner(authorizedUsername) {
-    return ExecuteManager.execute(
-      () => {
-        const session = this.getCurrentSession();
-        if (!session) {
-          NotificationManager.info("No hay sesión activa");
-          return false;
-        }
-        const isOwner = session.nombreUsuario === authorizedUsername;
-        if (!isOwner) NotificationManager.info("Usuario no autorizado");
-        return isOwner;
-      },
-      "Exito! Permisos Verificación completada.",
-      "Error! en obtener permisos => isUserOwner:"
     );
   }
 }

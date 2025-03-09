@@ -1,7 +1,7 @@
 class ExecuteManager {
 
   /**
-   *  🔰Método para ejecutar operaciones con manejo de errores 🔰
+   *  🔰Método para ejecutar operaciones con manejo de errores. 🔰
    */
   static execute(callback, successMsg, errorMsg) {
     try {
