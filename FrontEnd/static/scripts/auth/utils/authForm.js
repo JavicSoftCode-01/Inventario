@@ -7,7 +7,6 @@ class AuthFormManager {
   constructor(formId, passwordInputId) {
     this.form = document.getElementById(formId);
     this.passwordInput = document.getElementById(passwordInputId);
-    this.passwordToggleButton = document.querySelector(".toggle-password");
   }
 
   // Configura los eventos del formulario
@@ -19,21 +18,28 @@ class AuthFormManager {
           this.handleFormSubmit().then((r) => console.log(r));
         });
       }
-      if (this.passwordToggleButton) {
-        this.passwordToggleButton.addEventListener("click", () =>
-          this.togglePasswordVisibility()
-        );
-      }
+      // Seleccionamos todos los botones para mostrar/ocultar contraseña
+      const togglePasswordButtons = document.querySelectorAll(".toggle-password");
+      togglePasswordButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+          // Usamos e.currentTarget para asegurarnos de obtener el botón correcto
+          this.togglePasswordVisibility(e.currentTarget);
+        });
+      });
     }, "Éxito! Eventos configurados correctamente.", "Error! Al configurar eventos:");
   }
 
-  // Alterna la visibilidad de la contraseña
-  togglePasswordVisibility() {
+  // Alterna la visibilidad de la contraseña para el input correspondiente
+  togglePasswordVisibility(button) {
     return ExecuteManager.execute(() => {
-      if (!this.passwordInput) return;
-      const newType = this.passwordInput.type === "password" ? "text" : "password";
-      this.passwordInput.type = newType;
-      const icon = this.passwordToggleButton.querySelector("i");
+      // Buscamos el contenedor padre y luego el input dentro de él
+      const container = button.parentElement;
+      const input = container.querySelector("input");
+      if (!input) return;
+      const newType = input.type === "password" ? "text" : "password";
+      input.type = newType;
+      const icon = button.querySelector("i");
+      // Alternamos las clases para cambiar el icono
       icon.classList.toggle("fa-eye");
       icon.classList.toggle("fa-eye-slash");
     }, "Éxito! Al cambiar visibilidad de la contraseña.", "Error! Al cambiar visibilidad de la contraseña:");
