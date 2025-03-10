@@ -27,7 +27,7 @@ class AuthManager {
   }
 
   // Retorna el nombre completo del usuario logueado
-  getUserFullName() {
+  static getUserFullName() {
     return ExecuteManager.execute(
       () => {
         const session = this.getCurrentSession();
@@ -150,7 +150,7 @@ class AuthManager {
           timestamp: Date.now()
         };
         SessionStorageManager.setData(this._KEY_CURRENT_SESSION, sessionData);
-        NotificationManager.success("Bienvenido! " + new AuthManager().getUserFullName());
+        NotificationManager.success("Bienvenido! " + this.getUserFullName());
         setTimeout(() => {
           this.redirectTo(this._INVENTORY_PATH);
         }, 2000);
