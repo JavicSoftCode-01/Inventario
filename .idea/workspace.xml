@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4e64e3a-e974-4e95-9a2e-f3fb3dc4ea1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BackEnd/services/syncGoogleSheet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/services/purchaseService.js" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/services/purchaseService.js" afterDir="false" />
-    </list>
+    <list default="true" id="b4e64e3a-e974-4e95-9a2e-f3fb3dc4ea1b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
