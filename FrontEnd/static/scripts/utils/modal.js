@@ -1,9 +1,8 @@
-import {PurchaseManager} from "./searchFilters.js";
-import {Compra} from "../../../../BackEnd/models/models.js";
-import {ExecuteManager} from "../../../../BackEnd/utils/execute.js";
+import { PurchaseManager } from "./searchFilters.js";
+import { Compra } from "../../../../BackEnd/models/models.js";
+import { ExecuteManager } from "../../../../BackEnd/utils/execute.js";
 
 class ModalManager {
-
   // Propiedad estática.
   modals = {
     confirm: {
@@ -11,7 +10,8 @@ class ModalManager {
       message: document.getElementById("confirm-modal-message"),
       confirmBtn: document.getElementById("confirm-modal-yes"),
       cancelBtn: document.getElementById("confirm-modal-no")
-    }, details: {
+    },
+    details: {
       container: document.getElementById("modal-detalles"),
       leftColumn: document.getElementById("detalles-col-left"),
       rightColumn: document.getElementById("detalles-col-right")
@@ -23,16 +23,22 @@ class ModalManager {
   // Calcula y devuelve los datos financieros de una compra.
   calculateFinancials(purchase) {
     return ExecuteManager.execute(() => {
-      const compraInstance = new Compra(purchase.id, purchase.proveedor, purchase.ciudad, purchase.telefono, purchase.correo, purchase.producto, purchase.precioProducto, purchase.cantidad, purchase.precioVentaPublico, purchase.fecha, purchase.hora, purchase.nombreUsuario, purchase.autorizador);
-
-      compraInstance.stock = purchase.stock;
-      compraInstance.productosVendidos = purchase.cantidad - purchase.stock;
-
+      // Total: precioProducto * cantidad
+      const total = Number(purchase.precioProducto) * Number(purchase.cantidad);
+      // Ganancia unitaria: precioVentaPublico - precioProducto
+      const gananciaUnitaria = Number(purchase.precioVentaPublico) - Number(purchase.precioProducto);
+      // Se usa el valor almacenado en purchase.productosVendidos (o 0 si no existe)
+      const productosVendidos = Number(purchase.productosVendidos) || 0;
+      // Ventas Totales: productosVendidos * precioVentaPublico
+      const ventasTotales = productosVendidos * Number(purchase.precioVentaPublico);
+      // Ganancia por Ventas: productosVendidos * gananciaUnitaria
+      const gananciaTotal = productosVendidos * gananciaUnitaria;
+      
       return {
-        total: PurchaseManager.calculateTotal(purchase),
-        profit: Number(purchase.precioVentaPublico) - Number(purchase.precioProducto),
-        ventasTotales: compraInstance.calcularVentasTotales(),
-        gananciaTotal: compraInstance.calcularGananciaVentas()
+        total,
+        profit: gananciaUnitaria,
+        ventasTotales,
+        gananciaTotal
       };
     }, "Exito! Al calcular los financieros.", "Error! Al calcular los financieros:");
   }
@@ -70,7 +76,7 @@ class ModalManager {
   // Muestra un modal de confirmación con el mensaje proporcionado y maneja las acciones de confirmación y cancelación.
   showConfirmModal(message, onConfirm, onCancel) {
     return ExecuteManager.execute(() => {
-      const {container, message: messageEl, confirmBtn, cancelBtn} = this.modals.confirm;
+      const { container, message: messageEl, confirmBtn, cancelBtn } = this.modals.confirm;
       if (!container || !messageEl) {
         throw new Error("Elementos del modal no encontrados");
       }
@@ -92,7 +98,7 @@ class ModalManager {
   // Muestra el modal de detalles con la información de la compra proporcionada.
   showDetailsModal(purchase, rowNumber) {
     return ExecuteManager.execute(() => {
-      const {container, leftColumn, rightColumn} = this.modals.details;
+      const { container, leftColumn, rightColumn } = this.modals.details;
       if (!container || !leftColumn || !rightColumn) {
         throw new Error("Elementos del modal de detalles no encontrados");
       }
@@ -107,7 +113,7 @@ class ModalManager {
   // Cierra el modal de detalles.
   closeDetailsModal() {
     return ExecuteManager.execute(() => {
-      const {container} = this.modals.details;
+      const { container } = this.modals.details;
       if (!container) throw new Error("Modal de detalles no encontrado");
       container.style.display = "none";
     }, "Modal de detalles cerrado correctamente.", "Error al cerrar el modal de detalles:");
@@ -137,4 +143,4 @@ class ModalManager {
   }
 }
 
-export {ModalManager};
+export { ModalManager };
