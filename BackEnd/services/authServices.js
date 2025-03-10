@@ -26,7 +26,9 @@ class AuthManager {
     );
   }
 
-  // Retorna el nombre completo del usuario logueado
+  /**
+   * 🔰 Retorna el nombre de usuario del usuario logueado. 🔰
+   */
   static getUserFullName() {
     return ExecuteManager.execute(
       () => {
